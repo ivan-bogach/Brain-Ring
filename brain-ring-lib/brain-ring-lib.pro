@@ -1,17 +1,18 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2018-09-10T19:07:01
-#
-#-------------------------------------------------
-
 QT       -= gui
-
 TARGET = brain-ring-lib
 TEMPLATE = lib
 
 CONFIG += c++14
 
 DEFINES += BRAINRINGLIB_LIBRARY
+
+include(../qmake-target-platform.pri)
+include(../qmake-destination-path.pri)
+
+
+
+INCLUDEPATH += source
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -24,14 +25,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-INCLUDEPATH += source
 
-SOURCES += source/models/client.cpp
+SOURCES += source/models/client.cpp \
+    source/controllers/master-controller.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
-        source/models/client.h
+        source/models/client.h \
+    source/controllers/master-controller.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+message(brain-ring-lib dir : $${PWD})
+
+DESTDIR = $$PWD/../bin/$$DESTINATION_PATH
+OBJECTS_DIR = $$PWD/build/$$DESTINATION_PATH/.obj
+MOC_DIR = $$PWD/build/$$DESTINATION_PATH/.moc
+RCC_DIR = $$PWD/build/$$DESTINATION_PATH/.qrc
+UI_DIR = $$PWD/build/$$DESTINATION_PATH/.ui
+message(brain-ring-lib output dir: $${DESTDIR})
