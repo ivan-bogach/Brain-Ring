@@ -32,7 +32,8 @@ SOURCES += \
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
-    source/models/game.h
+    source/models/game.h \
+    source/controllers/navigation-controller.h
 
 unix {
     target.path = /usr/lib

@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
 // To be able to use a given class in QML
 //registering	the	type	with	the	QML	engine
     qmlRegisterType<br::controllers::MasterController>("BR", 1, 1, "MasterController");
+    qmlRegisterType<br::controllers::NavigationController>("BR", 1, 0, "NavigationController");
+
 // instantiate an instance of MasterController and inject it into the root QML context
     br::controllers::MasterController masterController;
     QQmlApplicationEngine engine;
