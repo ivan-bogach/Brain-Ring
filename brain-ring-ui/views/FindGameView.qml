@@ -1,0 +1,12 @@
+import QtQuick 2.5
+
+Column {
+    Rectangle {
+        anchors.fill: parent
+        color: "#f4c842"
+        Text {
+           anchors.centerIn: parent
+           text: "Find Game"
+        }
+    }
+}
