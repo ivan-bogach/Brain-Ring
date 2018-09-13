@@ -16,7 +16,8 @@ SOURCES += source/main.cpp
 #binary	in a kind of virtual filesystem, where the prefixes act	as virtual folders.
 #The root of this virtual filesystem is referenced as qrc
 RESOURCES += views.qrc \
-    assets.qrc
+    assets.qrc \
+    components.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = $$PWD

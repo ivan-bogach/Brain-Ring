@@ -1,6 +1,8 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
+import components 1.0
+import assets 1.0
 
 Window {
     visible: true
@@ -27,15 +29,18 @@ Window {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: 215
+        width: Style.widthNavigationBar
         color: "#151618"
 
         Column {
-            Row {
-                Text {
-                    color: "#ffffff"
-                    text: "Игра"
-                }
+            NavigationButton {
+                btnText: "Играть"
+            }
+            NavigationButton {
+                btnText: "Создать игру"
+            }
+            NavigationButton {
+                btnText: "Настройки"
             }
         }
     }
