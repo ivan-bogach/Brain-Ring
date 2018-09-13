@@ -23,26 +23,9 @@ Window {
         onGoFindGameView: contentFrame.replace("qrc:/views/FindGameView.qml")
     }
 
-    Rectangle {
-        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
+    NavigationBar {
         id: navigationBar
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        width: Style.widthNavigationBar
-        color: "#151618"
-
-        Column {
-            NavigationButton {
-                btnText: "Играть"
-            }
-            NavigationButton {
-                btnText: "Создать игру"
-            }
-            NavigationButton {
-                btnText: "Настройки"
-            }
-        }
+        isCollapsed: false
     }
 
     StackView {
