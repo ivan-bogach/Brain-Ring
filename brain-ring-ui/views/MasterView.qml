@@ -22,7 +22,7 @@ Window {
     }
 
     Rectangle {
-//        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
+        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
         id: navigationBar
         anchors.top: parent.top
         anchors.bottom: parent.bottom
@@ -31,9 +31,11 @@ Window {
         color: "#151618"
 
         Column {
-            Button {
-                text: "Dashboard"
-                onClicked: masterController.ui_navigationController.goDashboardView()
+            Row {
+                Text {
+                    color: "#ffffff"
+                    text: "Игра"
+                }
             }
         }
     }
