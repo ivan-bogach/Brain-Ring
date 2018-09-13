@@ -1,4 +1,5 @@
 import QtQuick 2.5
+import assets 1.0
 
 Item {
     Rectangle {

@@ -4,8 +4,8 @@ import QtQuick.Controls 1.4
 
 Window {
     visible: true
-    width: 640
-    height: 480
+    width: 723
+    height: 520
     title: qsTr("Hello World")
 //    Item replace(target, item, properties, operation)
 
@@ -22,13 +22,13 @@ Window {
     }
 
     Rectangle {
-        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
+//        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
         id: navigationBar
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: 100
-        color: "#000000"
+        width: 215
+        color: "#151618"
 
         Column {
             Button {

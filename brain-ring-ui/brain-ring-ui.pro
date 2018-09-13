@@ -12,7 +12,11 @@ INCLUDEPATH += source \
 
 SOURCES += source/main.cpp
 
-RESOURCES += views.qrc
+#it takes all the files from views.qrc || assets.qrc and compiles them into the application
+#binary	in a kind of virtual filesystem, where the prefixes act	as virtual folders.
+#The root of this virtual filesystem is referenced as qrc
+RESOURCES += views.qrc \
+    assets.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = $$PWD

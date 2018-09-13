@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
 // instantiate an instance of MasterController and inject it into the root QML context
     br::controllers::MasterController masterController;
     QQmlApplicationEngine engine;
+// add the import path to qmldir definition file
+    engine.addImportPath("qrc:/");
     engine.rootContext()->setContextProperty("masterController", &masterController);
     engine.load(QUrl(QStringLiteral("qrc:/views/MasterView.qml")));
 
