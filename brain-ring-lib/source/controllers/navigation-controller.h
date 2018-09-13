@@ -14,9 +14,8 @@ class BRAINRINGLIBSHARED_EXPORT NavigationController : public QObject
 {
     Q_OBJECT
 public:
-    explicit NavigationController(QObject* _parent = nullptr)
-        : QObject(_parent)
-    {}
+    explicit NavigationController(QObject* parent = nullptr) : QObject(parent){}
+
 signals:
     void goGameView(br::models::Game* game);
     void goCreateGameView();

@@ -6,7 +6,7 @@ Item {
         color: "#f4c842"
         Text {
             anchors.centerIn: parent
-            text: "Dash Board"
+            text: "GAME!!!"
         }
     }
 }

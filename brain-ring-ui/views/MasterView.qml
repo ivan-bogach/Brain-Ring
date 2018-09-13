@@ -8,7 +8,6 @@ Window {
     height: 480
     title: qsTr("Hello World")
 //    Item replace(target, item, properties, operation)
-    Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
 
 //A Connections object creates a connection to a QML signal
 //the usual way is to create an "on<Signal>" handler (SLOT) that reacts when a signal is received
@@ -23,6 +22,7 @@ Window {
     }
 
     Rectangle {
+        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
         id: navigationBar
         anchors.top: parent.top
         anchors.bottom: parent.bottom
@@ -33,7 +33,7 @@ Window {
         Column {
             Button {
                 text: "Dashboard"
-                onClicked: masterController.ui_navigationController.goDasboardView()
+                onClicked: masterController.ui_navigationController.goDashboardView()
             }
         }
     }
