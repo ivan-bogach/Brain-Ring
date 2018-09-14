@@ -39,15 +39,6 @@ Item {
                 text: "SET ME!!!"
 
             }
-            states: [
-                State {
-                    name: "hover"
-                    PropertyChanges {
-                        target: background
-                        color: red /*hoverColour*/
-                    }
-                }
-            ]
         }
         MouseArea {
             anchors.fill: parent
@@ -57,6 +48,16 @@ Item {
             onExited: background.state = ""
             onClicked: navigationButtonClicked()
         }
+
+        states: [
+            State {
+                name: "hover"
+                PropertyChanges {
+                    target: background
+                    color: hoverColour
+                }
+            }
+        ]
     }
 }
 

@@ -8,6 +8,7 @@ Item {
     readonly property real widthNavigationButton: widthNavigationBar - leftMarginNavigationButton
     readonly property real heightNavigationButton: 2.5*pixelSizeNavigationBarFont
     readonly property color colorNavigationButtonHover: "#202125"
+
     readonly property real leftMarginNavigationButton: pixelSizeNavigationBarFont*1.5
 
     readonly property real widthNavigationBar: 250
