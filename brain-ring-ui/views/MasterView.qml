@@ -26,6 +26,11 @@ Window {
     NavigationBar {
         id: navigationBar
         isCollapsed: false
+
+        focus: true
+        Keys.onEscapePressed: {
+            isCollapsed = !isCollapsed
+        }
     }
 
     StackView {
