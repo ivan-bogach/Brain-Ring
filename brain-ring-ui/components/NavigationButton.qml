@@ -9,16 +9,21 @@ Item {
 
     signal navigationButtonClicked()
 
-    width: Style.widthNavigationButton
+//    width: Style.widthNavigationButton
+    width: parent.width
     height: Style.heightNavigationButton
 
     Rectangle{
         id: background
         anchors.fill: parent
-        anchors.leftMargin: Style.leftMarginNavigationButton
+//        anchors.leftMargin: Style.leftMarginNavigationButton
         color: Style.colourNavigationBarBackground
 
         Row {
+            Text {
+                width: Style.leftMarginNavigationButton
+            }
+
             Text {
                 id: text
                 width: Style.widthNavigationButton

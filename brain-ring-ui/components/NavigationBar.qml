@@ -19,10 +19,11 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: Style.widthNavigationBar
         color: Style.colourNavigationBarBackground
+        width: parent.width
 
         Column {
+            width: parent.width
             NavigationButton {
                 btnText: "ИГРАТЬ"
 //                onNavigationButtonClicked: masterController.ui_navigationController.goGameView();

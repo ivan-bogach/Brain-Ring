@@ -37,3 +37,6 @@ Window {
         initialItem: "qrc:/views/SplashView.qml"
     }
 }
+
+
+
