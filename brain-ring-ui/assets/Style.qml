@@ -2,6 +2,8 @@ pragma Singleton
 import QtQuick 2.0
 
 Item {
+    property alias fontAwesome: fontAwesomeLoader.name
+
     readonly property color colourBackground: "#efefef"
     property alias imageDashboard: imageDashboardLoader.source
 
@@ -18,6 +20,19 @@ Item {
     readonly property real widthNavigationBarCollapsed: 0
     readonly property real widthNavigationBarExpanded: widthNavigationButton
 
+    readonly property color colourCommandBarBackground: "#cecece"
+    readonly property color colourCommandBarFont: "#121212"
+    readonly property color colourCommandBarFontDisabled: "#636363"
+    readonly property real heightCommandBar: heightCommandButton
+    readonly property int pixelSizeCommandBarIcon: 32
+    readonly property int pixelSizeCommandBarText: 12
+    readonly property real widthCommandButton: 80
+    readonly property real heightCommandButton: widthCommandButton
+
+    FontLoader {
+        id: fontAwesomeLoader
+        source: "qrc:/assets/fontawesome.ttf"
+    }
 
     Image {
         id: imageDashboardLoader

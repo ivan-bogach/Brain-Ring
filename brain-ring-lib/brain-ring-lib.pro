@@ -28,12 +28,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     source/controllers/master-controller.cpp \
-    source/models/game.cpp
+    source/models/game.cpp \
+    source/framework/command.cpp \
+    source/controllers/command-controller.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
     source/models/game.h \
-    source/controllers/navigation-controller.h
+    source/controllers/navigation-controller.h \
+    source/framework/command.h \
+    source/controllers/command-controller.h
 
 unix {
     target.path = /usr/lib
