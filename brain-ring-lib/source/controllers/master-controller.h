@@ -6,8 +6,9 @@
 #include <QString>
 
 #include <brain-ring-lib_global.h>
-#include <controllers/navigation-controller.h>
 #include <controllers/command-controller.h>
+#include <controllers/navigation-controller.h>
+#include <models/game.h>
 
 namespace br {
 namespace controllers {
@@ -27,13 +28,15 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
     Q_PROPERTY(br::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
 
     Q_PROPERTY(br::controllers::CommandController* ui_commandController READ commandController CONSTANT)
+    Q_PROPERTY(br::models::Game* ui_newGame READ newGame CONSTANT)
 public:
     explicit MasterController(QObject* parent = nullptr);
     ~MasterController();
 
 //Accessor methods:
-    NavigationController* navigationController();
     CommandController* commandController();
+    NavigationController* navigationController();
+    models::Game* newGame();
     const QString& welcomeMessage() const;
 
 signals:

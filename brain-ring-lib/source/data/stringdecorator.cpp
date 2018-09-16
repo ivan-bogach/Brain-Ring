@@ -24,6 +24,8 @@ StringDecorator::StringDecorator(Entity* parentEntity, const QString& key, const
     implementation.reset(new Implementation(this, value));
 }
 
+StringDecorator::~StringDecorator(){}
+
 const QString& StringDecorator::value() const
 {
     return implementation->value;
