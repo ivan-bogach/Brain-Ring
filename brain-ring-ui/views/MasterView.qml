@@ -5,9 +5,14 @@ import components 1.0
 import assets 1.0
 
 Window {
+
+//=========================================================================
+    onActiveFocusItemChanged: print("activeFocusItem", activeFocusItem)//==
+//=========================================================================
+
     visible: true
-    width: 723
-    height: 520
+    width: 1920
+    height: 1080
     title: qsTr("Hello World")
 //    Item replace(target, item, properties, operation)
 
@@ -40,6 +45,9 @@ Window {
         anchors.right: parent.right
         anchors.left: navigationBar.right
         initialItem: "qrc:/views/SplashView.qml"
+
+// For FindGameView
+        Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
     }
 }
 
