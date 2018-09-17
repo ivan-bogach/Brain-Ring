@@ -1,4 +1,5 @@
-QT       -= gui
+QT -= gui
+QT += sql
 TARGET = brain-ring-lib
 TEMPLATE = lib
 
@@ -39,7 +40,8 @@ SOURCES += \
     source/data/entity.cpp \
     source/models/info.cpp \
     source/models/question.cpp \
-    source/models/future.cpp
+    source/models/future.cpp \
+    source/controllers/databasecontroller.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
@@ -56,7 +58,9 @@ HEADERS += source/brain-ring-lib_global.h \
     source/data/entity-collection.h \
     source/models/info.h \
     source/models/question.h \
-    source/models/future.h
+    source/models/future.h \
+    source/controllers/i-database-controller.h \
+    source/controllers/databasecontroller.h
 
 unix {
     target.path = /usr/lib
