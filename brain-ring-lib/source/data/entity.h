@@ -8,6 +8,7 @@
 
 #include <brain-ring-lib_global.h>
 #include <data/datadecorator.h>
+#include <data/stringdecorator.h>
 #include <data/entity-collection.h>
 
 namespace br {
@@ -22,8 +23,10 @@ public:
     virtual ~Entity();
 
     const QString& key() const;
+    const QString& id() const;
     QJsonObject toJson() const;
     void update(const QJsonObject& jsonObject);
+    void setPrimaryKey(StringDecorator* primaryKey);
 
 signals:
     void childCollectionsChanged(const QString& collectionKey);

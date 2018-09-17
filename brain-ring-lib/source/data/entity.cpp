@@ -1,5 +1,7 @@
 #include "entity.h"
+
 #include<QJsonArray>
+#include<QUuid>
 
 namespace br {
 namespace data {
@@ -10,10 +12,16 @@ public:
     Implementation(Entity* _entity, const QString& _key)
         : entity(_entity)
         , key(_key)
+        , id(QUuid::createUuid().toString())
     {}
 
     Entity* entity{nullptr};
+
+//data decorator to use as the ID that will override the default UUID, if set.
+    StringDecorator* primaryKey{nullptr};
+
     QString key;
+    QString id;
     std::map<QString, Entity*> childEntities;
     std::map<QString, DataDecorator*> dataDecorators;
     std::map<QString, EntityCollectionBase*> childCollections;
@@ -62,6 +70,12 @@ DataDecorator* Entity::addDataItem(DataDecorator* dataDecorator)
 
 void Entity::update(const QJsonObject& jsonObject)
 {
+// overwriting the generated ID value with the known value.
+    if(jsonObject.contains("id"))
+    {
+        implementation->id = jsonObject.value("id").toString();
+    }
+
     for( std::pair<QString, DataDecorator*> dataDecoratorPair : implementation->dataDecorators)
     {
         dataDecoratorPair.second->update(jsonObject);
@@ -81,6 +95,7 @@ void Entity::update(const QJsonObject& jsonObject)
 QJsonObject Entity::toJson() const
 {
     QJsonObject returnValue;
+    returnValue.insert("id", implementation->id);
 
     for(std::pair<QString, DataDecorator*> dataDecoratorPair : implementation->dataDecorators)
     {
@@ -114,6 +129,20 @@ EntityCollectionBase* Entity::addChildCollection(EntityCollectionBase* entityCol
     }
 
     return entityCollection;
+}
+
+const QString& Entity::id() const
+{
+    if(implementation->primaryKey != nullptr && !implementation->primaryKey->value().isEmpty())
+    {
+        return implementation->primaryKey->value();
+    }
+    return implementation->id;
+}
+
+void Entity::setPrimaryKey(StringDecorator *primaryKey)
+{
+    implementation->primaryKey = primaryKey;
 }
 
 }

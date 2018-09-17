@@ -19,6 +19,8 @@ Game::Game(QObject* parent)
 //std::map<QString, EntityCollectionBase*> childCollections;
     futures = static_cast<EntityCollection<Future>*>(addChildCollection(new EntityCollection<Future>(this, "futures")));
     questions = static_cast<EntityCollection<Question>*>(addChildCollection(new EntityCollection<Question>(this, "questions")));
+
+    setPrimaryKey(reference);
 }
 
 Game::Game(QObject *parent, const QJsonObject &json)
