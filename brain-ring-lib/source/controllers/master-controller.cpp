@@ -12,12 +12,14 @@ public:
         : masterController(_masterController)
     {
         commandController = new CommandController(masterController);
+        databaseController = new DatabaseController(masterController);
+        newGame = new Game(masterController);
         navigationController = new NavigationController(masterController);
-        newGame =  new Game(masterController);
     }
 
     MasterController* masterController{nullptr};
     CommandController* commandController{nullptr};
+    DatabaseController* databaseController{nullptr};
     NavigationController* navigationController{nullptr};
     Game* newGame{nullptr};
     QString welcomeMessage = "This is MasterController to MJBHjk  qaslkfjklasd";

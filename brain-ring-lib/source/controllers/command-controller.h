@@ -7,6 +7,8 @@
 
 #include <brain-ring-lib_global.h>
 #include <framework/command.h>
+#include <controllers/i-database-controller.h>
+#include <models/game.h>
 
 namespace br {
 namespace controllers {
@@ -18,7 +20,7 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
 
 
 public:
-    explicit CommandController(QObject* _parent = nullptr);
+    explicit CommandController(QObject* _parent = nullptr, IDatabaseController* databaseController = nullptr, models::Game* newGame= nullptr);
     ~CommandController();
 
 //QQmlListProperty enables QML to interact with a list of custom objects

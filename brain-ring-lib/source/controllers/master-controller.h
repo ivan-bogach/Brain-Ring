@@ -7,8 +7,10 @@
 
 #include <brain-ring-lib_global.h>
 #include <controllers/command-controller.h>
+#include <controllers/databasecontroller.h>
 #include <controllers/navigation-controller.h>
 #include <models/game.h>
+
 
 namespace br {
 namespace controllers {

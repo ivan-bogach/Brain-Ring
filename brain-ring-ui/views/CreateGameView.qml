@@ -31,6 +31,12 @@ Item {
             spacing: Style.sizeScreenMargine
             width: scrollView.width
             StringEditorSingleLine {
+                stringDecorator: newGame.ui_reference
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            StringEditorSingleLine {
                 stringDecorator: newGame.ui_name
                 anchors.left: parent.left
                 anchors.right: parent.right

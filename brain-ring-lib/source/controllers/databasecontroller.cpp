@@ -11,8 +11,8 @@ namespace controllers {
 class DatabaseController::Implementation
 {
 public:
-    Implementation(DatabaseController* __databaseController)
-        : databaseController(__databaseController)
+    Implementation(DatabaseController* _databaseController)
+        : databaseController(_databaseController)
     {
         if (initialise()) {
             qDebug() << "Database created using Sqlite version: " + sqliteVersion();
@@ -55,7 +55,7 @@ private:
 //QSqlQuery::QSqlQuery(QSqlDatabase db) Constructs a QSqlQuery object using the database db
         QSqlQuery query(database);
 
-        QString sqlStatement = "CREATE TABLE IF NOT EXIST " + tableName + "(id text primary key, json text not null)";
+        QString sqlStatement = "CREATE TABLE IF NOT EXISTS " + tableName + " (id text primary key, json text not null)";
 
 //bool QSqlQuery::prepare(const QString &query) - Prepares the SQL query query for execution
         if(!query.prepare(sqlStatement)) return false;
@@ -90,12 +90,13 @@ DatabaseController::~DatabaseController(){}
 
 bool DatabaseController::createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
 {
+    qDebug() << "I AM HERE";
     if(tableName.isEmpty()) return false;
     if(id.isEmpty()) return false;
     if(jsonObject.isEmpty()) return false;
 
     QSqlQuery query(implementation->database);
-    QString sqlStatement = "INSERT OR REPLACE INTO" + tableName + "(id, json) VALUES (:id, :json)";
+    QString sqlStatement = "INSERT OR REPLACE INTO " + tableName + " (id, json) VALUES (:id, :json)";
 
     if (!query.prepare(sqlStatement)) return false;
 
@@ -113,36 +114,36 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
     return query.numRowsAffected() > 0;
 }
 
-bool DatabaseController::deleteRow(const QString &tableName, const QString &id) const
+bool DatabaseController::deleteRow(const QString& tableName, const QString& id) const
 {
     if(tableName.isEmpty()) return false;
     if(id.isEmpty()) return false;
 
     QSqlQuery query(implementation->database);
 
-    QString sqlStatement = "DELETE FROM" + tableName + "WHERE id=:id";
+    QString sqlStatement = "DELETE FROM " + tableName + " WHERE id=:id";
 
     if(!query.prepare(sqlStatement)) return false;
 
-    query.bindValue("id", QVariant(id));
+    query.bindValue(":id", QVariant(id));
 
     if(!query.exec()) return false;
 
     return query.numRowsAffected() > 0;
 }
 
-QJsonObject DatabaseController::readRow(const QString &tableName, const QString &id) const
+QJsonObject DatabaseController::readRow(const QString& tableName, const QString& id) const
 {
     if(tableName.isEmpty()) return {};
     if(id.isEmpty()) return {};
 
     QSqlQuery query(implementation->database);
 
-    QString sqlStatement = "SELECT json FROM" + tableName + "WHERE id=:id";
+    QString sqlStatement = "SELECT json FROM " + tableName + " WHERE id=:id";
 
     if(!query.prepare(sqlStatement)) return {};
 
-    query.bindValue("id", QVariant(id));
+    query.bindValue(":id", QVariant(id));
 
     if(!query.exec()) return {};
 
@@ -156,7 +157,7 @@ QJsonObject DatabaseController::readRow(const QString &tableName, const QString 
 
 }
 
-bool DatabaseController::updateRow(const QString &tableName, const QString &id, const QJsonObject &jsonObject) const
+bool DatabaseController::updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
 {
     if(tableName.isEmpty()) return false;
     if(id.isEmpty()) return false;
@@ -176,7 +177,7 @@ bool DatabaseController::updateRow(const QString &tableName, const QString &id, 
     return query.numRowsAffected() > 0;
 }
 
-QJsonArray DatabaseController::find(const QString &tableName, const QString &searchText) const
+QJsonArray DatabaseController::find(const QString& tableName, const QString& searchText) const
 {
     if(tableName.isEmpty()) return {};
     if(searchText.isEmpty()) return {};
