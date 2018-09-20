@@ -8,7 +8,7 @@ namespace controllers {
 class MasterController::Implementation
 {
 public:
-    Implementation(MasterController* _masterController)
+	explicit Implementation(MasterController* _masterController)
         : masterController(_masterController)
     {
         databaseController = new DatabaseController(masterController);

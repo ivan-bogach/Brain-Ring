@@ -11,7 +11,7 @@ namespace controllers {
 class DatabaseController::Implementation
 {
 public:
-    Implementation(DatabaseController* _databaseController)
+    explicit Implementation(DatabaseController* _databaseController)
         : databaseController(_databaseController)
     {
         if (initialise()) {
@@ -44,10 +44,16 @@ private:
         return database.open();
     }
 
-    bool createTables()
+
+
+
+
+    bool createTables() const
     {
         return createJsonTable("game");
     }
+
+
 
     bool createJsonTable(const QString& tableName) const
     {
