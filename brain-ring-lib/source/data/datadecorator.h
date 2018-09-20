@@ -16,6 +16,7 @@ class Entity;
 class BRAINRINGLIBSHARED_EXPORT DataDecorator : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString ui_label READ label CONSTANT)
 public:
 // as DataDecorator inherited from QObject, we want to receive a pointer to a parent in our constructor.
 // and also all data items will be children of entity which will itself be derived from QObject.

@@ -1,5 +1,5 @@
-#ifndef IDATABASECONTROLLER
-#define IDATABASECONTROLLER
+#ifndef IDATABASECONTROLLER_H
+#define IDATABASECONTROLLER_H
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -15,7 +15,7 @@ class BRAINRINGLIBSHARED_EXPORT IDatabaseController : public QObject
 {
     Q_OBJECT
 public:
-    IDatabaseController(QObject* parent = nullptr) : QObject(parent){}
+    IDatabaseController(QObject* parent) : QObject(parent){}
     virtual ~IDatabaseController(){}
 
     virtual bool createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const = 0;

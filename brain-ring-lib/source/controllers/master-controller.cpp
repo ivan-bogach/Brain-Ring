@@ -11,10 +11,11 @@ public:
     Implementation(MasterController* _masterController)
         : masterController(_masterController)
     {
-        commandController = new CommandController(masterController);
         databaseController = new DatabaseController(masterController);
-        newGame = new Game(masterController);
         navigationController = new NavigationController(masterController);
+        newGame = new Game(masterController);
+        gameSearch = new GameSearch(masterController, databaseController);
+        commandController = new CommandController(masterController, databaseController, navigationController, newGame, gameSearch);
     }
 
     MasterController* masterController{nullptr};
@@ -22,6 +23,7 @@ public:
     DatabaseController* databaseController{nullptr};
     NavigationController* navigationController{nullptr};
     Game* newGame{nullptr};
+    GameSearch* gameSearch{nullptr};
     QString welcomeMessage = "This is MasterController to MJBHjk  qaslkfjklasd";
 };
 
@@ -32,15 +34,22 @@ MasterController::MasterController(QObject *parent) : QObject(parent)
 
 MasterController::~MasterController(){}
 
+CommandController* MasterController::commandController()
+{
+    return implementation->commandController;
+}
+
+DatabaseController* MasterController::databaseController()
+{
+    return implementation->databaseController;
+}
+
 NavigationController* MasterController::navigationController()
 {
     return implementation->navigationController;
 }
 
-CommandController* MasterController::commandController()
-{
-    return implementation->commandController;
-}
+
 
 const QString& MasterController::welcomeMessage() const
 {
@@ -50,6 +59,11 @@ const QString& MasterController::welcomeMessage() const
 Game* MasterController::newGame()
 {
     return implementation->newGame;
+}
+
+GameSearch* MasterController::gameSearch()
+{
+    return implementation->gameSearch;
 }
 
 }}

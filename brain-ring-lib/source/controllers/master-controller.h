@@ -7,9 +7,10 @@
 
 #include <brain-ring-lib_global.h>
 #include <controllers/command-controller.h>
-#include <controllers/databasecontroller.h>
+#include <controllers/database-controller.h>
 #include <controllers/navigation-controller.h>
 #include <models/game.h>
+#include <models/gamesearch.h>
 
 
 namespace br {
@@ -28,17 +29,25 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
 
 //br::controllers:: because UI QML is not executing within the scope of br namespace
     Q_PROPERTY(br::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
-
+    Q_PROPERTY( br::controllers::DatabaseController* ui_databaseController READ databaseController CONSTANT )
     Q_PROPERTY(br::controllers::CommandController* ui_commandController READ commandController CONSTANT)
     Q_PROPERTY(br::models::Game* ui_newGame READ newGame CONSTANT)
+    Q_PROPERTY(br::models::GameSearch* ui_gameSearch READ gameSearch CONSTANT)
 public:
     explicit MasterController(QObject* parent = nullptr);
     ~MasterController();
 
 //Accessor methods:
     CommandController* commandController();
+
+    DatabaseController* databaseController();
+
     NavigationController* navigationController();
+
     models::Game* newGame();
+
+    models::GameSearch* gameSearch();
+
     const QString& welcomeMessage() const;
 
 signals:

@@ -43,6 +43,7 @@ Item {
                     isCollapsed = true
                 }
             }
+
             NavigationButton {
                 btnText: "ВЫХОД"
                 onNavigationButtonClicked: {

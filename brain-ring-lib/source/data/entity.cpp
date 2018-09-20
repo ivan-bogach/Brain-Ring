@@ -48,8 +48,7 @@ const QString& Entity::key() const
 
 Entity* Entity::addChild(Entity* entity, const QString& key)
 {
-    if(implementation->childEntities.find(key) == std::end(implementation->childEntities))
-    {
+    if(implementation->childEntities.find(key) == std::end(implementation->childEntities)) {
         implementation->childEntities[key] = entity;
         emit childEntitiesChanged();
     }

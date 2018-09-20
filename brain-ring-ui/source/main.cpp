@@ -15,6 +15,7 @@
 #include <models/info.h>
 #include <models/future.h>
 #include <models/game.h>
+#include <models/gamesearch.h>
 #include <models/question.h>
 
 int main(int argc, char *argv[])
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<br::models::Future>("BR", 1, 0, "Future");
     qmlRegisterType<br::models::Game>("BR", 1, 0, "Game");
     qmlRegisterType<br::models::Question>("BR", 1, 0, "Question");
+    qmlRegisterType<br::models::GameSearch>("BR", 1, 0, "GameSearch");
 
     qmlRegisterType<br::framework::Command>("BR", 1, 0, "Command");
 

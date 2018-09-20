@@ -30,18 +30,32 @@ Item {
         Column {
             spacing: Style.sizeScreenMargine
             width: scrollView.width
-            StringEditorSingleLine {
-                stringDecorator: newGame.ui_reference
-                anchors.left: parent.left
-                anchors.right: parent.right
+
+            Panel {
+                headerText: "Детали игры"
+                contentComponent:
+                    Column {
+                        spacing: Style.sizeControlSpacing
+
+                        StringEditorSingleLine {
+                            stringDecorator: newGame.ui_reference
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                        }
+
+                        StringEditorSingleLine {
+                            stringDecorator: newGame.ui_name
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                        }
+                }
             }
 
-            StringEditorSingleLine {
-                stringDecorator: newGame.ui_name
-                anchors.left: parent.left
-                anchors.right: parent.right
+            InfoEditor {
+                info: newGame.ui_supplyInfo
+                headerText: "Адрес"
             }
-        }
+         }
     }
 
 

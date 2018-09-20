@@ -22,11 +22,11 @@ public:
     Entity(QObject* parent, const QString& key, const QJsonObject& jsonObject);
     virtual ~Entity();
 
-    const QString& key() const;
     const QString& id() const;
-    QJsonObject toJson() const;
-    void update(const QJsonObject& jsonObject);
+    const QString& key() const;
     void setPrimaryKey(StringDecorator* primaryKey);
+    void update(const QJsonObject& jsonObject);
+    QJsonObject toJson() const;
 
 signals:
     void childCollectionsChanged(const QString& collectionKey);

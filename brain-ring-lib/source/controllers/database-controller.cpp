@@ -1,4 +1,4 @@
-#include "databasecontroller.h"
+#include "database-controller.h"
 
 #include <QDebug>
 #include <QJsonDocument>
@@ -90,7 +90,6 @@ DatabaseController::~DatabaseController(){}
 
 bool DatabaseController::createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
 {
-    qDebug() << "I AM HERE";
     if(tableName.isEmpty()) return false;
     if(id.isEmpty()) return false;
     if(jsonObject.isEmpty()) return false;
