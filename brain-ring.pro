@@ -6,3 +6,5 @@ SUBDIRS += \
     brain-ring-tests
 
 message(brain-ring dir : $${PWD})
+
+QMAKE_LFLAGS += -Wl,-rpath,"'\$$ORIGIN'"

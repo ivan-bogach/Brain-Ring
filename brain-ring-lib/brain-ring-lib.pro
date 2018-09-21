@@ -77,3 +77,5 @@ MOC_DIR = $$PWD/build/$$DESTINATION_PATH/.moc
 RCC_DIR = $$PWD/build/$$DESTINATION_PATH/.qrc
 UI_DIR = $$PWD/build/$$DESTINATION_PATH/.ui
 message(brain-ring-lib output dir: $${DESTDIR})
+
+QMAKE_LFLAGS += -Wl,-rpath,"'\$$ORIGIN'"

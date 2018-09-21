@@ -33,7 +33,7 @@ Item {
 
     readonly property color colourDataControlsBackground: "#ffffff"
     readonly property color colourDataControlsFont: "#121212"
-    readonly property int pexelSizeDataControls: 18
+    readonly property int pixelSizeDataControls: 18
     readonly property real widthDataControls: 400
     readonly property real heightDataControls: 40
 
