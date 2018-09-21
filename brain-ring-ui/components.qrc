@@ -8,5 +8,6 @@
         <file alias="StringEditorSingleLine.qml">components/StringEditorSingleLine.qml</file>
         <file alias="InfoEditor.qml">components/InfoEditor.qml</file>
         <file alias="Panel.qml">components/Panel.qml</file>
+        <file alias="SearchResultDelegate.qml">components/SearchResultDelegate.qml</file>
     </qresource>
 </RCC>

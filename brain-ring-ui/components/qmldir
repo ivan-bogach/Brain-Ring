@@ -6,3 +6,4 @@ CommandButton 1.0 CommandButton.qml
 Panel 1.0 Panel.qml
 StringEditorSingleLine 1.0 StringEditorSingleLine.qml
 InfoEditor 1.0 InfoEditor.qml
+SearchResultDelegate 1.0 SearchResultDelegate.qml

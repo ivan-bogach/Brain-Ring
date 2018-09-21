@@ -45,11 +45,15 @@ Item {
 
 //how to visually represent	each item
         delegate:
-            Text {
-                text: modelData.ui_reference.ui_label + ": " + modelData.ui_reference.ui_value
-                font.pixelSize: Style.pixelSizeDataControls
-                color: Style.colourPanelFont
-            }
+//            Text {
+//                text: modelData.ui_reference.ui_label + ": " + modelData.ui_reference.ui_value
+//                font.pixelSize: Style.pixelSizeDataControls
+//                color: Style.colourPanelFont
+//            }
+
+            SearchResultDelegate {
+            game: modelData
+        }
 
         }
     }
