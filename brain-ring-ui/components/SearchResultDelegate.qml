@@ -21,22 +21,22 @@ Item {
             anchors.top: parent.top
             anchors.margins: Style.heightDataControls/4
             spacing: Style.heightDataControls/4
-        }
 
-        Text {
-            id: textReference
-            anchors.left: parent.left
-            text: game.ui_reference.ui_label + ": " + game.ui_reference.ui_value
-            font.pixelSize: Style.pixelSizeDataControls
-            color: Style.colourPanelFont
-        }
+            Text {
+                id: textReference
+                anchors.left: parent.left
+                text: game.ui_reference.ui_label + ": " + game.ui_reference.ui_value
+                font.pixelSize: Style.pixelSizeDataControls
+                color: Style.colourPanelFont
+            }
 
-        Text {
-            id: textName
-            anchors.left: parent.left
-            text: game.ui_name.ui_label + ": " + game.ui_name.ui_value
-            font.pixelSize: Style.pixelSizeDataControls
-            color: Style.colourPanelFont
+            Text {
+                id: textName
+                anchors.left: parent.left
+                text: game.ui_name.ui_label + ": " + game.ui_name.ui_value
+                font.pixelSize: Style.pixelSizeDataControls
+                color: Style.colourPanelFont
+            }
         }
 
         Text {

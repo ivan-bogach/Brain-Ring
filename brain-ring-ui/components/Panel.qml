@@ -11,7 +11,8 @@ Item {
 //implicitHeight : real - Defines the natural width or height of the Item if no width or height is specified.
 //Due to the dynamic nature of the content can`t set fixed size
     implicitWidth: parent.width
-    implicitHeight: headerBackground.height + (Style.sizeControlSpacing*2)
+    implicitHeight: headerBackground.height + contentLoader.implicitHeight + (Style.sizeControlSpacing * 2) + Style.sizeShadowOffset
+
 
     Rectangle {
         id: shadow
