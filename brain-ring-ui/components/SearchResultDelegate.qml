@@ -6,7 +6,7 @@ Item {
     property Game game
 
     implicitWidth: parent.width
-    implicitHeight: Math.max(gameColumn.implicitHeight, textAdress.implicitHeight) + (Style.heightDataControls/2)
+    implicitHeight: Math.max(gameColumn.implicitHeight, textAddress.implicitHeight) + (Style.heightDataControls/2)
 
     Rectangle {
         id: background

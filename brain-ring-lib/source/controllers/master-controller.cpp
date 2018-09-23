@@ -66,5 +66,10 @@ GameSearch* MasterController::gameSearch()
     return implementation->gameSearch;
 }
 
+void MasterController::selectGame(Game *game)
+{
+    implementation->navigationController->goEditGameView(game);
+}
+
 }}
 

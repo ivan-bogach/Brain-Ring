@@ -22,7 +22,7 @@ Item {
 //                text: stringDecorator.ui_label
 
                 color: Style.colourDataControlsFont
-                font.pixelSize:  Style.pexelSizeDataControls
+                font.pixelSize:  Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
             }
         }
@@ -47,7 +47,7 @@ Item {
                 }
 
                 color: Style.colourDataControlsFont
-                font.pixelSize: Style.pexelSizeDataControls
+                font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
             }
 

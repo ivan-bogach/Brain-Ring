@@ -28,6 +28,10 @@ public:
         Command* findGameSearchCommand = new Command(commandController, QChar( 0xf002 ), "Поиск");
         QObject::connect(findGameSearchCommand, &Command::executed, commandController, &CommandController::onFindGameSearchExecuted);
         findGameViewContextCommands.append(findGameSearchCommand);
+
+        Command* editGameSaveCommand = new Command(commandController, QChar( 0xf0c7), "Сохранить");
+        QObject::connect(editGameSaveCommand, &Command::executed, commandController, &CommandController::onEditGameSaveExecuted);
+        editGameViewContextCommands.append(editGameSaveCommand);
     }
 
     CommandController* commandController{nullptr};
@@ -40,9 +44,13 @@ public:
 
     GameSearch* gameSearch{nullptr};
 
+    Game* selectedGame{nullptr};
+
     QList<Command*> createGameViewContextCommands{};
 
     QList<Command*> findGameViewContextCommands{};
+
+    QList<Command*> editGameViewContextCommands{};
 };
 
 CommandController::CommandController(QObject *parent, IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch)
@@ -63,6 +71,11 @@ QQmlListProperty<Command> CommandController::ui_findGameViewContextCommands()
     return QQmlListProperty<Command>(this, implementation->findGameViewContextCommands);
 }
 
+QQmlListProperty<Command> CommandController::ui_editGameViewContextCommands()
+{
+    return QQmlListProperty<Command>(this, implementation->editGameViewContextCommands);
+}
+
 void CommandController::onCreateGameSaveExecuted()
 {
     qDebug() << "You executed the Save command!";
@@ -77,6 +90,20 @@ void CommandController::onFindGameSearchExecuted()
     qDebug() << "You executed the Search command";
 
     implementation->gameSearch->search();
+}
+
+void CommandController::onEditGameSaveExecuted()
+{
+    qDebug() << "You executed Save command";
+
+    implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->id(), implementation->selectedGame->toJson());
+
+    qDebug() << "Udated game saved";
+}
+
+void CommandController::setSelectedGame(Game *game)
+{
+    implementation->selectedGame = game;
 }
 
 }
