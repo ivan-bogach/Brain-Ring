@@ -19,7 +19,7 @@ Item {
                 anchors.fill: parent
                 anchors.margins: Style.heightDataControls / 4
 
-//                text: stringDecorator.ui_label
+                text: stringDecorator.ui_label
 
                 color: Style.colourDataControlsFont
                 font.pixelSize:  Style.pixelSizeDataControls

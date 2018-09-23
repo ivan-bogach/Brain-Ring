@@ -4,6 +4,7 @@ import assets 1.0
 import components 1.0
 import BR 1.0
 
+
 Item {
     property Game selectedGame
     Component.onCompleted: masterController.ui_commandController.setSelectedGame(selectedGame)

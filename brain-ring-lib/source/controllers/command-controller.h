@@ -22,6 +22,7 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_findGameViewContextCommands READ ui_findGameViewContextCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_editGameViewContextCommands READ ui_editGameViewContextCommands CONSTANT)
 
+
 public:
     explicit CommandController(QObject* _parent = nullptr, IDatabaseController* databaseController = nullptr, NavigationController* navigationController = nullptr, models::Game* newGame= nullptr, models::GameSearch* gameSearch = nullptr);
     ~CommandController();
@@ -39,6 +40,8 @@ public slots:
     void onCreateGameSaveExecuted();
     void onFindGameSearchExecuted();
     void onEditGameSaveExecuted();
+    void onEditGameDeleteExecuted();
+
 
 private:
     class Implementation;

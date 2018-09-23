@@ -32,6 +32,10 @@ public:
         Command* editGameSaveCommand = new Command(commandController, QChar( 0xf0c7), "Сохранить");
         QObject::connect(editGameSaveCommand, &Command::executed, commandController, &CommandController::onEditGameSaveExecuted);
         editGameViewContextCommands.append(editGameSaveCommand);
+
+        Command* editGameDeleteCommand = new Command(commandController, QChar( 0xf0c7), "Удалить");
+        QObject::connect(editGameDeleteCommand, &Command::executed, commandController, &CommandController::onEditGameDeleteExecuted);
+        editGameViewContextCommands.append(editGameDeleteCommand);
     }
 
     CommandController* commandController{nullptr};
@@ -82,6 +86,12 @@ void CommandController::onCreateGameSaveExecuted()
 
     implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->id(), implementation->newGame->toJson());
 
+    implementation->gameSearch->searchText()->setValue(implementation->newGame->id());
+
+    implementation->gameSearch->search();
+
+    implementation->navigationController->goFindGameView();
+
     qDebug() << "New client saved.";
 }
 
@@ -104,6 +114,19 @@ void CommandController::onEditGameSaveExecuted()
 void CommandController::setSelectedGame(Game *game)
 {
     implementation->selectedGame = game;
+}
+
+void CommandController::onEditGameDeleteExecuted()
+{
+    qDebug() << "You executed the Delete command!";
+
+    implementation->databaseController->deleteRow(implementation->selectedGame->key(), implementation->selectedGame->id());
+    implementation->selectedGame = nullptr;
+
+    qDebug() << "Game Deleted";
+
+    implementation->gameSearch->search();
+    implementation->navigationController->goDashboardView();
 }
 
 }

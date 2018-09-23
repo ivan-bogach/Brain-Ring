@@ -1,5 +1,6 @@
 QT -= gui
 QT += sql
+QT += network
 TARGET = brain-ring-lib
 TEMPLATE = lib
 
