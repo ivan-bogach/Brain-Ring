@@ -9,6 +9,7 @@
 #include <controllers/command-controller.h>
 #include <controllers/database-controller.h>
 #include <controllers/navigation-controller.h>
+#include <controllers/tcp-controller.h>
 #include <models/game.h>
 #include <models/gamesearch.h>
 
@@ -30,6 +31,7 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
 //br::controllers:: because UI QML is not executing within the scope of br namespace
     Q_PROPERTY(br::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
     Q_PROPERTY( br::controllers::DatabaseController* ui_databaseController READ databaseController CONSTANT )
+    Q_PROPERTY(br::controllers::TCPController* ui_tcpController READ tcpController CONSTANT)
     Q_PROPERTY(br::controllers::CommandController* ui_commandController READ commandController CONSTANT)
     Q_PROPERTY(br::models::Game* ui_newGame READ newGame CONSTANT)
     Q_PROPERTY(br::models::GameSearch* ui_gameSearch READ gameSearch CONSTANT)
@@ -41,6 +43,8 @@ public:
     CommandController* commandController();
 
     DatabaseController* databaseController();
+
+    TCPController* tcpController();
 
     NavigationController* navigationController();
 

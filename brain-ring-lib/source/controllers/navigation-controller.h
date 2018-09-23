@@ -17,7 +17,8 @@ public:
     explicit NavigationController(QObject* parent = nullptr) : QObject(parent){}
 
 signals:
-    void goGameView(br::models::Game* game);
+//    void goGameView(br::models::Game* game);
+    void goGameView();
     void goCreateGameView();
     void goDashboardView();
     void goEditGameView(br::models::Game* game);

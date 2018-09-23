@@ -13,15 +13,17 @@ public:
     {
         databaseController = new DatabaseController(masterController);
         navigationController = new NavigationController(masterController);
+        tcpController = new TCPController(masterController);
         newGame = new Game(masterController);
         gameSearch = new GameSearch(masterController, databaseController);
-        commandController = new CommandController(masterController, databaseController, navigationController, newGame, gameSearch);
+        commandController = new CommandController(masterController, tcpController, databaseController, navigationController, newGame, gameSearch);
     }
 
     MasterController* masterController{nullptr};
     CommandController* commandController{nullptr};
     DatabaseController* databaseController{nullptr};
     NavigationController* navigationController{nullptr};
+    TCPController* tcpController{nullptr};
     Game* newGame{nullptr};
     GameSearch* gameSearch{nullptr};
     QString welcomeMessage = "This is MasterController to MJBHjk  qaslkfjklasd";
@@ -49,6 +51,10 @@ NavigationController* MasterController::navigationController()
     return implementation->navigationController;
 }
 
+TCPController* MasterController::tcpController()
+{
+    return implementation->tcpController;
+}
 
 
 const QString& MasterController::welcomeMessage() const

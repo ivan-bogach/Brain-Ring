@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<br::controllers::NavigationController>("BR", 1, 0, "NavigationController");
     qmlRegisterType<br::controllers::CommandController>("BR", 1, 0, "CommandController");
 
+    qmlRegisterType<br::controllers::TCPController>("BR", 1, 0, "TCPController");
+
     qmlRegisterType<br::data::DateTimeDecorator>("BR", 1, 0, "DateTimeDecorator");
     qmlRegisterType<br::data::EnumeratorDecorator>("BR", 1, 0, "EnumeratorDecorator");
     qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");

@@ -9,5 +9,7 @@
         <file alias="InfoEditor.qml">components/InfoEditor.qml</file>
         <file alias="Panel.qml">components/Panel.qml</file>
         <file alias="SearchResultDelegate.qml">components/SearchResultDelegate.qml</file>
+        <file alias="TCPButton.qml">components/TCPButton.qml</file>
+        <file alias="TCPBar.qml">components/TCPBar.qml</file>
     </qresource>
 </RCC>

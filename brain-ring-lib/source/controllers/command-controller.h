@@ -9,6 +9,7 @@
 #include <framework/command.h>
 #include <controllers/i-database-controller.h>
 #include <controllers/navigation-controller.h>
+#include <controllers/tcp-controller.h>
 #include <models/game.h>
 #include <models/gamesearch.h>
 
@@ -22,15 +23,19 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_findGameViewContextCommands READ ui_findGameViewContextCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_editGameViewContextCommands READ ui_editGameViewContextCommands CONSTANT)
 
+    Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_gameViewContextCommands READ ui_gameViewContextCommands CONSTANT)
+
 
 public:
-    explicit CommandController(QObject* _parent = nullptr, IDatabaseController* databaseController = nullptr, NavigationController* navigationController = nullptr, models::Game* newGame= nullptr, models::GameSearch* gameSearch = nullptr);
+    explicit CommandController(QObject* _parent = nullptr, TCPController* tcpController = nullptr,IDatabaseController* databaseController = nullptr, NavigationController* navigationController = nullptr, models::Game* newGame= nullptr, models::GameSearch* gameSearch = nullptr);
     ~CommandController();
 
 //QQmlListProperty enables QML to interact with a list of custom objects
     QQmlListProperty<framework::Command> ui_createGameViewContextCommands();
     QQmlListProperty<framework::Command> ui_findGameViewContextCommands();
     QQmlListProperty<framework::Command> ui_editGameViewContextCommands();
+
+    QQmlListProperty<framework::Command> ui_gameViewContextCommands();
 
 signals:
 
@@ -41,6 +46,9 @@ public slots:
     void onFindGameSearchExecuted();
     void onEditGameSaveExecuted();
     void onEditGameDeleteExecuted();
+
+    void onStartServerExecuted();
+    void onStopServerExecuted();
 
 
 private:

@@ -12,8 +12,9 @@ namespace controllers {
 class CommandController::Implementation
 {
 public:
-    Implementation(CommandController* _commandController,IDatabaseController* _databaseController, NavigationController* _navigationController, Game* _newGame, GameSearch* _gameSearch)
+    Implementation(CommandController* _commandController,TCPController* _tcpController ,IDatabaseController* _databaseController, NavigationController* _navigationController, Game* _newGame, GameSearch* _gameSearch)
         : commandController(_commandController)
+        , tcpController(_tcpController)
         , databaseController(_databaseController)
         , navigationController(_navigationController)
         , newGame(_newGame)
@@ -36,9 +37,19 @@ public:
         Command* editGameDeleteCommand = new Command(commandController, QChar( 0xf0c7), "Удалить");
         QObject::connect(editGameDeleteCommand, &Command::executed, commandController, &CommandController::onEditGameDeleteExecuted);
         editGameViewContextCommands.append(editGameDeleteCommand);
+
+        Command* startServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
+        QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
+        gameViewContextCommands.append(startServerCommand);
+
+        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
+        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
+        gameViewContextCommands.append(stopServerCommand);
     }
 
     CommandController* commandController{nullptr};
+
+    TCPController* tcpController{nullptr};
 
     IDatabaseController* databaseController{nullptr};
 
@@ -55,12 +66,14 @@ public:
     QList<Command*> findGameViewContextCommands{};
 
     QList<Command*> editGameViewContextCommands{};
+
+    QList<Command*> gameViewContextCommands{};
 };
 
-CommandController::CommandController(QObject *parent, IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch)
+CommandController::CommandController(QObject *parent, TCPController* tcpController,IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch)
     : QObject(parent)
 {
-    implementation.reset(new Implementation(this, databaseController, navigationController ,newGame, gameSearch));
+    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame, gameSearch));
 }
 
 CommandController::~CommandController(){}
@@ -78,6 +91,12 @@ QQmlListProperty<Command> CommandController::ui_findGameViewContextCommands()
 QQmlListProperty<Command> CommandController::ui_editGameViewContextCommands()
 {
     return QQmlListProperty<Command>(this, implementation->editGameViewContextCommands);
+}
+
+
+QQmlListProperty<Command> CommandController::ui_gameViewContextCommands()
+{
+    return QQmlListProperty<Command>(this, implementation->gameViewContextCommands);
 }
 
 void CommandController::onCreateGameSaveExecuted()
@@ -127,6 +146,20 @@ void CommandController::onEditGameDeleteExecuted()
 
     implementation->gameSearch->search();
     implementation->navigationController->goDashboardView();
+}
+
+void CommandController::onStartServerExecuted()
+{
+    qDebug() << "Command controller: You executed the Start command!";
+    implementation->tcpController->startServer();
+    qDebug() << "Command controller: server started!";
+}
+
+void CommandController::onStopServerExecuted()
+{
+    qDebug() << "Command controller: You executed the STOP command!";
+    implementation->tcpController->stopServer();
+    qDebug() << "Command controller: server stoped!";
 }
 
 }

@@ -43,7 +43,8 @@ SOURCES += \
     source/models/question.cpp \
     source/models/future.cpp \
     source/controllers/database-controller.cpp \
-    source/models/gamesearch.cpp
+    source/models/gamesearch.cpp \
+    source/controllers/tcp-controller.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
@@ -63,7 +64,8 @@ HEADERS += source/brain-ring-lib_global.h \
     source/models/future.h \
     source/controllers/i-database-controller.h \
     source/controllers/database-controller.h \
-    source/models/gamesearch.h
+    source/models/gamesearch.h \
+    source/controllers/tcp-controller.h
 
 unix {
     target.path = /usr/lib

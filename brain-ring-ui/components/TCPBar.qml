@@ -5,17 +5,16 @@ import components 1.0
 import assets 1.0
 
 Item {
-    property bool isCollapsed: true
 
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.left: parent.left
 
-    width: isCollapsed ? Style.widthNavigationBarCollapsed : Style.widthNavigationBarExpanded
+    width: parent.width
 
     Rectangle {
-        Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
-        id: navigationBar
+
+        id: tcpBar
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -24,10 +23,10 @@ Item {
 
         Column {
             width: parent.width
-            NavigationButton {
-                btnText: "ИГРАТЬ"
-                onNavigationButtonClicked: {
-                    masterController.ui_navigationController.goGameView();
+            TCPButton {
+                btnText: "Старт"
+                ontcpButtonClicked: {
+                    masterController.ui_tcpController.
                     onNavigationButtonClicked: isCollapsed = true
                 }
             }
