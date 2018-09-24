@@ -26,12 +26,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += source/models/client.cpp \
-    source/controllers/master-controller.cpp
+SOURCES += \
+    source/controllers/master-controller.cpp \
+    source/models/game.cpp \
+    source/framework/command.cpp \
+    source/controllers/command-controller.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
-        source/models/client.h \
-    source/controllers/master-controller.h
+    source/controllers/master-controller.h \
+    source/controllers/navigation-controller.h \
+    source/models/game.h \
+    source/framework/command.h \
+    source/controllers/command-controller.h
 
 unix {
     target.path = /usr/lib
