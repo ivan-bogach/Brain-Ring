@@ -1,65 +1,53 @@
-import QtQuick 2.5
-import QtQuick.Window 2.2
-import QtQuick.Controls 1.4
+import QtQuick 2.0
+import BR 1.0
 import assets 1.0
 
 Item {
-    property alias startBtnText: startText.text
-    property alias stopBtnText: stopText.text
+    property Command command
 
-    property color hoverColour: Style.colorNavigationButtonHover
+    width:  Style.widthCommandButton
+    height: Style.heightCommandButton
 
-    signal tcpButtonClicked()
-
-//    width: Style.widthNavigationButton
-    width: parent.width
-    height: Style.heightNavigationButton
-
-    Rectangle{
+    Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourNavigationBarBackground
+        color: Style.colourCommandBarBackground
 
-        Row {
-            Text {
-                id: startText
-                width: Style.widthNavigationButton
-                height: Style.heightNavigationButton
-                font {
-                    pixelSize: Style.pixelSizeNavigationBarFont
-                    family: "Courier New"
-                    bold: true
-                }
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-                color: Style.colourNavigationBarFont
-                text: "SET ME!!!"
-
+        Text {
+            id: textIcon
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset: -10
+            font {
+                family: Style.fontAwesome
+                pixelSize: Style.pixelSizeCommandBarIcon
             }
-
-            Text {
-                id: stopText
-                width: Style.widthNavigationButton
-                height: Style.heightNavigationButton
-                font {
-                    pixelSize: Style.pixelSizeNavigationBarFont
-                    family: "Courier New"
-                    bold: true
-                }
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-                color: Style.colourNavigationBarFont
-                text: "SET ME!!!"
-
-            }
+            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
+            text: command.ui_iconCharacter
+            horizontalAlignment: Text.AlignHCenter
         }
+
+        Text {
+            id: textDescription
+            anchors.top: textIcon.bottom
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            font.pixelSize: Style.pixelSizeCommandBarText
+            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
+            text: command.ui_description
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
             onEntered: background.state = "hover"
             onExited: background.state = ""
-            onClicked: tcpButtonClicked()
+            onClicked: if(command.ui_canExecute) {
+                           command.executed();
+                       }
         }
 
         states: [
@@ -67,11 +55,12 @@ Item {
                 name: "hover"
                 PropertyChanges {
                     target: background
-                    color: hoverColour
+                    color: Qt.darker(Style.colourCommandBarBackground)
                 }
             }
+
         ]
+
     }
 }
-
 

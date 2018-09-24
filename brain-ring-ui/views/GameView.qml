@@ -4,13 +4,20 @@ import components 1.0
 
 
 Item {
+
     Rectangle {
         anchors.fill: parent
-        color: "#f4c842"
         Text {
             anchors.centerIn: parent
             text: "GAME!!!"
         }
 
+        TCPBar {
+            id: tcpBar
+            anchors.fill: parent
+            commandList: masterController.ui_commandController.ui_gameViewContextCommands
+        }
+
     }
+
 }

@@ -42,9 +42,9 @@ public:
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
 
-        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
-        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
-        gameViewContextCommands.append(stopServerCommand);
+//        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
+//        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
+//        gameViewContextCommands.append(stopServerCommand);
     }
 
     CommandController* commandController{nullptr};

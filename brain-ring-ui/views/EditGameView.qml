@@ -57,6 +57,6 @@ Item {
 
     CommandBar {
         id: commandBar
-        commandList: masterController.ui_commandController.ui_editGameViewContextCommands
+        commandList: masterController.ui_commandController.ui_gameViewContextCommands
     }
 }

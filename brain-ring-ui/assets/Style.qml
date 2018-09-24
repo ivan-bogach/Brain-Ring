@@ -48,6 +48,8 @@ Item {
     readonly property real sizeShadowOffset:	5
     readonly property color colourShadow:	"#dedede"
 
+    readonly property color colourTCPBar:	"#0F1120"
+
     FontLoader {
         id: fontAwesomeLoader
         source: "qrc:/assets/fontawesome.ttf"

@@ -12,7 +12,6 @@ public:
 
     }
     TCPController* tcpController{nullptr};
-    QTcpServer* tcpServer;
     int serverStatus;
     QMap<int, QTcpSocket *> SClients;
 };
@@ -27,40 +26,51 @@ TCPController::~TCPController(){}
 
 void TCPController::startServer()
 {
-    connect(implementation->tcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
+    qDebug() << "TCP CONTROLLER: startServer...";
 
-    if (!implementation->tcpServer->listen(QHostAddress::Any, 3337))
+    tcpServer = new QTcpServer(this);
+
+    connect(tcpServer, SIGNAL(newConnection()), this, SLOT(newClient()));
+
+    qDebug() << "TCP CONTROLLER: startServer after connect...";
+
+    if (!tcpServer->listen(QHostAddress::Any, 3337)  && implementation->serverStatus == 0)
     {
-        qDebug()  <<QObject::tr("Unable to start the server: %1.").arg(implementation->tcpServer->errorString());
+        qDebug()  <<QObject::tr("Unable to start the server: %1.").arg(tcpServer->errorString());
     }
     else
     {
         implementation->serverStatus = 1;
-        qDebug() <<implementation->tcpServer->isListening() << "TCPSocket listen on port";
+        qDebug() << tcpServer->isListening() << "TCP CONTROLLER:  TCPSocket listen on port";
+        qDebug() << tcpServer->serverAddress().toString() << "Address";
+
     }
 }
 
 void TCPController::stopServer()
 {
+    qDebug() << "TCP CONTROLLER: stopServer...";
+
     if (implementation->serverStatus == 1)
     {
         foreach (int i, implementation->SClients.keys()) {
           implementation->SClients[i]->close();
           implementation->SClients.remove(i);
         }
-        implementation->tcpServer->close();
-         qDebug() << QString::fromUtf8("Server stoped!");
-         implementation->serverStatus = 0;
+
+        tcpServer->close();
+        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
+        implementation->serverStatus = 0;
     }
 }
 
-void TCPController::newConnection()
+void TCPController::newClient()
 {
     if (implementation->serverStatus == 1)
     {
         qDebug() << QString::fromUtf8("New connection arrived!");
 
-        QTcpSocket* clientSocket = implementation->tcpServer->nextPendingConnection();
+        QTcpSocket* clientSocket = tcpServer->nextPendingConnection();
 
         int idUserSocket = clientSocket->socketDescriptor();
 

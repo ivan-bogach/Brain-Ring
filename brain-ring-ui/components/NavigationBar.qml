@@ -35,6 +35,7 @@ Item {
                 btnText: "СОЗДАТЬ ИГРУ"
                 onNavigationButtonClicked: {
                     masterController.ui_navigationController.goCreateGameView();
+//                    masterController.ui_commandController
                     isCollapsed = true
                 }
             }

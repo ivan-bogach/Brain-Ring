@@ -24,10 +24,11 @@ public:
 public slots:
     void startServer();
     void stopServer();
-    void newConnection();
+    void newClient();
     QByteArray slotReadClient();
 
 private:
+     QTcpServer *tcpServer;
     class Implementation;
     QScopedPointer<Implementation> implementation;
 };
