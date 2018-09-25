@@ -7,6 +7,7 @@
 
 #include <brain-ring-lib_global.h>
 #include <controllers/navigation-controller.h>
+#include <controllers/command-controller.h>
 
 
 
@@ -22,13 +23,15 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
 // refer to the property	as ui_welcomeMessage and get (or set) the	value in the MEMBER welcomeMessage
     Q_PROPERTY(QString ui_welcomeMessage READ welcomeMessage CONSTANT)
     Q_PROPERTY(br::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
+    Q_PROPERTY(br::controllers::Commandcontroller* ui_commandController READ commandController CONSTANT)
 public:
     explicit MasterController(QObject *parent = nullptr);
     ~MasterController();
 
     NavigationController* navigationController();
-    const QString& welcomeMessage() const;
+    Commandcontroller* commandController();
 
+    const QString& welcomeMessage() const;
 
 signals:
 
