@@ -30,14 +30,20 @@ SOURCES += \
     source/controllers/master-controller.cpp \
     source/models/game.cpp \
     source/framework/command.cpp \
-    source/controllers/command-controller.cpp
+    source/controllers/command-controller.cpp \
+    source/data/datadecorator.cpp \
+    source/data/stringdecorator.cpp \
+    source/data/entity.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
     source/controllers/navigation-controller.h \
     source/models/game.h \
     source/framework/command.h \
-    source/controllers/command-controller.h
+    source/controllers/command-controller.h \
+    source/data/datadecorator.h \
+    source/data/stringdecorator.h \
+    source/data/entity.h
 
 unix {
     target.path = /usr/lib
