@@ -5,11 +5,13 @@
 
 #include <QObject>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QScopedPointer>
 
 #include <brain-ring-lib_global.h>
 #include <data/datadecorator.h>
 #include <data/stringdecorator.h>
+#include <data/entity-collection.h>
 
 namespace br {
 namespace data {
@@ -24,12 +26,19 @@ public:
     virtual ~Entity();
 
 public:
+
+//will be used in JSON serialization
     const QString& key() const;
+
+//to instantiate an	entity from JSON
     void update(const QJsonObject& jsonObject);
     QJsonObject toJson() const;
 
+    EntityCollectionBase* addChildCollection(EntityCollectionBase* entityCollection);
+
 signals:
     void childEntitiesChanged();
+    void childCollectionsChanged(const QString& collectionKey);
     void dataDecoratorsChanged();
 
 protected:

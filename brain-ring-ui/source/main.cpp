@@ -1,11 +1,16 @@
 #include <QCoreApplication>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QtQml>
+
 #include <controllers/master-controller.h>
 #include <controllers/command-controller.h>
+#include <data/stringdecorator.h>
+#include <data/intdecorator.h>
+#include <models/game.h>
+#include <models/question.h>
 #include <framework/command.h>
-#include <QQmlContext>
- #include <QtQml>
 
 int main(int argc, char *argv[])
 {
@@ -16,11 +21,14 @@ int main(int argc, char *argv[])
 
 // To be able to use a given class in QML
 //registering	the	type	with	the	QML	engine
-    qmlRegisterType<br::controllers::MasterController>("BR", 1, 1, "MasterController");
-    qmlRegisterType<br::controllers::NavigationController>("BR", 1, 1, "NavigationController");
-    qmlRegisterType<br::controllers::Commandcontroller>("BR", 1, 1, "Commandcontroller");
-
-    qmlRegisterType<br::framework::Command>("BR", 1, 1, "Command");
+    qmlRegisterType<br::controllers::MasterController>("BR", 1, 0, "MasterController");
+    qmlRegisterType<br::controllers::NavigationController>("BR", 1, 0, "NavigationController");
+    qmlRegisterType<br::controllers::Commandcontroller>("BR", 1, 0, "Commandcontroller");
+    qmlRegisterType<br::data::StringDecorator>("BR", 1, 0, "StringDecorator");
+    qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");
+    qmlRegisterType<br::models::Game>("BR", 1, 0, "Game");
+    qmlRegisterType<br::models::Question>("BR", 1, 0, "Question");
+    qmlRegisterType<br::framework::Command>("BR", 1, 0, "Command");
 
 // instantiate an instance of MasterController and inject it into the root QML context
     br::controllers::MasterController masterController;

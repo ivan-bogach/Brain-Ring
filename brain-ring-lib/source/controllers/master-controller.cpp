@@ -1,5 +1,7 @@
 #include "master-controller.h"
 
+using namespace br::models;
+
 namespace br {
 namespace controllers {
 
@@ -11,11 +13,13 @@ public:
     {
         navigationController = new NavigationController(masterController);
         commandController = new Commandcontroller(masterController);
+        newGame = new Game(masterController);
     }
 
     MasterController* masterController{nullptr};
     Commandcontroller* commandController{nullptr};
     NavigationController* navigationController{nullptr};
+    Game* newGame{nullptr};
     QString welcomeMessage = "Welcome message";
 };
 
@@ -39,6 +43,11 @@ Commandcontroller* MasterController::commandController()
 const QString& MasterController::welcomeMessage() const
 {
     return implementation->welcomeMessage;
+}
+
+Game* MasterController::newGame()
+{
+    return implementation->newGame;
 }
 
 }}

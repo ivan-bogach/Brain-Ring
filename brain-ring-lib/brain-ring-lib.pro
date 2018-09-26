@@ -33,7 +33,9 @@ SOURCES += \
     source/controllers/command-controller.cpp \
     source/data/datadecorator.cpp \
     source/data/stringdecorator.cpp \
-    source/data/entity.cpp
+    source/data/entity.cpp \
+    source/models/question.cpp \
+    source/data/intdecorator.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
@@ -43,7 +45,10 @@ HEADERS += source/brain-ring-lib_global.h \
     source/controllers/command-controller.h \
     source/data/datadecorator.h \
     source/data/stringdecorator.h \
-    source/data/entity.h
+    source/data/entity.h \
+    source/data/entity-collection.h \
+    source/models/question.h \
+    source/data/intdecorator.h
 
 unix {
     target.path = /usr/lib
