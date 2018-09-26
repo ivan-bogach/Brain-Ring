@@ -17,11 +17,14 @@ namespace models {
 class BRAINRINGLIBSHARED_EXPORT Game : public data::Entity
 {
     Q_OBJECT
+    Q_PROPERTY(br::data::StringDecorator* ui_name MEMBER name CONSTANT)
     Q_PROPERTY(QQmlListProperty<Question> ui_questionsChanged READ ui_questions NOTIFY questionsChanged)
 
 public:
     explicit Game(QObject* parent = nullptr);
     Game(QObject *parent, const QJsonObject& json);
+
+    data::StringDecorator* name{nullptr};
 
     data::EntityCollection<Question>* questions{nullptr};
 

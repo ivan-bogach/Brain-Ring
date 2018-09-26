@@ -3,10 +3,10 @@ import QtQuick 2.5
 
 Item {
     property alias fontAwesome: fontAwesomeLoader.name
-
     property alias imageDashboard: imageDashboardLoader.source
 
     readonly property color colourBackground: "#f4c842"
+    readonly property real sizeScreenMargin: 20
 
     readonly property real widthNavigationButton: widthNavigationBar - leftMarginNavigationButton
     readonly property real heightNavigationButton: 2.5*pixelSizeNavigationBarFont
@@ -31,7 +31,11 @@ Item {
     readonly property int pixelSizeCommandBarIcon: 32
     readonly property int pixelSizeCommandBarText: 12
 
-
+    readonly property color colourDataControlsBackground: "#ffffff"
+    readonly property color colourDataControlsFont: "#121212"
+    readonly property int pixelSizeDataControls: 18
+    readonly property real widthDataControls: 400
+    readonly property real heightDataControls: 40
 
     FontLoader {
         id: fontAwesomeLoader

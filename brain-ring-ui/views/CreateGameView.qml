@@ -5,5 +5,9 @@ import BR 1.0
 
 Item {
     property Game newGame: masterController.ui_newGame
+
+    StringEditorSingleLine {
+        stringDecorator: newGame.ui_name
+    }
 }
 
