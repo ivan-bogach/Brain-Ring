@@ -11,13 +11,15 @@ public:
     explicit Implementation(MasterController* _masterController)
         :masterController(_masterController)
     {
+        databaseController = new DatabaseController(masterController);
         navigationController = new NavigationController(masterController);
-        commandController = new Commandcontroller(masterController);
         newGame = new Game(masterController);
+        commandController = new Commandcontroller(masterController, databaseController, navigationController, newGame);
     }
 
     MasterController* masterController{nullptr};
     Commandcontroller* commandController{nullptr};
+    DatabaseController* databaseController{nullptr};
     NavigationController* navigationController{nullptr};
     Game* newGame{nullptr};
     QString welcomeMessage = "Welcome message";
@@ -38,6 +40,11 @@ NavigationController* MasterController::navigationController()
 Commandcontroller* MasterController::commandController()
 {
     return implementation->commandController;
+}
+
+DatabaseController* MasterController::databaseController()
+{
+    return implementation->databaseController;
 }
 
 const QString& MasterController::welcomeMessage() const

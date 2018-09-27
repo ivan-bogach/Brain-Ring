@@ -1,4 +1,5 @@
-QT       -= gui
+QT -= gui
+QT += sql
 TARGET = brain-ring-lib
 TEMPLATE = lib
 
@@ -35,7 +36,8 @@ SOURCES += \
     source/data/stringdecorator.cpp \
     source/data/entity.cpp \
     source/models/question.cpp \
-    source/data/intdecorator.cpp
+    source/data/intdecorator.cpp \
+    source/controllers/database-controller.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
@@ -48,7 +50,9 @@ HEADERS += source/brain-ring-lib_global.h \
     source/data/entity.h \
     source/data/entity-collection.h \
     source/models/question.h \
-    source/data/intdecorator.h
+    source/data/intdecorator.h \
+    source/controllers/i-database-controller.h \
+    source/controllers/database-controller.h
 
 unix {
     target.path = /usr/lib

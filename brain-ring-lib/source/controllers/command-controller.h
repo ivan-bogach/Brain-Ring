@@ -5,6 +5,9 @@
 #include <QtQml/QQmlListProperty>
 
 #include <brain-ring-lib_global.h>
+#include <controllers/i-database-controller.h>
+#include <controllers/navigation-controller.h>
+#include <models/game.h>
 #include <framework/command.h>
 
 namespace br {
@@ -16,8 +19,9 @@ class BRAINRINGLIBSHARED_EXPORT Commandcontroller : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_createGameViewContextCommands READ ui_createGameViewContextCommands CONSTANT)
+
 public:
-    explicit Commandcontroller(QObject * _parent = nullptr);
+    explicit Commandcontroller(QObject * _parent = nullptr, IDatabaseController* databaseController = nullptr, NavigationController* navigationController = nullptr, models::Game* newGame= nullptr);
     ~Commandcontroller();
 
     QQmlListProperty<br::framework::Command> ui_createGameViewContextCommands();

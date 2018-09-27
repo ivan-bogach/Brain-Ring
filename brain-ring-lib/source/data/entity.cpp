@@ -1,5 +1,8 @@
 #include "entity.h"
 
+#include <QJsonArray>
+#include <QUuid>
+
 namespace br {
 namespace data {
 
@@ -9,10 +12,14 @@ public:
     Implementation(Entity* _entity, const QString& _key)
         : entity(_entity)
         , key(_key)
+        , id(QUuid::createUuid().toString())
     {}
 
     Entity* entity{nullptr};
     QString key;
+    QString id;
+
+    StringDecorator* primaryKey{nullptr};
 
 //a map of entities representing individual children
     std::map<QString, Entity*> childEntities;
@@ -66,10 +73,10 @@ DataDecorator* Entity::addDataItem(DataDecorator* dataDecorator)
 void Entity::update(const QJsonObject& jsonObject)
 {
 // overwriting the generated ID value with the known value.
-//    if(jsonObject.contains("id"))
-//    {
-//        implementation->id = jsonObject.value("id").toString();
-//    }
+    if(jsonObject.contains("id"))
+    {
+        implementation->id = jsonObject.value("id").toString();
+    }
 
     for( std::pair<QString, DataDecorator*> dataDecoratorPair : implementation->dataDecorators)
     {
@@ -90,7 +97,7 @@ void Entity::update(const QJsonObject& jsonObject)
 QJsonObject Entity::toJson() const
 {
     QJsonObject returnValue;
-//    returnValue.insert("id", implementation->id);
+    returnValue.insert("id", implementation->id);
 
     for(std::pair<QString, DataDecorator*> dataDecoratorPair : implementation->dataDecorators)
     {
@@ -126,19 +133,19 @@ EntityCollectionBase* Entity::addChildCollection(EntityCollectionBase* entityCol
     return entityCollection;
 }
 
-//const QString& Entity::id() const
-//{
-//    if(implementation->primaryKey != nullptr && !implementation->primaryKey->value().isEmpty())
-//    {
-//        return implementation->primaryKey->value();
-//    }
-//    return implementation->id;
-//}
+const QString& Entity::id() const
+{
+    if(implementation->primaryKey != nullptr && !implementation->primaryKey->value().isEmpty())
+    {
+        return implementation->primaryKey->value();
+    }
+    return implementation->id;
+}
 
-//void Entity::setPrimaryKey(StringDecorator *primaryKey)
-//{
-//    implementation->primaryKey = primaryKey;
-//}
+void Entity::setPrimaryKey(StringDecorator *primaryKey)
+{
+    implementation->primaryKey = primaryKey;
+}
 
 
 }

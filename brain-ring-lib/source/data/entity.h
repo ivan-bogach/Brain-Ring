@@ -30,6 +30,10 @@ public:
 //will be used in JSON serialization
     const QString& key() const;
 
+    const QString& id() const;
+
+    void setPrimaryKey(StringDecorator* primaryKey);
+
 //to instantiate an	entity from JSON
     void update(const QJsonObject& jsonObject);
     QJsonObject toJson() const;

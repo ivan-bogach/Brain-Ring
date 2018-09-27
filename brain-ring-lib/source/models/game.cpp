@@ -10,6 +10,7 @@ Game::Game(QObject* parent)
 {
     questions = static_cast<EntityCollection<Question>*>(addChildCollection(new EntityCollection<Question>(this, "questions")));
     name = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "name", "Имя")));
+    setPrimaryKey(name);
 }
 
 Game::Game(QObject *parent, const QJsonObject &json)

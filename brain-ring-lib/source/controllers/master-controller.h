@@ -8,6 +8,7 @@
 #include <brain-ring-lib_global.h>
 #include <controllers/navigation-controller.h>
 #include <controllers/command-controller.h>
+#include <controllers/database-controller.h>
 #include <models/game.h>
 
 
@@ -24,6 +25,7 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
 // refer to the property	as ui_welcomeMessage and get (or set) the	value in the MEMBER welcomeMessage
     Q_PROPERTY(QString ui_welcomeMessage READ welcomeMessage CONSTANT)
     Q_PROPERTY(br::controllers::NavigationController* ui_navigationController READ navigationController CONSTANT)
+    Q_PROPERTY(br::controllers::DatabaseController* ui_databaseController READ databaseController CONSTANT)
     Q_PROPERTY(br::controllers::Commandcontroller* ui_commandController READ commandController CONSTANT)
     Q_PROPERTY(br::models::Game* ui_newGame READ newGame CONSTANT)
 
@@ -32,7 +34,11 @@ public:
     ~MasterController();
 
     NavigationController* navigationController();
+
     Commandcontroller* commandController();
+
+    DatabaseController* databaseController();
+
     models::Game* newGame();
 
     const QString& welcomeMessage() const;

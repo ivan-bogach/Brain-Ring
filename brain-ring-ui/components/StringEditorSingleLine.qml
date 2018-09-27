@@ -13,7 +13,7 @@ Item {
         Rectangle {
             width: Style.widthDataControls
             height: Style.heightDataControls
-            color: Style.colourPanelBackground
+            color: "red"
             Text {
                 id: textLabel
                 anchors.fill: parent
