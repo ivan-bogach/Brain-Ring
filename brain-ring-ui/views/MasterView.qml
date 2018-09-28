@@ -11,8 +11,8 @@ Window {
 //=========================================================================
 
     visible: true
-    width: 720
-    height: 480
+    width: 1120
+    height: 780
     title: qsTr("Hello World")
 //    Item replace(target, item, properties, operation)
 

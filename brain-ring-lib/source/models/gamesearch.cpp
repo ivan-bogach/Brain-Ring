@@ -56,6 +56,17 @@ void GameSearch::search()
     qDebug() << "Found " << implementation->searchResults->baseEntities().size() << " matches";
 }
 
+void GameSearch::searchAll()
+{
+    qDebug() << "Searching for " << implementation->searchText->value() << "...";
+
+    auto resultsArray = implementation->databaseControler->findAll("game");
+
+    implementation->searchResults->update(resultsArray);
+
+    qDebug() << "Found " << implementation->searchResults->baseEntities().size() << " matches";
+}
+
 }
 }
 

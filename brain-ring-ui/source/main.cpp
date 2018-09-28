@@ -12,11 +12,8 @@
 #include <data/enumeratordecorator.h>
 #include <data/intdecorator.h>
 #include <data/stringdecorator.h>
-#include <models/info.h>
-#include <models/future.h>
 #include <models/game.h>
 #include <models/gamesearch.h>
-#include <models/question.h>
 
 int main(int argc, char *argv[])
 {
@@ -38,10 +35,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");
     qmlRegisterType<br::data::StringDecorator>("BR", 1, 0, "StringDecorator");
 
-    qmlRegisterType<br::models::Info>("BR", 1, 0, "Info");
-    qmlRegisterType<br::models::Future>("BR", 1, 0, "Future");
     qmlRegisterType<br::models::Game>("BR", 1, 0, "Game");
-    qmlRegisterType<br::models::Question>("BR", 1, 0, "Question");
     qmlRegisterType<br::models::GameSearch>("BR", 1, 0, "GameSearch");
 
     qmlRegisterType<br::framework::Command>("BR", 1, 0, "Command");

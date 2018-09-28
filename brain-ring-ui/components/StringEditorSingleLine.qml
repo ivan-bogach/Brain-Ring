@@ -35,6 +35,7 @@ Item {
             border.width: 1
             border.color: Style.colourDataControlsFont
 
+
             TextInput {
                 id: textValue
                 anchors.fill: parent
@@ -49,6 +50,7 @@ Item {
                 color: Style.colourDataControlsFont
                 font.pixelSize: Style.pixelSizeDataControls
                 verticalAlignment: Qt.AlignVCenter
+                horizontalAlignment: Qt.AlignCenter
             }
 
         }

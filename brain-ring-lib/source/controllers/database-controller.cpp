@@ -210,5 +210,37 @@ QJsonArray DatabaseController::find(const QString& tableName, const QString& sea
     return returnValue;
 }
 
+QJsonArray DatabaseController::findAll(const QString &tableName) const
+{
+    if(tableName.isEmpty())
+    {
+        qDebug() << "tableName.isEmpty())";
+        return {};
+    }
+
+    QSqlQuery query(implementation->database);
+
+    QString sqlStatement = "select json from " + tableName;
+    if(!query.prepare(sqlStatement)) return {};
+
+//    query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%"));
+
+    if(!query.exec()) return {};
+
+    QJsonArray returnValue;
+
+    while (query.next())
+    {
+        auto json = query.value(0).toByteArray();
+        auto jsonDocument = QJsonDocument::fromJson(json);
+        if(jsonDocument.isObject())
+        {
+            returnValue.append(jsonDocument.object());
+        }
+    }
+    return returnValue;
+
+}
+
 }
 }

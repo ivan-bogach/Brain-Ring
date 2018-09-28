@@ -105,11 +105,13 @@ void CommandController::onCreateGameSaveExecuted()
 
     implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->id(), implementation->newGame->toJson());
 
-    implementation->gameSearch->searchText()->setValue(implementation->newGame->id());
+//    implementation->gameSearch->searchText()->setValue("*");
+//    implementation->gameSearch->searchText()->setValue(implementation->newGame->id());
 
-    implementation->gameSearch->search();
+//    implementation->gameSearch->search();
+    implementation->gameSearch->searchAll();
 
-    implementation->navigationController->goFindGameView();
+//    implementation->navigationController->goFindGameView();
 
     qDebug() << "New client saved.";
 }

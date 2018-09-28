@@ -11,5 +11,8 @@
         <file alias="SearchResultDelegate.qml">components/SearchResultDelegate.qml</file>
         <file alias="TCPButton.qml">components/TCPButton.qml</file>
         <file alias="TCPBar.qml">components/TCPBar.qml</file>
+        <file alias="AddQuestionPanel.qml">components/AddQuestionPanel.qml</file>
+        <file alias="QuestionsList.qml">components/QuestionsList.qml</file>
+        <file alias="QuestionsListPanel.qml">components/QuestionsListPanel.qml</file>
     </qresource>
 </RCC>

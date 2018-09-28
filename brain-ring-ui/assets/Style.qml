@@ -34,8 +34,9 @@ Item {
     readonly property color colourDataControlsBackground: "#ffffff"
     readonly property color colourDataControlsFont: "#121212"
     readonly property int pixelSizeDataControls: 18
-    readonly property real widthDataControls: 400
-    readonly property real heightDataControls: 40
+    readonly property real widthDataControlsNum: 30
+    readonly property real widthDataControls: 300
+    readonly property real heightDataControls: 30
 
     readonly property real sizeControlSpacing:	10
     readonly property color colourPanelBackground:	"#ffffff"

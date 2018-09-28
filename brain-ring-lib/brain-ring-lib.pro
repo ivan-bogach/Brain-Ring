@@ -39,9 +39,6 @@ SOURCES += \
     source/data/datetimedecorator.cpp \
     source/data/enumeratordecorator.cpp \
     source/data/entity.cpp \
-    source/models/info.cpp \
-    source/models/question.cpp \
-    source/models/future.cpp \
     source/controllers/database-controller.cpp \
     source/models/gamesearch.cpp \
     source/controllers/tcp-controller.cpp
@@ -59,9 +56,6 @@ HEADERS += source/brain-ring-lib_global.h \
     source/data/enumeratordecorator.h \
     source/data/entity.h \
     source/data/entity-collection.h \
-    source/models/info.h \
-    source/models/question.h \
-    source/models/future.h \
     source/controllers/i-database-controller.h \
     source/controllers/database-controller.h \
     source/models/gamesearch.h \

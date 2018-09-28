@@ -9,3 +9,7 @@ InfoEditor 1.0 InfoEditor.qml
 SearchResultDelegate 1.0 SearchResultDelegate.qml
 TCPButton 1.0 TCPButton.qml
 TCPBar 1.0 TCPBar.qml
+AddQuestionPanel 1.0 AddQuestionPanel.qml
+AddQuestion 1.0 AddQuestion.qml
+QuestionsList 1.0 QuestionsList.qml
+QuestionsListPanel 1.0 QuestionsListPanel.qml

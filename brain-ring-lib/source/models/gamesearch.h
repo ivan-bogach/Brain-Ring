@@ -26,6 +26,7 @@ public:
     data::StringDecorator* searchText();
     QQmlListProperty<Game> ui_searchResults();
     void search();
+    void searchAll();
 
 signals:
     void searchResultsChanged();
