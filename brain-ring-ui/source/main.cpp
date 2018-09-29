@@ -14,6 +14,8 @@
 #include <data/stringdecorator.h>
 #include <models/game.h>
 #include <models/gamesearch.h>
+#include <models/tcpclient.h>
+#include <models/tcpclientslist.h>
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +39,8 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<br::models::Game>("BR", 1, 0, "Game");
     qmlRegisterType<br::models::GameSearch>("BR", 1, 0, "GameSearch");
+    qmlRegisterType<br::models::TCPClient>("BR", 1, 0, "TCPClient");
+    qmlRegisterType<br::models::TCPClientsList>("BR", 1, 0, "TCPClientsList");
 
     qmlRegisterType<br::framework::Command>("BR", 1, 0, "Command");
 

@@ -16,6 +16,8 @@ public:
         tcpController = new TCPController(masterController);
         newGame = new Game(masterController);
         gameSearch = new GameSearch(masterController, databaseController);
+        tcpClient = new TCPClient(masterController);
+        tcpClientList = new TCPClientsList(masterController, tcpController);
         commandController = new CommandController(masterController, tcpController, databaseController, navigationController, newGame, gameSearch);
     }
 
@@ -26,6 +28,10 @@ public:
     TCPController* tcpController{nullptr};
     Game* newGame{nullptr};
     GameSearch* gameSearch{nullptr};
+
+    TCPClient* tcpClient{nullptr};
+    TCPClientsList* tcpClientList{nullptr};
+
     QString welcomeMessage = "This is MasterController to MJBHjk  qaslkfjklasd";
 };
 
@@ -70,6 +76,16 @@ Game* MasterController::newGame()
 GameSearch* MasterController::gameSearch()
 {
     return implementation->gameSearch;
+}
+
+TCPClient* MasterController::tcpClient()
+{
+    return implementation->tcpClient;
+}
+
+TCPClientsList* MasterController::tcpClientList()
+{
+    return implementation->tcpClientList;
 }
 
 void MasterController::selectGame(Game *game)

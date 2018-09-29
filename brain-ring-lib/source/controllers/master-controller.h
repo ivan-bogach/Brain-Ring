@@ -12,6 +12,8 @@
 #include <controllers/tcp-controller.h>
 #include <models/game.h>
 #include <models/gamesearch.h>
+#include <models/tcpclient.h>
+#include <models/tcpclientslist.h>
 
 
 namespace br {
@@ -35,6 +37,8 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
     Q_PROPERTY(br::controllers::CommandController* ui_commandController READ commandController CONSTANT)
     Q_PROPERTY(br::models::Game* ui_newGame READ newGame CONSTANT)
     Q_PROPERTY(br::models::GameSearch* ui_gameSearch READ gameSearch CONSTANT)
+    Q_PROPERTY(br::models::TCPClient* ui_tcpClient READ tcpClient CONSTANT)
+    Q_PROPERTY(br::models::TCPClientsList* ui_tcpClientList READ tcpClientList CONSTANT)
 public:
     explicit MasterController(QObject* parent = nullptr);
     ~MasterController();
@@ -51,6 +55,10 @@ public:
     models::Game* newGame();
 
     models::GameSearch* gameSearch();
+
+    models::TCPClient* tcpClient();
+
+    models::TCPClientsList* tcpClientList();
 
     const QString& welcomeMessage() const;
 

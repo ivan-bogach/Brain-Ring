@@ -14,6 +14,7 @@ public:
     TCPController* tcpController{nullptr};
     int serverStatus;
     QMap<int, QTcpSocket *> SClients;
+//    models::TCPClientsList* tcpClientsList{nullptr};
 };
 
 TCPController::TCPController(QObject *parent)
@@ -24,6 +25,24 @@ TCPController::TCPController(QObject *parent)
 
 TCPController::~TCPController(){}
 
+QJsonArray TCPController::SClients()
+{
+    qDebug() << "I`m here!!!!!!!!!!!!!!!!!!!!";
+    QJsonArray returnArray;
+    QJsonObject jsonObject;
+    QMapIterator<int, QTcpSocket *> i(implementation->SClients);
+    while (i.hasNext())
+    {
+        i.next();
+        jsonObject.insert("number", i.key());
+        jsonObject.insert("ip", i.value()->localAddress().toString());
+        qDebug() << "TCPController ip: " << i.value()->localAddress().toString();
+        qDebug()  << "TCPController num: " << i.key();
+        returnArray.append(QJsonValue(jsonObject));
+    }
+    return returnArray;
+}
+
 void TCPController::startServer()
 {
     qDebug() << "TCP CONTROLLER: startServer...";
@@ -31,8 +50,6 @@ void TCPController::startServer()
     tcpServer = new QTcpServer(this);
 
     connect(tcpServer, SIGNAL(newConnection()), this, SLOT(newClient()));
-
-    qDebug() << "TCP CONTROLLER: startServer after connect...";
 
     if (!tcpServer->listen(QHostAddress::Any, 3337)  && implementation->serverStatus == 0)
     {
@@ -43,7 +60,6 @@ void TCPController::startServer()
         implementation->serverStatus = 1;
         qDebug() << tcpServer->isListening() << "TCP CONTROLLER:  TCPSocket listen on port";
         qDebug() << tcpServer->serverAddress().toString() << "Address";
-
     }
 }
 
@@ -68,7 +84,6 @@ void TCPController::newClient()
 {
     if (implementation->serverStatus == 1)
     {
-        qDebug() << QString::fromUtf8("New connection arrived!");
 
         QTcpSocket* clientSocket = tcpServer->nextPendingConnection();
 
@@ -77,6 +92,11 @@ void TCPController::newClient()
         implementation->SClients[idUserSocket] = clientSocket;
 
         connect(implementation->SClients[idUserSocket], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
+
+//        this->SClients();
+        emit tcpClientArrived();
+
+        qDebug() << QString::fromUtf8("New connection arrived: ") << clientSocket->localAddress().toString();
     }
 }
 

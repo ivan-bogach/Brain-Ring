@@ -12,6 +12,8 @@
 #include <controllers/tcp-controller.h>
 #include <models/game.h>
 #include <models/gamesearch.h>
+#include <models/tcpclient.h>
+#include <models/tcpclientslist.h>
 
 namespace br {
 namespace controllers {
@@ -27,7 +29,15 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
 
 
 public:
-    explicit CommandController(QObject* _parent = nullptr, TCPController* tcpController = nullptr,IDatabaseController* databaseController = nullptr, NavigationController* navigationController = nullptr, models::Game* newGame= nullptr, models::GameSearch* gameSearch = nullptr);
+    explicit CommandController(QObject* _parent = nullptr,
+                               TCPController* tcpController = nullptr,
+                               IDatabaseController* databaseController = nullptr,
+                               NavigationController* navigationController = nullptr,
+                               models::Game* newGame= nullptr,
+                               models::GameSearch* gameSearch = nullptr,
+                               models::TCPClient* tcpClient = nullptr,
+                               models::TCPClientsList* tcpClientsList = nullptr
+                               );
     ~CommandController();
 
 //QQmlListProperty enables QML to interact with a list of custom objects
@@ -49,7 +59,6 @@ public slots:
 
     void onStartServerExecuted();
     void onStopServerExecuted();
-
 
 private:
     class Implementation;

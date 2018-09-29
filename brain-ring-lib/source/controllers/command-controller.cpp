@@ -12,13 +12,22 @@ namespace controllers {
 class CommandController::Implementation
 {
 public:
-    Implementation(CommandController* _commandController,TCPController* _tcpController ,IDatabaseController* _databaseController, NavigationController* _navigationController, Game* _newGame, GameSearch* _gameSearch)
+    Implementation(CommandController* _commandController,
+                   TCPController* _tcpController,
+                   IDatabaseController* _databaseController,
+                   NavigationController* _navigationController,
+                   Game* _newGame, GameSearch* _gameSearch,
+                   TCPClient* _tcpClient,
+                   TCPClientsList* _tcpClientsList
+                   )
         : commandController(_commandController)
         , tcpController(_tcpController)
         , databaseController(_databaseController)
         , navigationController(_navigationController)
         , newGame(_newGame)
         , gameSearch(_gameSearch)
+        , tcpClient(_tcpClient)
+        , tcpClientsList(_tcpClientsList)
     {
         Command* createGameSaveCommand =  new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
 
@@ -42,6 +51,7 @@ public:
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
 
+
 //        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
 //        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
 //        gameViewContextCommands.append(stopServerCommand);
@@ -61,6 +71,10 @@ public:
 
     Game* selectedGame{nullptr};
 
+    TCPClient* tcpClient{nullptr};
+
+    TCPClientsList* tcpClientsList{nullptr};
+
     QList<Command*> createGameViewContextCommands{};
 
     QList<Command*> findGameViewContextCommands{};
@@ -70,10 +84,10 @@ public:
     QList<Command*> gameViewContextCommands{};
 };
 
-CommandController::CommandController(QObject *parent, TCPController* tcpController,IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch)
+CommandController::CommandController(QObject *parent, TCPController* tcpController,IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList)
     : QObject(parent)
 {
-    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame, gameSearch));
+    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame, gameSearch, tcpClient, tcpClientsList));
 }
 
 CommandController::~CommandController(){}
@@ -154,6 +168,7 @@ void CommandController::onStartServerExecuted()
 {
     qDebug() << "Command controller: You executed the Start command!";
     implementation->tcpController->startServer();
+//    implementation->tcpClientsList->scan();
     qDebug() << "Command controller: server started!";
 }
 

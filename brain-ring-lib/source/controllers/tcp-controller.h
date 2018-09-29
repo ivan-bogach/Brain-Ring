@@ -4,6 +4,10 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QByteArray>
+#include <QJsonArray>
+#include <QJsonValue>
+#include <QJsonObject>
+#include <QString>
 
 #include <QObject>
 #include <QScopedPointer>
@@ -20,6 +24,11 @@ class BRAINRINGLIBSHARED_EXPORT TCPController : public QObject
 public:
     explicit TCPController(QObject* parent = nullptr);
     ~TCPController();
+
+    QJsonArray SClients();
+
+signals:
+    void tcpClientArrived();
 
 public slots:
     void startServer();

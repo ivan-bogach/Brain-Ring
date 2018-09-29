@@ -14,5 +14,6 @@
         <file alias="AddQuestionPanel.qml">components/AddQuestionPanel.qml</file>
         <file alias="QuestionsList.qml">components/QuestionsList.qml</file>
         <file alias="QuestionsListPanel.qml">components/QuestionsListPanel.qml</file>
+        <file alias="IpList.qml">components/IpList.qml</file>
     </qresource>
 </RCC>
