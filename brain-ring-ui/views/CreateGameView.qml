@@ -14,19 +14,60 @@ Item {
     focus: true
     Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
 
-    AddQuestionPanel {
-        stringDecoratorNumber: newGame.ui_number
-        stringDecoratorText: newGame.ui_text
-    }
 
-        ListView {
-            model: gameSearch.ui_searchResults
 
-            delegate:
-                QuestionsList {
-                    game: modelData
-                }
+        Rectangle {
+            id: addQuestionRect
+            width: parent.width
+//            color: "green"
+            height: addQuestionPanel.height + 100
+
+            AddQuestionPanel {
+                id: addQuestionPanel
+                stringDecoratorNumber: newGame.ui_number
+                stringDecoratorText: newGame.ui_text
+            }
         }
+
+        Rectangle {
+
+            width: parent.width
+            anchors.top: addQuestionRect.bottom
+            anchors.bottom: commandBar.top
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+
+            ScrollView {
+                width: parent.width
+                height: parent.height
+
+
+                ListView {
+                    model: gameSearch.ui_searchResults
+
+                    delegate:
+                        QuestionsList {
+                            game: modelData
+                        }
+                }
+            }
+
+        }
+
+
+//    AddQuestionPanel {
+//        stringDecoratorNumber: newGame.ui_number
+//        stringDecoratorText: newGame.ui_text
+//    }
+
+//    ListView {
+//        model: gameSearch.ui_searchResults
+
+//        delegate:
+//            QuestionsList {
+//                game: modelData
+//            }
+//    }
 
 
 

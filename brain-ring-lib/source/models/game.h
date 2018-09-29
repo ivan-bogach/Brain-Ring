@@ -23,6 +23,8 @@ public:
     explicit Game(QObject* parent = nullptr);
     Game(QObject *parent, const QJsonObject& json);
 
+    const QString& num() const;
+
     data::StringDecorator* number{nullptr};
     data::StringDecorator* text{nullptr};
 

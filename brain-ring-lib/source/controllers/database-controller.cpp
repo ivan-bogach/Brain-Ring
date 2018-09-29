@@ -116,6 +116,7 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
     if(!query.exec()) return false;
 
 //int QSqlResult::numRowsAffected() - Returns the number of rows affected by the last query executed, or -1
+    qDebug() << "SAVED: " << QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact));
     return query.numRowsAffected() > 0;
 }
 

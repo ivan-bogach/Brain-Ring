@@ -20,5 +20,10 @@ Game::Game(QObject *parent, const QJsonObject &json)
     update(json);
 }
 
+const QString& Game::num() const
+{
+    return this->number->value();
+}
+
 }
 }

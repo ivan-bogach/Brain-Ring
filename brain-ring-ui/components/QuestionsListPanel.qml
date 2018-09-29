@@ -8,6 +8,7 @@ Item {
 
 
     Loader {
+
         id: contentLoader
 
         anchors.left: parent.left

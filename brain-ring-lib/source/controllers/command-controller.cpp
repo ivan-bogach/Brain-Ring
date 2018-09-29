@@ -103,7 +103,7 @@ void CommandController::onCreateGameSaveExecuted()
 {
     qDebug() << "You executed the Save command!";
 
-    implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->id(), implementation->newGame->toJson());
+    implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->num(), implementation->newGame->toJson());
 
 //    implementation->gameSearch->searchText()->setValue("*");
 //    implementation->gameSearch->searchText()->setValue(implementation->newGame->id());

@@ -6,7 +6,8 @@ Item {
 //    anchors.fill: parent
 //    implicitWidth: parent.width
 //    implicitHeight: text.implicitHeight
-
+    width: parent.width
+    height: text.height
 
     Text {
         id: text

@@ -43,6 +43,7 @@ Item {
 
             TextField {
                 id: numValue
+                validator: RegExpValidator { regExp: /[0-9]+/ }
                 anchors.fill: parent
                 font.pixelSize: 15
                 horizontalAlignment: TextInput.AlignHCenter
