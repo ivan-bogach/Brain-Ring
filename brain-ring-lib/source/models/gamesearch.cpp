@@ -31,6 +31,12 @@ GameSearch::GameSearch(QObject* parent, IDatabaseController* databaseController)
     implementation->searchResults = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "searchResults")));
 
     connect(implementation->searchResults, &EntityCollection<Game>::collectionChanged, this, &GameSearch::searchResultsChanged);
+
+/////////////////////////////////////////////////////////////////////////////
+    auto resultsArray = implementation->databaseControler->findAll("game");
+
+    implementation->searchResults->update(resultsArray);
+/////////////////////////////////////////////////////////////////////////////
 }
 
 GameSearch::~GameSearch(){}

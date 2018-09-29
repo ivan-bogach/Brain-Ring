@@ -61,7 +61,7 @@ private:
 //QSqlQuery::QSqlQuery(QSqlDatabase db) Constructs a QSqlQuery object using the database db
         QSqlQuery query(database);
 
-        QString sqlStatement = "CREATE TABLE IF NOT EXISTS " + tableName + " (id text primary key, json text not null)";
+        QString sqlStatement = "CREATE TABLE IF NOT EXISTS " + tableName + " (id integer primary key, json text not null)";
 
 //bool QSqlQuery::prepare(const QString &query) - Prepares the SQL query query for execution
         if(!query.prepare(sqlStatement)) return false;
@@ -221,10 +221,8 @@ QJsonArray DatabaseController::findAll(const QString &tableName) const
 
     QSqlQuery query(implementation->database);
 
-    QString sqlStatement = "select json from " + tableName;
+    QString sqlStatement = "select json from " + tableName + " order by id";
     if(!query.prepare(sqlStatement)) return {};
-
-//    query.bindValue(":searchText", QVariant("%" + searchText.toLower() + "%"));
 
     if(!query.exec()) return {};
 
