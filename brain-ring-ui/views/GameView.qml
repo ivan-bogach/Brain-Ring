@@ -16,14 +16,22 @@ Item {
 //        color: Style.colourTCPBar
 //    }
 
-    Rectangle {
-        width: parent.width
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.bottom: tcpBar.top
 
-        color: Style.colourTCPBar
-//        color: "red"
+    TCPBar {
+        id: tcpBar
+        commandList: masterController.ui_commandController.ui_gameViewContextCommands
+    }
+
+    Rectangle {
+        width: 500
+        height: 50
+
+        anchors.bottom: parent.bottom
+
+//        color: Style.colourTCPBar
+        color: "red"
+        anchors.horizontalCenter: parent.horizontalCenter
+//        anchors.verticalCenter: parent.verticalCenter
 
         ListView {
             width: parent.width
@@ -38,11 +46,6 @@ Item {
                     tcpClient: modelData
                 }
         }
-    }
-
-    TCPBar {
-        id: tcpBar
-        commandList: masterController.ui_commandController.ui_gameViewContextCommands
     }
 
 

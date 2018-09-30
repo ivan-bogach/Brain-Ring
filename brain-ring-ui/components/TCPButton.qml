@@ -7,16 +7,21 @@ Item {
 
     property bool isStarted: false
 
-    width:  Style.widthCommandButton
-    height: Style.heightCommandButton
+    property bool isCollapsed: false
+
+    anchors.fill: parent
+
 
     signal startButtonClicked()
 
     Rectangle {
         id: background
-        anchors.fill: parent
-        color: isStarted ? Style.colourTCPBar : Style.colourCommandBarBackground
+        width:  isCollapsed ? 0 : Style.widthTCPButton
+        height: Style.widthTCPButton
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
         radius: 50
+
 
 //        Text {
 //            id: textIcon
@@ -33,11 +38,12 @@ Item {
 
         Text {
             id: textDescription
-            anchors.top: textIcon.bottom
+            anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: Style.pixelSizeCommandBarText
+//            font.pixelSize: Style.pixelSizeCommandBarText
+            font.pixelSize: 10
             color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
             text: command.ui_description
             horizontalAlignment: Text.AlignHCenter
@@ -53,6 +59,7 @@ Item {
             onClicked: if(command.ui_canExecute) {
                            command.executed();
                            startButtonClicked();
+                           isCollapsed = true;
                        }
         }
 

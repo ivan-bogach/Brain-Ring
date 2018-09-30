@@ -50,6 +50,8 @@ Item {
     readonly property color colourShadow:	"#dedede"
 
     readonly property color colourTCPBar:	"#0F1120"
+    readonly property color colourTCPButton:	"#dedede"
+    readonly property real widthTCPButton: 30
 
     FontLoader {
         id: fontAwesomeLoader

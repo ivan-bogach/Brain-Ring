@@ -40,8 +40,10 @@ QJsonArray TCPController::SClients()
         int sizeIP =ip.size();
 
         jsonObject.insert("ip", QString(ip[sizeIP - 1]));
+
         qDebug() << "TCPController ip: " << i.value()->localAddress().toString();
         qDebug()  << "TCPController num: " << i.key();
+
         returnArray.append(QJsonValue(jsonObject));
     }
     return returnArray;

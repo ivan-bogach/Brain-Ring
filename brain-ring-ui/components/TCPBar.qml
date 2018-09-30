@@ -6,22 +6,27 @@ Item {
 
     property bool isCollapsed: false
 
+    anchors.top: isCollapsed ? parent.bottom : parent.top
     anchors.left: parent.left
     anchors.bottom: parent.bottom
     anchors.right: parent.right
 
-    height: isCollapsed ? 0 : 50
+
+
+//    height: isCollapsed ? 0 : 50
 
     Rectangle {
         anchors.fill: parent
         color: Style.colourTCPBar
 
         Row {
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
+//            anchors.top: parent.top
+//            anchors.bottom: parent.bottom
+//            anchors.right: parent.right
+            anchors.fill: parent
 
             Repeater {
+
                 id: commandRepeater
                 delegate: TCPButton {
                     onStartButtonClicked: isCollapsed = true

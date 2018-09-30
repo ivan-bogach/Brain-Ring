@@ -22,6 +22,7 @@ public:
     TCPClient(QObject *parent, const QJsonObject& json);
 
     data::StringDecorator* ip{nullptr};
+//    bool isConnected()
 };
 
 }
