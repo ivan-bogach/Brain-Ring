@@ -31,10 +31,28 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
 
     connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &TCPClientsList::scan);
 
-//    this->scan();
+//VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
+    int playersNumber = 5;
+    QJsonArray resultsArray;
+    QJsonObject jsonObject;
 
-//    auto resultsArray = implementation->tcpController->SClients();
-//    implementation->tcpClients->update(resultsArray);
+    for (int i =1; i <= playersNumber; ++i)
+    {
+        jsonObject.insert("number", "");
+        jsonObject.insert("ip", QString::number(i));
+        jsonObject.insert("isConnected", "");
+
+//-DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE
+//    QJsonDocument doc(jsonObject);
+//    QString strJson(doc.toJson(QJsonDocument::Compact));
+//    qDebug() << "TCPClientsList with " << strJson << " at " << QString::number(i);
+//-DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE
+
+    resultsArray.append(QJsonValue(jsonObject));
+
+    }
+
+    implementation->tcpClients->update(resultsArray);
 }
 
 TCPClientsList::~TCPClientsList(){}
@@ -46,8 +64,8 @@ QQmlListProperty<TCPClient> TCPClientsList::ui_tcpClients()
 
 void TCPClientsList::scan()
 {
-    qDebug() << "SIGNAL RECEIVED";
     auto resultsArray = implementation->tcpController->SClients();
+
     implementation->tcpClients->update(resultsArray);
     qDebug() << "TCPClientsList::scan ARRAY SIZE: " << QString::number(resultsArray.size());
 }

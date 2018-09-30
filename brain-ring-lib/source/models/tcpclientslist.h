@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QScopedPointer>
 #include <QtQml/QQmlListProperty>
+#include <QJsonDocument>
 
 #include <brain-ring-lib_global.h>
 #include <controllers/tcp-controller.h>

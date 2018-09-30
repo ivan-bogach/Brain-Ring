@@ -28,24 +28,61 @@ TCPController::~TCPController(){}
 QJsonArray TCPController::SClients()
 {
     qDebug() << "I`m here!!!!!!!!!!!!!!!!!!!!";
+
+ //VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
+    int clientsNumber = 5;
+ //-/////////////////////////////////////////////////////////////////////////
+    QMap<QString, bool> jsonMap;
+    for(int i = 1; i <= clientsNumber; ++i)
+    {
+        jsonMap[QString::number(i)] = false;
+    }
+
+    qDebug() << "At first jsonMap has " << QString::number(jsonMap.size()) << " elements";
+
+
     QJsonArray returnArray;
     QJsonObject jsonObject;
     QMapIterator<int, QTcpSocket *> i(implementation->SClients);
     while (i.hasNext())
     {
         i.next();
+
+
         jsonObject.insert("number", i.key());
 
-        QString ip = i.value()->localAddress().toString();
-        int sizeIP =ip.size();
+        QString entireIp = i.value()->peerAddress().toString();
+        int sizeIP =entireIp.size();
+        QString ip = QString(entireIp[sizeIP - 1]);
 
-        jsonObject.insert("ip", QString(ip[sizeIP - 1]));
 
-        qDebug() << "TCPController ip: " << i.value()->localAddress().toString();
+        jsonObject.insert("ip", ip);
+
+        jsonMap[ip] = true;
+
+
+        jsonObject.insert("isConnected", QString("true"));
+
+        qDebug() << "TCPController ip: " << i.value()->peerAddress().toString();
         qDebug()  << "TCPController num: " << i.key();
 
         returnArray.append(QJsonValue(jsonObject));
     }
+
+    qDebug() << "And then jsonMap has " << QString::number(jsonMap.size()) << " elements";
+
+    QMap<QString, bool>::iterator it = jsonMap.begin();
+    for(; it != jsonMap.end(); ++it)
+    {
+        if (it.value() == false)
+        {
+            jsonObject.insert("number", "");
+            jsonObject.insert("ip", it.key());
+            jsonObject.insert("isConnected", "");
+            returnArray.append(QJsonValue(jsonObject));
+        }
+    }
+
     return returnArray;
 }
 
@@ -99,10 +136,9 @@ void TCPController::newClient()
 
         connect(implementation->SClients[idUserSocket], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
 
-//        this->SClients();
         emit tcpClientArrived();
 
-        qDebug() << QString::fromUtf8("New connection arrived: ") << clientSocket->localAddress().toString();
+        qDebug() << QString::fromUtf8("New connection arrived: ") << clientSocket->peerAddress().toString();
     }
 }
 

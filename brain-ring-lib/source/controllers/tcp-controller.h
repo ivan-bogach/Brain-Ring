@@ -7,6 +7,7 @@
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonObject>
+#include <QJsonDocument>
 #include <QString>
 
 #include <QObject>

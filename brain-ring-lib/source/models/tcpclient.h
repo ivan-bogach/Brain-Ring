@@ -16,13 +16,14 @@ class BRAINRINGLIBSHARED_EXPORT TCPClient : public data::Entity
 {
     Q_OBJECT
     Q_PROPERTY(br::data::StringDecorator* ui_ip MEMBER ip CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_isConnected MEMBER isConnected CONSTANT)
 
 public:
     explicit TCPClient(QObject* parent = nullptr);
     TCPClient(QObject *parent, const QJsonObject& json);
 
     data::StringDecorator* ip{nullptr};
-//    bool isConnected()
+    data::StringDecorator* isConnected;
 };
 
 }

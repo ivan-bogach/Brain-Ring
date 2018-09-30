@@ -112,7 +112,7 @@ public:
             collection.append(entity);
             EntityCollectionObject::collectionChanged();
         }
-        qDebug() << "EntityCollection AddEntity";
+//        qDebug() << "EntityCollection AddEntity";
         return entity;
     }
 
