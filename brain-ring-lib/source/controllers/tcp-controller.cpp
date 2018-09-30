@@ -49,7 +49,7 @@ QJsonArray TCPController::SClients()
         i.next();
 
 
-        jsonObject.insert("number", i.key());
+//        jsonObject.insert("number", i.key());
 
         QString entireIp = i.value()->peerAddress().toString();
         int sizeIP =entireIp.size();
@@ -61,26 +61,29 @@ QJsonArray TCPController::SClients()
         jsonMap[ip] = true;
 
 
-        jsonObject.insert("isConnected", QString("true"));
+//        jsonObject.insert("isConnected", QString("true"));
 
-        qDebug() << "TCPController ip: " << i.value()->peerAddress().toString();
-        qDebug()  << "TCPController num: " << i.key();
+//        qDebug() << "TCPController ip: " << i.value()->peerAddress().toString();
+//        qDebug()  << "TCPController num: " << i.key();
 
-        returnArray.append(QJsonValue(jsonObject));
+//        returnArray.append(QJsonValue(jsonObject));
     }
-
-    qDebug() << "And then jsonMap has " << QString::number(jsonMap.size()) << " elements";
 
     QMap<QString, bool>::iterator it = jsonMap.begin();
     for(; it != jsonMap.end(); ++it)
     {
-        if (it.value() == false)
+        if(it.value() == false)
         {
-            jsonObject.insert("number", "");
             jsonObject.insert("ip", it.key());
             jsonObject.insert("isConnected", "");
-            returnArray.append(QJsonValue(jsonObject));
         }
+        else if(it.value() == true)
+        {
+            jsonObject.insert("ip", it.key());
+            jsonObject.insert("isConnected", "true");
+
+        }
+        returnArray.append(QJsonValue(jsonObject));
     }
 
     return returnArray;

@@ -3,6 +3,9 @@ import BR 1.0
 
 Item {
     property TCPClient tcpClient
+
+    property bool isConnected: tcpClient.ui_isConnected.ui_value
+
 //    anchors.fill: parent
 //    implicitWidth: parent.width
 //    implicitHeight: text.implicitHeight
@@ -16,10 +19,16 @@ Item {
         radius: 50
         Text {
             anchors.centerIn: parent
-            color: "red"
+            color: isConnected ? "red" : "blue"
             id: text
             text: tcpClient.ui_ip.ui_value
         }
+//        Text {
+//            anchors.centerIn: parent
+//            color: isConnected ? "red" : "blue"
+//            id: ext
+//            text: tcpClient.ui_ip.ui_value
+//        }
     }
 
 }
