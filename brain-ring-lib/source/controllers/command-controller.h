@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QtQml/QQmlListProperty>
 
-
 #include <brain-ring-lib_global.h>
 #include <framework/command.h>
 #include <controllers/i-database-controller.h>

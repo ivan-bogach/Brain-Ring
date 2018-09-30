@@ -5,26 +5,31 @@ import assets 1.0
 Item {
     property Command command
 
+    property bool isStarted: false
+
     width:  Style.widthCommandButton
     height: Style.heightCommandButton
+
+    signal startButtonClicked()
 
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourCommandBarBackground
+        color: isStarted ? Style.colourTCPBar : Style.colourCommandBarBackground
+        radius: 50
 
-        Text {
-            id: textIcon
-            anchors.centerIn: parent
-            anchors.verticalCenterOffset: -10
-            font {
-                family: Style.fontAwesome
-                pixelSize: Style.pixelSizeCommandBarIcon
-            }
-            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
-            text: command.ui_iconCharacter
-            horizontalAlignment: Text.AlignHCenter
-        }
+//        Text {
+//            id: textIcon
+//            anchors.centerIn: parent
+//            anchors.verticalCenterOffset: -10
+//            font {
+//                family: Style.fontAwesome
+//                pixelSize: Style.pixelSizeCommandBarIcon
+//            }
+//            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
+//            text: command.ui_iconCharacter
+//            horizontalAlignment: Text.AlignHCenter
+//        }
 
         Text {
             id: textDescription
@@ -47,6 +52,7 @@ Item {
             onExited: background.state = ""
             onClicked: if(command.ui_canExecute) {
                            command.executed();
+                           startButtonClicked();
                        }
         }
 

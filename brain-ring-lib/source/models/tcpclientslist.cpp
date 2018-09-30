@@ -20,7 +20,7 @@ public:
 };
 
 TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
-    : Entity(parent, "TCP Clients List")
+    : Entity(parent, "TCPClientsList")
 {
     qDebug() << "tcp clients list initialized";
     implementation.reset(new Implementation(this, tcpController));
@@ -28,6 +28,7 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
 
 
     connect(implementation->tcpClients, &EntityCollection<TCPClient>::collectionChanged, this, &TCPClientsList::tcpClientsListChanged);
+
     connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &TCPClientsList::scan);
 
 //    this->scan();
@@ -48,7 +49,7 @@ void TCPClientsList::scan()
     qDebug() << "SIGNAL RECEIVED";
     auto resultsArray = implementation->tcpController->SClients();
     implementation->tcpClients->update(resultsArray);
-    qDebug() << "TCPClientsList::scan EMTY ARRAY? " << resultsArray.isEmpty();
+    qDebug() << "TCPClientsList::scan ARRAY SIZE: " << QString::number(resultsArray.size());
 }
 
 }}

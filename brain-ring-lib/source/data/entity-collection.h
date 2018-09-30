@@ -2,6 +2,7 @@
 #define ENTITYCOLLECTION_H
 
 #include <QObject>
+#include <QDebug>
 #include <QJsonArray>
 #include<QJsonValue>
 
@@ -84,6 +85,7 @@ public:
         {
             addEntity(new T(this, jsonValue.toObject()));
         }
+
     }
 
 //creating a new vector on request and populating it with all the items in the collection
@@ -110,6 +112,7 @@ public:
             collection.append(entity);
             EntityCollectionObject::collectionChanged();
         }
+        qDebug() << "EntityCollection AddEntity";
         return entity;
     }
 

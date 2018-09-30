@@ -4,11 +4,13 @@ import assets 1.0
 Item {
     property alias  commandList: commandRepeater.model
 
+    property bool isCollapsed: false
+
     anchors.left: parent.left
     anchors.bottom: parent.bottom
     anchors.right: parent.right
 
-    height: Style.heightCommandBar
+    height: isCollapsed ? 0 : 50
 
     Rectangle {
         anchors.fill: parent
@@ -22,6 +24,7 @@ Item {
             Repeater {
                 id: commandRepeater
                 delegate: TCPButton {
+                    onStartButtonClicked: isCollapsed = true
                     command: modelData
                 }
             }

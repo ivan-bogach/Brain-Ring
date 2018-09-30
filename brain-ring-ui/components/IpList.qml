@@ -6,12 +6,20 @@ Item {
 //    anchors.fill: parent
 //    implicitWidth: parent.width
 //    implicitHeight: text.implicitHeight
-    width: parent.width
+    width: text.width
     height: text.height
 
-    Text {
-        color: "red"
-        id: text
-        text: " ip:" + tcpClient.ui_ip.ui_value + "."
+    Rectangle {
+        width: 30
+        height: 30
+        color: "#ffffff"
+        radius: 50
+        Text {
+            anchors.centerIn: parent
+            color: "red"
+            id: text
+            text: tcpClient.ui_ip.ui_value
+        }
     }
+
 }
