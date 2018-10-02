@@ -38,8 +38,20 @@ Item {
                 color: Style.colourNavigationBarFont
                 text: "SET ME!!!"
 
+
             }
+
+
         }
+//RIGHT BORDER
+            Rectangle {
+                id: border
+                color: parent.color
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                width: parent.width/50
+            }
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
@@ -55,6 +67,10 @@ Item {
                 PropertyChanges {
                     target: background
                     color: hoverColour
+                }
+                PropertyChanges {
+                    target: border
+                    color: "#bf080a"
                 }
             }
         ]

@@ -5,6 +5,7 @@ Item {
     property alias fontAwesome: fontAwesomeLoader.name
 
     property alias imageDashboard: imageDashboardLoader.source
+    property alias imageLogo: logoLoader.source
 
     readonly property real sizeScreenMargine: 20
     readonly property color colourBackground: "#efefef"
@@ -62,6 +63,12 @@ Item {
     Image {
         id: imageDashboardLoader
         source: "ring.jpg"
+    }
+
+
+    Image {
+        id: logoLoader
+        source: "logo.png"
     }
 
 }

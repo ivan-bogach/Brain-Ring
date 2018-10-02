@@ -23,6 +23,16 @@ Item {
         color: Style.colourNavigationBarBackground
 //        width: parent.width
 
+        Image {
+            id: logo
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: 15
+            width: parent.width
+
+            source: Style.imageLogo
+        }
+
 
         Column {
             anchors.centerIn: parent

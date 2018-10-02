@@ -4,5 +4,6 @@
         <file alias="qmldir">assets/qmldir</file>
         <file alias="ring.jpg">assets/ring.jpg</file>
         <file alias="fontawesome.ttf">assets/fontawesome-webfont.ttf</file>
+        <file alias="logo.png">assets/logo.png</file>
     </qresource>
 </RCC>
