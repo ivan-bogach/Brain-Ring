@@ -8,10 +8,11 @@ Item {
     width:  Style.widthCommandButton
     height: Style.heightCommandButton
 
+
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourCommandBarBackground
+//        color: Style.colourCommandBarBackground
 
         Text {
             id: textIcon

@@ -11,13 +11,16 @@ Item {
     property StringDecorator stringDecoratorNumber
     property StringDecorator stringDecoratorText
 
+    focus: true
+
     Grid {
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
         columns: 2
         spacing: 9
+//first raw
         Rectangle {
-            width: 50
+            width: parent.width/12
             height: 15
 
             Text {
@@ -28,7 +31,7 @@ Item {
         }
 
         Rectangle {
-            width: 500
+            width: parent.width*0.9
             height: 15
 
             Text {
@@ -37,9 +40,9 @@ Item {
                 text: qsTr("Вопрос:")
             }
         }
-
+//second raw
         Rectangle {
-            width: 50
+            width: parent.width/12
             height: 50
 
             border.width: 1
@@ -67,7 +70,7 @@ Item {
         }
 
         Rectangle {
-            width: 500
+            width: parent.width*0.9
             height: 50
 
             border.width: 1

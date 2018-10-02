@@ -15,13 +15,8 @@ Item {
 
     Rectangle {
         Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
-//        id: navigationBar
-//        anchors.top: parent.top
-//        anchors.bottom: parent.bottom
-//        anchors.left: parent.left
         anchors.fill: parent
         color: Style.colourNavigationBarBackground
-//        width: parent.width
 
         Image {
             id: logo

@@ -11,8 +11,8 @@ Window {
 //=========================================================================
 
     visible: true
-    width: 720
-    height: 450
+    width: 920
+    height: 550
     title: qsTr("Brain Ring")
 //    Item replace(target, item, properties, operation)
 
