@@ -4,10 +4,11 @@ import QtQuick 2.0
 Item {
     property alias fontAwesome: fontAwesomeLoader.name
 
+    property alias imageDashboard: imageDashboardLoader.source
+
     readonly property real sizeScreenMargine: 20
     readonly property color colourBackground: "#efefef"
 
-    property alias imageDashboard: imageDashboardLoader.source
 
     readonly property real widthNavigationButton: widthNavigationBar - leftMarginNavigationButton
     readonly property real heightNavigationButton: 2.5*pixelSizeNavigationBarFont
@@ -62,5 +63,6 @@ Item {
         id: imageDashboardLoader
         source: "ring.jpg"
     }
+
 }
 

@@ -15,61 +15,41 @@ Item {
     Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
 
 
+    Rectangle {
+        id: addQuestionRect
+        width: parent.width
+        height: addQuestionPanel.height + 100
 
-        Rectangle {
-            id: addQuestionRect
+
+        AddQuestionPanel {
+            id: addQuestionPanel
+            stringDecoratorNumber: newGame.ui_number
+            stringDecoratorText: newGame.ui_text
+        }
+    }
+
+    Rectangle {
+
+        width: parent.width
+        anchors.top: addQuestionRect.bottom
+        anchors.bottom: commandBar.top
+
+        ScrollView {
             width: parent.width
-//            color: "green"
-            height: addQuestionPanel.height + 100
+            height: parent.height
 
-            AddQuestionPanel {
-                id: addQuestionPanel
-                stringDecoratorNumber: newGame.ui_number
-                stringDecoratorText: newGame.ui_text
+
+            ListView {
+                model: gameSearch.ui_searchResults
+
+                delegate:
+                    QuestionsList {
+                        game: modelData
+                    }
             }
         }
 
-        Rectangle {
-
-            width: parent.width
-            anchors.top: addQuestionRect.bottom
-            anchors.bottom: commandBar.top
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
-
-            ScrollView {
-                width: parent.width
-                height: parent.height
-
-
-                ListView {
-                    model: gameSearch.ui_searchResults
-
-                    delegate:
-                        QuestionsList {
-                            game: modelData
-                        }
-                }
-            }
-
-        }
-
-
-//    AddQuestionPanel {
-//        stringDecoratorNumber: newGame.ui_number
-//        stringDecoratorText: newGame.ui_text
-//    }
-
-//    ListView {
-//        model: gameSearch.ui_searchResults
-
-//        delegate:
-//            QuestionsList {
-//                game: modelData
-//            }
-//    }
-
-
+    }
 
     CommandBar {
         id: commandBar

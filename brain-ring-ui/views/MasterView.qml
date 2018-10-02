@@ -12,8 +12,8 @@ Window {
 
     visible: true
     width: 720
-    height: 480
-    title: qsTr("Hello World")
+    height: 450
+    title: qsTr("Brain Ring")
 //    Item replace(target, item, properties, operation)
 
 //A Connections object creates a connection to a QML signal

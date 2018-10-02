@@ -15,14 +15,17 @@ Item {
 
     Rectangle {
         Component.onCompleted: contentFrame.replace("qrc:/views/DashboardView.qml");
-        id: navigationBar
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
+//        id: navigationBar
+//        anchors.top: parent.top
+//        anchors.bottom: parent.bottom
+//        anchors.left: parent.left
+        anchors.fill: parent
         color: Style.colourNavigationBarBackground
-        width: parent.width
+//        width: parent.width
+
 
         Column {
+            anchors.centerIn: parent
             width: parent.width
             NavigationButton {
                 btnText: "ИГРАТЬ"
@@ -47,12 +50,13 @@ Item {
                 }
             }
 
-            NavigationButton {
-                btnText: "ВЫХОД"
-                onNavigationButtonClicked: {
-                    masterController.ui_navigationController.goDashboardView();
-                    isCollapsed = false
-                }
+        }
+        NavigationButton {
+            anchors.bottom: parent.bottom
+            btnText: "ВЫХОД"
+            onNavigationButtonClicked: {
+                masterController.ui_navigationController.goDashboardView();
+                isCollapsed = false
             }
         }
     }

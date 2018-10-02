@@ -6,7 +6,7 @@ Item {
 
     Image {
         anchors.fill: parent
-        id: name
+        id: ring
         source: Style.imageDashboard
     }
 

@@ -6,10 +6,13 @@ Item {
 //    anchors.fill: parent
     width: parent.width
 
+
+
     property StringDecorator stringDecoratorNumber
     property StringDecorator stringDecoratorText
 
     Grid {
+        width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
         columns: 2
         spacing: 9
