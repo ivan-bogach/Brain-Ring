@@ -27,11 +27,11 @@ Item {
                 id: textQuestion
                 color: "#aaaaaa"
                 font.pixelSize: 20
-                text: "Вопрос №" + game.ui_number.ui_value
+                text: "Вопрос " + game.ui_number.ui_value
             }
             Text {
                 id: text
-                width: parent.width * 0.9
+                width: parent.width * 0.7
                 wrapMode: Text.WordWrap
                 font.pixelSize: 20
                 text: "   " + game.ui_text.ui_value + "."
