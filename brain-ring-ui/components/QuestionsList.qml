@@ -3,11 +3,9 @@ import BR 1.0
 
 Item {
     property Game game
-//    anchors.fill: parent
-//    implicitWidth: parent.width
-//    implicitHeight: text.implicitHeight
+
     width: parent.width
-    height: text.height
+    height: text.height*1.2
 
     Rectangle {
         width: parent.width
@@ -19,9 +17,11 @@ Item {
 
         Row{
             anchors.fill: parent
-            anchors.leftMargin: parent.width/20
+            anchors.leftMargin: 10
             anchors.topMargin: parent.height/20
             anchors.bottomMargin: parent.height/20
+
+            clip: true
 
             Text {
                 id: textQuestion
@@ -31,7 +31,8 @@ Item {
             }
             Text {
                 id: text
-                wrapMode: wrap
+                width: parent.width * 0.9
+                wrapMode: Text.WordWrap
                 font.pixelSize: 20
                 text: "   " + game.ui_text.ui_value + "."
             }

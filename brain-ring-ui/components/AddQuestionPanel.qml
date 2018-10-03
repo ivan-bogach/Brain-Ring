@@ -20,7 +20,7 @@ Item {
         spacing: 9
 //first raw
         Rectangle {
-            width: parent.width/12
+            width: 50
             height: 15
 
             Text {
@@ -42,7 +42,7 @@ Item {
         }
 //second raw
         Rectangle {
-            width: parent.width/12
+            width: 50
             height: 50
 
             border.width: 1
