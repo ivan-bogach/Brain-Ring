@@ -8,6 +8,7 @@ Item {
     height: text.height*1.2
 
     Rectangle {
+        id: background
         width: parent.width
         height: parent.height
 
@@ -24,22 +25,48 @@ Item {
             clip: true
 
             Text {
-                id: textQuestion
+                id: numQuestion
                 color: "#aaaaaa"
                 font.pixelSize: 20
                 text: "Вопрос " + game.ui_number.ui_value
             }
             Text {
                 id: text
-                width: parent.width * 0.7
+                anchors.left: numQuestion.right
+                anchors.leftMargin: 15
+                width: parent.width * 0.8
                 wrapMode: Text.WordWrap
                 font.pixelSize: 20
-                text: "   " + game.ui_text.ui_value + "."
+                text: "   " + game.ui_text.ui_value
             }
-        }
 
     }
+        MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            hoverEnabled: true
+            onEntered: background.state = "hover"
+            onExited: background.state = ""
+            onClicked: masterController.selectClient(game)
+        }
 
-
+        states: [
+            State {
+                name: "hover"
+                PropertyChanges {
+                    target: background
+                    color: "#ebf5fe"
+                }
+                PropertyChanges {
+                    target: numQuestion
+                    color : "#409cf9"
+                }
+                PropertyChanges {
+                    target: text
+                    font.italic: true
+                }
+            }
+        ]
+    }
 }
 
