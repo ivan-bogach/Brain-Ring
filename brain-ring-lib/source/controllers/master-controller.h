@@ -65,7 +65,7 @@ public:
 signals:
 
 public slots:
-    void selectGame(br::models::Game* game);
+//    void selectGame(br::models::Game* game);
 
 private:
     class Implementation;

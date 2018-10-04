@@ -32,9 +32,9 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<br::controllers::TCPController>("BR", 1, 0, "TCPController");
 
-    qmlRegisterType<br::data::DateTimeDecorator>("BR", 1, 0, "DateTimeDecorator");
-    qmlRegisterType<br::data::EnumeratorDecorator>("BR", 1, 0, "EnumeratorDecorator");
-    qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");
+//    qmlRegisterType<br::data::DateTimeDecorator>("BR", 1, 0, "DateTimeDecorator");
+//    qmlRegisterType<br::data::EnumeratorDecorator>("BR", 1, 0, "EnumeratorDecorator");
+//    qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");
     qmlRegisterType<br::data::StringDecorator>("BR", 1, 0, "StringDecorator");
 
     qmlRegisterType<br::models::Game>("BR", 1, 0, "Game");

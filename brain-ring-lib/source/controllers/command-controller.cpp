@@ -35,17 +35,17 @@ public:
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
         createGameViewContextCommands.append(createGameSaveCommand);
 
-        Command* findGameSearchCommand = new Command(commandController, QChar( 0xf002 ), "Поиск");
-        QObject::connect(findGameSearchCommand, &Command::executed, commandController, &CommandController::onFindGameSearchExecuted);
-        findGameViewContextCommands.append(findGameSearchCommand);
+//        Command* findGameSearchCommand = new Command(commandController, QChar( 0xf002 ), "Поиск");
+//        QObject::connect(findGameSearchCommand, &Command::executed, commandController, &CommandController::onFindGameSearchExecuted);
+//        findGameViewContextCommands.append(findGameSearchCommand);
 
-        Command* editGameSaveCommand = new Command(commandController, QChar( 0xf0c7), "Сохранить");
-        QObject::connect(editGameSaveCommand, &Command::executed, commandController, &CommandController::onEditGameSaveExecuted);
-        editGameViewContextCommands.append(editGameSaveCommand);
+//        Command* editGameSaveCommand = new Command(commandController, QChar( 0xf0c7), "Сохранить");
+//        QObject::connect(editGameSaveCommand, &Command::executed, commandController, &CommandController::onEditGameSaveExecuted);
+//        editGameViewContextCommands.append(editGameSaveCommand);
 
-        Command* editGameDeleteCommand = new Command(commandController, QChar( 0xf0c7), "Удалить");
-        QObject::connect(editGameDeleteCommand, &Command::executed, commandController, &CommandController::onEditGameDeleteExecuted);
-        editGameViewContextCommands.append(editGameDeleteCommand);
+//        Command* editGameDeleteCommand = new Command(commandController, QChar( 0xf0c7), "Удалить");
+//        QObject::connect(editGameDeleteCommand, &Command::executed, commandController, &CommandController::onEditGameDeleteExecuted);
+//        editGameViewContextCommands.append(editGameDeleteCommand);
 
         Command* startServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
@@ -77,9 +77,9 @@ public:
 
     QList<Command*> createGameViewContextCommands{};
 
-    QList<Command*> findGameViewContextCommands{};
+//    QList<Command*> findGameViewContextCommands{};
 
-    QList<Command*> editGameViewContextCommands{};
+//    QList<Command*> editGameViewContextCommands{};
 
     QList<Command*> gameViewContextCommands{};
 };
@@ -97,15 +97,15 @@ QQmlListProperty<Command> CommandController::ui_createGameViewContextCommands()
     return QQmlListProperty<Command>(this, implementation->createGameViewContextCommands);
 }
 
-QQmlListProperty<Command> CommandController::ui_findGameViewContextCommands()
-{
-    return QQmlListProperty<Command>(this, implementation->findGameViewContextCommands);
-}
+//QQmlListProperty<Command> CommandController::ui_findGameViewContextCommands()
+//{
+//    return QQmlListProperty<Command>(this, implementation->findGameViewContextCommands);
+//}
 
-QQmlListProperty<Command> CommandController::ui_editGameViewContextCommands()
-{
-    return QQmlListProperty<Command>(this, implementation->editGameViewContextCommands);
-}
+//QQmlListProperty<Command> CommandController::ui_editGameViewContextCommands()
+//{
+//    return QQmlListProperty<Command>(this, implementation->editGameViewContextCommands);
+//}
 
 
 QQmlListProperty<Command> CommandController::ui_gameViewContextCommands()
@@ -130,39 +130,39 @@ void CommandController::onCreateGameSaveExecuted()
     qDebug() << "New client saved.";
 }
 
-void CommandController::onFindGameSearchExecuted()
-{
-    qDebug() << "You executed the Search command";
+//void CommandController::onFindGameSearchExecuted()
+//{
+//    qDebug() << "You executed the Search command";
 
-    implementation->gameSearch->search();
-}
+//    implementation->gameSearch->search();
+//}
 
-void CommandController::onEditGameSaveExecuted()
-{
-    qDebug() << "You executed Save command";
+//void CommandController::onEditGameSaveExecuted()
+//{
+//    qDebug() << "You executed Save command";
 
-    implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->id(), implementation->selectedGame->toJson());
+//    implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->id(), implementation->selectedGame->toJson());
 
-    qDebug() << "Udated game saved";
-}
+//    qDebug() << "Udated game saved";
+//}
 
 void CommandController::setSelectedGame(Game *game)
 {
     implementation->selectedGame = game;
 }
 
-void CommandController::onEditGameDeleteExecuted()
-{
-    qDebug() << "You executed the Delete command!";
+//void CommandController::onEditGameDeleteExecuted()
+//{
+//    qDebug() << "You executed the Delete command!";
 
-    implementation->databaseController->deleteRow(implementation->selectedGame->key(), implementation->selectedGame->id());
-    implementation->selectedGame = nullptr;
+//    implementation->databaseController->deleteRow(implementation->selectedGame->key(), implementation->selectedGame->id());
+//    implementation->selectedGame = nullptr;
 
-    qDebug() << "Game Deleted";
+//    qDebug() << "Game Deleted";
 
-    implementation->gameSearch->search();
-    implementation->navigationController->goDashboardView();
-}
+//    implementation->gameSearch->search();
+//    implementation->navigationController->goDashboardView();
+//}
 
 void CommandController::onStartServerExecuted()
 {

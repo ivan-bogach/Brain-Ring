@@ -88,10 +88,10 @@ TCPClientsList* MasterController::tcpClientList()
     return implementation->tcpClientList;
 }
 
-void MasterController::selectGame(Game *game)
-{
-    implementation->navigationController->goEditGameView(game);
-}
+//void MasterController::selectGame(Game *game)
+//{
+//    implementation->navigationController->goEditGameView(game);
+//}
 
 }}
 

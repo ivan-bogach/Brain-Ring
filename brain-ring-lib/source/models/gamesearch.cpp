@@ -51,16 +51,16 @@ QQmlListProperty<Game> GameSearch::ui_searchResults()
     return QQmlListProperty<Game>(this, implementation->searchResults->derivedEntities());
 }
 
-void GameSearch::search()
-{
-    qDebug() << "Searching for " << implementation->searchText->value() << "...";
+//void GameSearch::search()
+//{
+//    qDebug() << "Searching for " << implementation->searchText->value() << "...";
 
-    auto resultsArray = implementation->databaseControler->find("game", implementation->searchText->value());
+//    auto resultsArray = implementation->databaseControler->find("game", implementation->searchText->value());
 
-    implementation->searchResults->update(resultsArray);
+//    implementation->searchResults->update(resultsArray);
 
-    qDebug() << "Found " << implementation->searchResults->baseEntities().size() << " matches";
-}
+//    qDebug() << "Found " << implementation->searchResults->baseEntities().size() << " matches";
+//}
 
 void GameSearch::searchAll()
 {

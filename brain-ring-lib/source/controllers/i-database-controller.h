@@ -19,11 +19,11 @@ public:
     virtual ~IDatabaseController(){}
 
     virtual bool createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const = 0;
-    virtual bool deleteRow(const QString& tableName, const QString& id) const = 0;
-    virtual QJsonArray find(const QString& tableName, const QString& searchText) const = 0;
+//    virtual bool deleteRow(const QString& tableName, const QString& id) const = 0;
+//    virtual QJsonArray find(const QString& tableName, const QString& searchText) const = 0;
     virtual QJsonArray findAll(const QString& tableName) const = 0;
-    virtual QJsonObject readRow(const QString& tableName, const QString& id) const = 0;
-    virtual bool updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const = 0;
+//    virtual QJsonObject readRow(const QString& tableName, const QString& id) const = 0;
+//    virtual bool updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const = 0;
 };
 
 }
