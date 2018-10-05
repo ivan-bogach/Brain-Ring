@@ -3,13 +3,10 @@ import QtQuick.Controls 1.4
 import BR 1.0
 
 Item {
-//    anchors.fill: parent
-    width: parent.width
-
-
-
     property StringDecorator stringDecoratorNumber
     property StringDecorator stringDecoratorText
+
+    width: parent.width
 
     focus: true
 

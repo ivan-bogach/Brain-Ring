@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.4
 import BR 1.0
 
 Item {
@@ -47,7 +48,30 @@ Item {
             hoverEnabled: true
             onEntered: background.state = "hover"
             onExited: background.state = ""
-            onClicked: masterController.selectClient(game)
+            onClicked: {
+                popup.open()
+//                masterController.selectClient(game)
+            }
+
+        }
+
+        Popup {
+            id: popup
+            anchors.centerIn: background
+            width: background.width - 30
+            height: background.height - 30
+            modal: true
+            focus: true
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+            TextField {
+                anchors.fill: parent
+                height: children.height
+                font.pixelSize: 15
+                wrapMode: TextField.WordWrap
+                text: text.text
+            }
+
         }
 
         states: [

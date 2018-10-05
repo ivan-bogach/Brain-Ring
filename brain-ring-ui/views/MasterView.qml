@@ -7,7 +7,7 @@ import assets 1.0
 Window {
 
 //=========================================================================
-//    onActiveFocusItemChanged: print("activeFocusItem", activeFocusItem)//==
+    onActiveFocusItemChanged: print("activeFocusItem", activeFocusItem)//==
 //=========================================================================
 
     visible: true
