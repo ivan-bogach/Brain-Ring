@@ -6,6 +6,7 @@
 
 #include <brain-ring-lib_global.h>
 #include <framework/command.h>
+#include <framework/tcpclientcommand.h>
 #include <controllers/i-database-controller.h>
 #include <controllers/navigation-controller.h>
 #include <controllers/tcp-controller.h>
@@ -25,6 +26,7 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
 //    Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_editGameViewContextCommands READ ui_editGameViewContextCommands CONSTANT)
 
     Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_gameViewContextCommands READ ui_gameViewContextCommands CONSTANT)
+    Q_PROPERTY(QQmlListProperty <br::framework::TCPClientCommand> ui_gameViewContextTCPClientCommands READ ui_gameViewContextTCPClientCommands CONSTANT)
 
 
 public:
@@ -39,12 +41,14 @@ public:
                                );
     ~CommandController();
 
-//QQmlListProperty enables QML to interact with a list of custom objects
     QQmlListProperty<framework::Command> ui_createGameViewContextCommands();
+    QQmlListProperty<framework::Command> ui_gameViewContextCommands();
+    QQmlListProperty<framework::TCPClientCommand> ui_gameViewContextTCPClientCommands();
+
+
+    //QQmlListProperty enables QML to interact with a list of custom objects
 //    QQmlListProperty<framework::Command> ui_findGameViewContextCommands();
 //    QQmlListProperty<framework::Command> ui_editGameViewContextCommands();
-
-    QQmlListProperty<framework::Command> ui_gameViewContextCommands();
 
 signals:
 
@@ -58,6 +62,8 @@ public slots:
 
     void onStartServerExecuted();
     void onStopServerExecuted();
+
+    void onTCPClientExecuted();
 
 private:
     class Implementation;

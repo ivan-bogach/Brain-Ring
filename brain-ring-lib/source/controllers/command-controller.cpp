@@ -51,6 +51,16 @@ public:
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
 
+        for (int i = 0; i <= tcpController->SClients().size(); ++i)
+        {
+            QString str = QString::number(i);
+            TCPClientCommand* tcpClientCommand = new TCPClientCommand(commandController, str, str + ".png");
+            QObject::connect(tcpClientCommand, &TCPClientCommand::executed, commandController, &CommandController::onTCPClientExecuted);
+            gameViewContextTCPClientCommands.append(tcpClientCommand);
+
+        }
+
+
 
 //        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
 //        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
@@ -77,11 +87,13 @@ public:
 
     QList<Command*> createGameViewContextCommands{};
 
+    QList<Command*> gameViewContextCommands{};
+
+    QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
+
 //    QList<Command*> findGameViewContextCommands{};
 
 //    QList<Command*> editGameViewContextCommands{};
-
-    QList<Command*> gameViewContextCommands{};
 };
 
 CommandController::CommandController(QObject *parent, TCPController* tcpController,IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList)
@@ -97,20 +109,16 @@ QQmlListProperty<Command> CommandController::ui_createGameViewContextCommands()
     return QQmlListProperty<Command>(this, implementation->createGameViewContextCommands);
 }
 
-//QQmlListProperty<Command> CommandController::ui_findGameViewContextCommands()
-//{
-//    return QQmlListProperty<Command>(this, implementation->findGameViewContextCommands);
-//}
-
-//QQmlListProperty<Command> CommandController::ui_editGameViewContextCommands()
-//{
-//    return QQmlListProperty<Command>(this, implementation->editGameViewContextCommands);
-//}
 
 
 QQmlListProperty<Command> CommandController::ui_gameViewContextCommands()
 {
     return QQmlListProperty<Command>(this, implementation->gameViewContextCommands);
+}
+
+QQmlListProperty<TCPClientCommand> CommandController::ui_gameViewContextTCPClientCommands()
+{
+    return QQmlListProperty<TCPClientCommand>(this, implementation->gameViewContextTCPClientCommands);
 }
 
 void CommandController::onCreateGameSaveExecuted()
@@ -130,6 +138,34 @@ void CommandController::onCreateGameSaveExecuted()
     qDebug() << "New client saved.";
 }
 
+void CommandController::onTCPClientExecuted()
+{
+    qDebug() << "You executed TCP client click!!!";
+}
+
+
+void CommandController::setSelectedGame(Game *game)
+{
+    implementation->selectedGame = game;
+}
+
+
+void CommandController::onStartServerExecuted()
+{
+    qDebug() << "Command controller: You executed the Start command!";
+    implementation->tcpController->startServer();
+//    implementation->tcpClientsList->scan();
+    qDebug() << "Command controller: server started!";
+}
+
+
+void CommandController::onStopServerExecuted()
+{
+    qDebug() << "Command controller: You executed the STOP command!";
+    implementation->tcpController->stopServer();
+    qDebug() << "Command controller: server stoped!";
+}
+
 //void CommandController::onFindGameSearchExecuted()
 //{
 //    qDebug() << "You executed the Search command";
@@ -146,11 +182,6 @@ void CommandController::onCreateGameSaveExecuted()
 //    qDebug() << "Udated game saved";
 //}
 
-void CommandController::setSelectedGame(Game *game)
-{
-    implementation->selectedGame = game;
-}
-
 //void CommandController::onEditGameDeleteExecuted()
 //{
 //    qDebug() << "You executed the Delete command!";
@@ -164,20 +195,15 @@ void CommandController::setSelectedGame(Game *game)
 //    implementation->navigationController->goDashboardView();
 //}
 
-void CommandController::onStartServerExecuted()
-{
-    qDebug() << "Command controller: You executed the Start command!";
-    implementation->tcpController->startServer();
-//    implementation->tcpClientsList->scan();
-    qDebug() << "Command controller: server started!";
-}
+//QQmlListProperty<Command> CommandController::ui_findGameViewContextCommands()
+//{
+//    return QQmlListProperty<Command>(this, implementation->findGameViewContextCommands);
+//}
 
-void CommandController::onStopServerExecuted()
-{
-    qDebug() << "Command controller: You executed the STOP command!";
-    implementation->tcpController->stopServer();
-    qDebug() << "Command controller: server stoped!";
-}
+//QQmlListProperty<Command> CommandController::ui_editGameViewContextCommands()
+//{
+//    return QQmlListProperty<Command>(this, implementation->editGameViewContextCommands);
+//}
 
 }
 }

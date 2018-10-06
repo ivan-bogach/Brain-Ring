@@ -22,7 +22,7 @@ class BRAINRINGLIBSHARED_EXPORT Command : public QObject
     Q_PROPERTY(bool ui_canExecute READ canExecute NOTIFY canExecuteChanged)
 
 public:
-    explicit Command(QObject* parentn = nullptr, const QString& iconCharacter = "", const QString& description = "", std::function<bool()> canExecute = [](){return true;});
+    explicit Command(QObject* parent = nullptr, const QString& iconCharacter = "", const QString& description = "", std::function<bool()> canExecute = [](){return true;});
     ~Command();
 
     const QString& iconCharacter() const;
