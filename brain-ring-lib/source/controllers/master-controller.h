@@ -36,6 +36,7 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
     Q_PROPERTY(br::controllers::TCPController* ui_tcpController READ tcpController CONSTANT)
     Q_PROPERTY(br::controllers::CommandController* ui_commandController READ commandController CONSTANT)
     Q_PROPERTY(br::models::Game* ui_newGame READ newGame CONSTANT)
+    Q_PROPERTY(br::models::Game* ui_selectedGame READ selectedGame CONSTANT)
     Q_PROPERTY(br::models::GameSearch* ui_gameSearch READ gameSearch CONSTANT)
     Q_PROPERTY(br::models::TCPClient* ui_tcpClient READ tcpClient CONSTANT)
     Q_PROPERTY(br::models::TCPClientsList* ui_tcpClientList READ tcpClientList CONSTANT)
@@ -53,6 +54,8 @@ public:
     NavigationController* navigationController();
 
     models::Game* newGame();
+
+    models::Game* selectedGame();
 
     models::GameSearch* gameSearch();
 

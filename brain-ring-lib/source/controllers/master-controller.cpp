@@ -15,10 +15,11 @@ public:
         navigationController = new NavigationController(masterController);
         tcpController = new TCPController(masterController);
         newGame = new Game(masterController);
+        selectedGame = new Game(masterController);
         gameSearch = new GameSearch(masterController, databaseController);
         tcpClient = new TCPClient(masterController);
         tcpClientList = new TCPClientsList(masterController, tcpController);
-        commandController = new CommandController(masterController, tcpController, databaseController, navigationController, newGame, gameSearch);
+        commandController = new CommandController(masterController, tcpController, databaseController, navigationController, newGame, selectedGame, gameSearch);
     }
 
     MasterController* masterController{nullptr};
@@ -27,8 +28,8 @@ public:
     NavigationController* navigationController{nullptr};
     TCPController* tcpController{nullptr};
     Game* newGame{nullptr};
+    Game* selectedGame{nullptr};
     GameSearch* gameSearch{nullptr};
-
     TCPClient* tcpClient{nullptr};
     TCPClientsList* tcpClientList{nullptr};
 
@@ -71,6 +72,11 @@ const QString& MasterController::welcomeMessage() const
 Game* MasterController::newGame()
 {
     return implementation->newGame;
+}
+
+Game* MasterController::selectedGame()
+{
+    return implementation->selectedGame;
 }
 
 GameSearch* MasterController::gameSearch()

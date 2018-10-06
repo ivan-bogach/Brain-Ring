@@ -5,8 +5,8 @@ import assets 1.0
 Item {
     property Command command
 
-    width:  Style.widthCommandButton
-    height: Style.heightCommandButton
+    width:  50
+    height: 50
 
 
     Rectangle {
@@ -17,28 +17,28 @@ Item {
         Text {
             id: textIcon
             anchors.centerIn: parent
-            anchors.verticalCenterOffset: -10
+//            anchors.verticalCenterOffset: -10
             font {
                 family: Style.fontAwesome
-                pixelSize: Style.pixelSizeCommandBarIcon
+                pixelSize: 50
             }
-            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
+            color: command.ui_canExecute ? "#aaaaaa" : Style.colourCommandBarFontDisabled
             text: command.ui_iconCharacter
             horizontalAlignment: Text.AlignHCenter
         }
 
-        Text {
-            id: textDescription
-            anchors.top: textIcon.bottom
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            font.pixelSize: Style.pixelSizeCommandBarText
-            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
-            text: command.ui_description
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
+//        Text {
+//            id: textDescription
+//            anchors.top: textIcon.bottom
+//            anchors.bottom: parent.bottom
+//            anchors.left: parent.left
+//            anchors.right: parent.right
+//            font.pixelSize: Style.pixelSizeCommandBarText
+//            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
+//            text: command.ui_description
+//            horizontalAlignment: Text.AlignHCenter
+//            verticalAlignment: Text.AlignVCenter
+//        }
 
         MouseArea {
             anchors.fill: parent
@@ -56,8 +56,13 @@ Item {
                 name: "hover"
                 PropertyChanges {
                     target: background
-                    color: Qt.darker(Style.colourCommandBarBackground)
+                    color: "#ebf5fe"
                 }
+                PropertyChanges {
+                    target: textIcon
+                    color : "#409cf9"
+                }
+
             }
 
         ]

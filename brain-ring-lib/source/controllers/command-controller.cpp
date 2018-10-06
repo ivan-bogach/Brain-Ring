@@ -16,7 +16,9 @@ public:
                    TCPController* _tcpController,
                    IDatabaseController* _databaseController,
                    NavigationController* _navigationController,
-                   Game* _newGame, GameSearch* _gameSearch,
+                   Game* _newGame,
+                   Game* _selectedGame,
+                   GameSearch* _gameSearch,
                    TCPClient* _tcpClient,
                    TCPClientsList* _tcpClientsList
                    )
@@ -25,6 +27,7 @@ public:
         , databaseController(_databaseController)
         , navigationController(_navigationController)
         , newGame(_newGame)
+        , selectedGame(_selectedGame)
         , gameSearch(_gameSearch)
         , tcpClient(_tcpClient)
         , tcpClientsList(_tcpClientsList)
@@ -33,7 +36,7 @@ public:
 
 // connect	the	 executed() signal of the command to the onCreateGmaeSaveExecuted() slot of the CommandController
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
-        createGameViewContextCommands.append(createGameSaveCommand);
+        addQuestionPanelContextCommands.append(createGameSaveCommand);
 
 //        Command* findGameSearchCommand = new Command(commandController, QChar( 0xf002 ), "Поиск");
 //        QObject::connect(findGameSearchCommand, &Command::executed, commandController, &CommandController::onFindGameSearchExecuted);
@@ -51,6 +54,10 @@ public:
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
 
+        Command* editQuestionSaveCommand = new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
+        QObject::connect(editQuestionSaveCommand, &Command::executed, commandController, &CommandController::onEditGameSaveExecuteed);
+        editQuestionListContextCommands.append(editQuestionSaveCommand);
+
         for (int i = 0; i <= tcpController->SClients().size(); ++i)
         {
             QString str = QString::number(i);
@@ -59,8 +66,6 @@ public:
             gameViewContextTCPClientCommands.append(tcpClientCommand);
 
         }
-
-
 
 //        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
 //        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
@@ -77,36 +82,41 @@ public:
 
     Game* newGame{nullptr};
 
-    GameSearch* gameSearch{nullptr};
-
     Game* selectedGame{nullptr};
+
+    GameSearch* gameSearch{nullptr};
 
     TCPClient* tcpClient{nullptr};
 
     TCPClientsList* tcpClientsList{nullptr};
 
-    QList<Command*> createGameViewContextCommands{};
 
     QList<Command*> gameViewContextCommands{};
 
     QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
+
+    QList<Command*> addQuestionPanelContextCommands{};
+
+    QList<Command*> editQuestionListContextCommands{};
+
+//    QList<Command*> createGameViewContextCommands{};
 
 //    QList<Command*> findGameViewContextCommands{};
 
 //    QList<Command*> editGameViewContextCommands{};
 };
 
-CommandController::CommandController(QObject *parent, TCPController* tcpController,IDatabaseController* databaseController, NavigationController* navigationController ,Game* newGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList)
+CommandController::CommandController(QObject *parent, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList)
     : QObject(parent)
 {
-    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame, gameSearch, tcpClient, tcpClientsList));
+    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList));
 }
 
 CommandController::~CommandController(){}
 
-QQmlListProperty<Command> CommandController::ui_createGameViewContextCommands()
+QQmlListProperty<Command> CommandController::ui_addQuestionPanelContextCommands()
 {
-    return QQmlListProperty<Command>(this, implementation->createGameViewContextCommands);
+    return QQmlListProperty<Command>(this, implementation->addQuestionPanelContextCommands);
 }
 
 
@@ -114,6 +124,11 @@ QQmlListProperty<Command> CommandController::ui_createGameViewContextCommands()
 QQmlListProperty<Command> CommandController::ui_gameViewContextCommands()
 {
     return QQmlListProperty<Command>(this, implementation->gameViewContextCommands);
+}
+
+QQmlListProperty<Command> CommandController::ui_editQuestionListContextCommands()
+{
+    return QQmlListProperty<Command>(this, implementation->editQuestionListContextCommands);
 }
 
 QQmlListProperty<TCPClientCommand> CommandController::ui_gameViewContextTCPClientCommands()
@@ -138,6 +153,20 @@ void CommandController::onCreateGameSaveExecuted()
     qDebug() << "New client saved.";
 }
 
+void CommandController::onEditGameSaveExecuteed()
+{
+    qDebug () << "SAVE EXECUTED";
+
+//    implementation->databaseController->updateRow(implementation->newGame->key(), implementation->newGame->num(),implementation->newGame->toJson());
+
+    implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->num(), implementation->selectedGame->toJson());
+
+    implementation->gameSearch->searchAll();
+
+    qDebug() << "Game updated.";
+
+}
+
 void CommandController::onTCPClientExecuted()
 {
     qDebug() << "You executed TCP client click!!!";
@@ -147,6 +176,7 @@ void CommandController::onTCPClientExecuted()
 void CommandController::setSelectedGame(Game *game)
 {
     implementation->selectedGame = game;
+    qDebug() << "Selected Game: " << game->text->value();
 }
 
 

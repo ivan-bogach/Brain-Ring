@@ -120,6 +120,34 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
     return query.numRowsAffected() > 0;
 }
 
+bool DatabaseController::updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
+{
+    if(tableName.isEmpty()) return false;
+    if(id.isEmpty()) return false;
+    if(jsonObject.isEmpty()) return false;
+
+    qDebug() << "Table: " << tableName;
+    qDebug() << "ID: " << id;
+//    qDebug() << "JSON: " << QString::number(jsonObject.size());
+    QJsonDocument doc(jsonObject);
+    qDebug() << doc.toJson(QJsonDocument::Compact);
+
+    QSqlQuery query(implementation->database);
+
+    QString sqlStatement = "UPDATE " + tableName + " SET json=:json WHERE id=:id";
+
+    if(!query.prepare(sqlStatement)) return false;
+
+    query.bindValue(":id", QVariant(id));
+    query.bindValue(":json", QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact)));
+
+    if(!query.exec()) return false;
+
+    qDebug() << "Rows affected: " << QString::number(query.numRowsAffected());
+
+    return query.numRowsAffected() > 0;
+}
+
 //bool DatabaseController::deleteRow(const QString& tableName, const QString& id) const
 //{
 //    if(tableName.isEmpty()) return false;
@@ -161,26 +189,6 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
 //    if(!jsonDocument.isObject()) return {};
 //    return jsonDocument.object();
 
-//}
-
-//bool DatabaseController::updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
-//{
-//    if(tableName.isEmpty()) return false;
-//    if(id.isEmpty()) return false;
-//    if(jsonObject.isEmpty()) return false;
-
-//    QSqlQuery query(implementation->database);
-
-//    QString sqlStatement = "UPDATE " + tableName + " SET json=:json WHERE id=:id";
-
-//    if(!query.prepare(sqlStatement)) return false;
-
-//    query.bindValue(":id", QVariant(id));
-//    query.bindValue(":json", QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact)));
-
-//    if(!query.exec()) return false;
-
-//    return query.numRowsAffected() > 0;
 //}
 
 //QJsonArray DatabaseController::find(const QString& tableName, const QString& searchText) const

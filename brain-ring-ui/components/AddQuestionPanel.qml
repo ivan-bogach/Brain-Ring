@@ -5,6 +5,7 @@ import BR 1.0
 Item {
     property StringDecorator stringDecoratorNumber
     property StringDecorator stringDecoratorText
+    property alias  commandList: commandRepeater.model
 
     width: parent.width
 
@@ -13,7 +14,7 @@ Item {
     Grid {
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
-        columns: 2
+        columns: 3
         spacing: 9
 //first raw
         Rectangle {
@@ -28,13 +29,23 @@ Item {
         }
 
         Rectangle {
-            width: parent.width*0.9
+            width: parent.width*0.8
             height: 15
 
             Text {
                 id: textLabel
                 font.pixelSize: 15
                 text: qsTr("Вопрос:")
+            }
+        }
+        Rectangle {
+            width: 15
+            height: 15
+
+            Text {
+                id: saveLabel
+                font.pixelSize: 15
+                text: qsTr("")
             }
         }
 //second raw
@@ -67,7 +78,7 @@ Item {
         }
 
         Rectangle {
-            width: parent.width*0.9
+            width: parent.width*0.8
             height: 50
 
             border.width: 1
@@ -86,6 +97,20 @@ Item {
                 target: stringDecoratorText
                 property: "ui_value"
                 value: textValue.text
+            }
+        }
+
+        Rectangle {
+            height: 50
+            anchors.left: textValue.right
+            anchors.leftMargin: 10
+            width: 50
+
+            Repeater {
+                id: commandRepeater
+                delegate: CommandButton {
+                    command: modelData
+                }
             }
         }
 

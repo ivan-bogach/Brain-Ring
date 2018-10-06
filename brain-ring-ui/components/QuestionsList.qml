@@ -4,6 +4,8 @@ import BR 1.0
 
 Item {
     property Game game
+    property alias  commandList: commandRepeater.model
+    property StringDecorator stringDecoratorText
 
     width: parent.width
     height: text.height*1.2
@@ -51,6 +53,7 @@ Item {
             onClicked: {
                 popup.open()
 //                masterController.selectClient(game)
+
             }
 
         }
@@ -65,11 +68,27 @@ Item {
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
             TextField {
+                id: textField
                 anchors.fill: parent
                 height: children.height
                 font.pixelSize: 15
                 wrapMode: TextField.WordWrap
-                text: text.text
+                text: stringDecoratorText.ui_value
+            }
+
+            Rectangle {
+                height: 50
+                anchors.left: textField.right
+                anchors.leftMargin: 10
+                width: 50
+
+                Repeater {
+                    id: commandRepeater
+                    delegate: CommandButton {
+                        command: modelData
+                    }
+                }
+
             }
 
         }

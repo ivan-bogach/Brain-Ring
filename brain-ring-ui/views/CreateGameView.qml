@@ -31,6 +31,7 @@ Item {
             id: addQuestionPanel
             stringDecoratorNumber: newGame.ui_number
             stringDecoratorText: newGame.ui_text
+            commandList: masterController.ui_commandController.ui_addQuestionPanelContextCommands
         }
     }
 
@@ -38,7 +39,7 @@ Item {
 
         width: parent.width
         anchors.top: addQuestionRect.bottom
-        anchors.bottom: commandBar.top
+        anchors.bottom: parent.bottom
 
         ScrollView {
             width: parent.width
@@ -52,14 +53,15 @@ Item {
                 delegate:
                     QuestionsList {
                         game: modelData
+                        commandList: masterController.ui_commandController.ui_editQuestionListContextCommands
                     }
             }
         }
 
     }
 
-    CommandBar {
-        id: commandBar
-        commandList: masterController.ui_commandController.ui_createGameViewContextCommands
-    }
+//    CommandBar {
+//        id: commandBar
+//        commandList: masterController.ui_commandController.ui_createGameViewContextCommands
+//    }
 }
