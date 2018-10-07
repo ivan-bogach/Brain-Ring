@@ -4,8 +4,9 @@
         <file alias="SplashView.qml">views/SplashView.qml</file>
         <file alias="DashboardView.qml">views/DashboardView.qml</file>
         <file alias="CreateGameView.qml">views/CreateGameView.qml</file>
-        <file alias="EditGameView.qml">views/EditGameView.qml</file>
-        <file alias="FindGameView.qml">views/FindGameView.qml</file>
         <file alias="GameView.qml">views/GameView.qml</file>
+        <file alias ="EditQuestionView.qml">EditQuestionView.qml</file>
+<!--        <file alias="EditGameView.qml">views/EditGameView.qml</file>-->
+<!--        <file alias="FindGameView.qml">views/FindGameView.qml</file>-->
     </qresource>
 </RCC>

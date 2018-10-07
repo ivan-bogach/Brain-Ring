@@ -1,17 +1,10 @@
 module components
 NavigationButton 1.0 NavigationButton.qml
 NavigationBar 1.0 NavigationBar.qml
-CommandBar 1.0 CommandBar.qml
 CommandButton 1.0 CommandButton.qml
-Panel 1.0 Panel.qml
-StringEditorSingleLine 1.0 StringEditorSingleLine.qml
-InfoEditor 1.0 InfoEditor.qml
-SearchResultDelegate 1.0 SearchResultDelegate.qml
 TCPButton 1.0 TCPButton.qml
 TCPBar 1.0 TCPBar.qml
 AddQuestionPanel 1.0 AddQuestionPanel.qml
-AddQuestion 1.0 AddQuestion.qml
-QuestionsList 1.0 QuestionsList.qml
-QuestionsListPanel 1.0 QuestionsListPanel.qml
+Question 1.0 Question.qml
 IpList 1.0 IpList.qml
 

@@ -23,9 +23,11 @@ Window {
         target: masterController.ui_navigationController
 //        onGoGameView: contentFrame.replace("qrc:/views/GameView.qml", {selectedGame: game})
         onGoGameView: contentFrame.replace("qrc:/views/GameView.qml")
-        onGoDashboardView: contentFrame.replace("qrc:/views/DashboardView.qml")
         onGoCreateGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
-        onGoEditGameView: contentFrame.replace("qrc:/views/EditGameView.qml", {selectedGame: game})
+        onGoEditGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
+
+        onGoDashboardView: contentFrame.replace("qrc:/views/DashboardView.qml")
+        onGoEditQuestionView: contentFrame.replace("qrc:/views/EditQuestionView.qml", {selectedGame: game})
         onGoFindGameView: contentFrame.replace("qrc:/views/FindGameView.qml")
     }
 
