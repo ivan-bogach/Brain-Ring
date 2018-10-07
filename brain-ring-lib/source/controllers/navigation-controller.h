@@ -18,9 +18,10 @@ public:
 
 signals:
 //    void goGameView(br::models::Game* game);
+    void goDashboardView();
     void goGameView();
     void goCreateGameView();
-    void goDashboardView();
+    void goSettingsView();
 //    void goEditGameView(br::models::Game* game);
 //    void goFindGameView();
 };

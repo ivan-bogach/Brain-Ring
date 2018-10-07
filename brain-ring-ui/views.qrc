@@ -5,5 +5,6 @@
         <file alias="DashboardView.qml">views/DashboardView.qml</file>
         <file alias="CreateGameView.qml">views/CreateGameView.qml</file>
         <file alias="GameView.qml">views/GameView.qml</file>
+        <file alias="SettingsView.qml">SettingsView.qml</file>
     </qresource>
 </RCC>

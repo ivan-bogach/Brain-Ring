@@ -51,7 +51,7 @@ Item {
             NavigationButton {
                 btnText: "НАСТРОЙКИ"
                 onNavigationButtonClicked: {
-                    masterController.ui_navigationController.goFindGameView();
+                    masterController.ui_navigationController.goSettingsView();
                     isCollapsed = true
                 }
             }
