@@ -118,6 +118,8 @@ void CommandController::onCreateGameSaveExecuted()
 //    implementation->gameSearch->searchText()->setValue(implementation->newGame->id());
 
 //    implementation->gameSearch->search();
+    implementation->newGame->clear();
+
     implementation->gameSearch->searchAll();
 
 //    implementation->navigationController->goFindGameView();

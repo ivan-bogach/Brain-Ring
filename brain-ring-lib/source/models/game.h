@@ -24,6 +24,7 @@ public:
     Game(QObject *parent, const QJsonObject& json);
 
     const QString& num() const;
+    void clear();
 
     data::StringDecorator* number{nullptr};
     data::StringDecorator* text{nullptr};

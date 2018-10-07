@@ -25,5 +25,11 @@ const QString& Game::num() const
     return this->number->value();
 }
 
+void Game::clear()
+{
+    this->number->setValue("");
+    this->text->setValue("");
+}
+
 }
 }
