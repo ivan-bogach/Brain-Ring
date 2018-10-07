@@ -52,6 +52,8 @@ Item {
 
                 delegate:
                     Question {
+                        stringDecoratorNumber: newGame.ui_number
+                        stringDecoratorText: newGame.ui_text
                         game: modelData
                     }
             }
