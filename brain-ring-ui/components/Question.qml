@@ -4,9 +4,10 @@ import BR 1.0
 
 Item {
     property Game game
+    property bool onEdit: false
 
     width: parent.width
-    height: text.height*1.2
+    height: onEdit ? textField.height*1.2 : text.height*1.2
 
     Rectangle {
         id: background
@@ -41,13 +42,44 @@ Item {
                 text: "   " + game.ui_text.ui_value
             }
 
-    }
+            TextField {
+                id: textField
+                anchors.left: numQuestion.right
+                anchors.leftMargin: 15
+                width: 0
+                wrapMode: TextField.WordWrap
+                font.pixelSize: 20
+                text: ""
+                focus: true
+            }
+
+            Binding {
+                target: game
+                property: "ui_text"
+                value: textField.text
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             hoverEnabled: true
             onEntered: background.state = "hover"
             onExited: background.state = ""
+            onDoubleClicked: {
+                onEdit = !onEdit
+                if (onEdit){
+                    text.width = 0
+                    text.text = ""
+                    textField.width = parent.width * 0.8
+                    textField.text = "   " + game.ui_text.ui_value
+                } else {
+                    text.width = parent.width * 0.8
+                    text.text = "   " + game.ui_text.ui_value
+                    textField.width = 0
+                    textField.text = ""
+                }
+            }
         }
 
         states: [
