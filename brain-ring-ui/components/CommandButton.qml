@@ -12,12 +12,11 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-//        color: Style.colourCommandBarBackground
 
         Text {
             id: textIcon
             anchors.centerIn: parent
-//            anchors.verticalCenterOffset: -10
+
             font {
                 family: Style.fontAwesome
                 pixelSize: 50
@@ -26,19 +25,6 @@ Item {
             text: command.ui_iconCharacter
             horizontalAlignment: Text.AlignHCenter
         }
-
-//        Text {
-//            id: textDescription
-//            anchors.top: textIcon.bottom
-//            anchors.bottom: parent.bottom
-//            anchors.left: parent.left
-//            anchors.right: parent.right
-//            font.pixelSize: Style.pixelSizeCommandBarText
-//            color: command.ui_canExecute ? Style.colourCommandBarFont : Style.colourCommandBarFontDisabled
-//            text: command.ui_description
-//            horizontalAlignment: Text.AlignHCenter
-//            verticalAlignment: Text.AlignVCenter
-//        }
 
         MouseArea {
             anchors.fill: parent

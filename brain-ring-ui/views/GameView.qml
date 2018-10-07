@@ -8,19 +8,21 @@ Item {
     property TCPClient tcpClient: masterController.ui_tcpClient
     property TCPClientsList tcpClientList: masterController.ui_tcpClientList
 
+    Component.onCompleted: masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
+
     focus: true
     Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
 
-//    Rectangle {
-//        anchors.fill: parent
-//        color: Style.colourTCPBar
-//    }
-
-
-    TCPBar {
-        id: tcpBar
-        commandList: masterController.ui_commandController.ui_gameViewContextCommands
+    Rectangle {
+        anchors.fill: parent
+        color: Style.colourTCPBar
     }
+
+
+//    TCPBar {
+//        id: tcpBar
+//        commandList: masterController.ui_commandController.ui_gameViewContextCommands
+//    }
 
     Rectangle {
         width: 500
@@ -42,7 +44,7 @@ Item {
             spacing: 10
 
             delegate:
-                IpList {
+                IpClient {
                     tcpClient: modelData
                 }
         }

@@ -6,5 +6,5 @@ TCPButton 1.0 TCPButton.qml
 TCPBar 1.0 TCPBar.qml
 AddQuestionPanel 1.0 AddQuestionPanel.qml
 Question 1.0 Question.qml
-IpList 1.0 IpList.qml
+IpClient 1.0 IpClient.qml
 

@@ -3,7 +3,6 @@ import assets 1.0
 
 Item {
     property alias  commandList: commandRepeater.model
-
     property bool isCollapsed: false
 
     anchors.top: isCollapsed ? parent.bottom : parent.top
@@ -11,18 +10,11 @@ Item {
     anchors.bottom: parent.bottom
     anchors.right: parent.right
 
-
-
-//    height: isCollapsed ? 0 : 50
-
     Rectangle {
         anchors.fill: parent
         color: Style.colourTCPBar
 
         Row {
-//            anchors.top: parent.top
-//            anchors.bottom: parent.bottom
-//            anchors.right: parent.right
             anchors.fill: parent
 
             Repeater {

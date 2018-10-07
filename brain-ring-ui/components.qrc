@@ -8,12 +8,6 @@
         <file alias="TCPBar.qml">components/TCPBar.qml</file>
         <file alias="AddQuestionPanel.qml">components/AddQuestionPanel.qml</file>
         <file alias="Question.qml">components/Question.qml</file>
-        <file alias="IpList.qml">components/IpList.qml</file>
-<!--        <file alias="Panel.qml">components/Panel.qml</file>-->
-<!--        <file alias="InfoEditor.qml">components/InfoEditor.qml</file>-->
-<!--        <file alias="CommandBar.qml">components/CommandBar.qml</file>-->
-<!--        <file alias="QuestionsListPanel.qml">components/QuestionsListPanel.qml</file>-->
-<!--        <file alias="SearchResultDelegate.qml">components/SearchResultDelegate.qml</file>-->
-<!--        <file alias="StringEditorSingleLine.qml">components/StringEditorSingleLine.qml</file>-->
+        <file alias="IpClient.qml">components/IpClient.qml</file>
     </qresource>
 </RCC>
