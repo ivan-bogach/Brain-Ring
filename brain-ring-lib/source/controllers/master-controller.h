@@ -14,6 +14,7 @@
 #include <models/gamesearch.h>
 #include <models/tcpclient.h>
 #include <models/tcpclientslist.h>
+#include <models/settings.h>
 
 
 namespace br {
@@ -40,6 +41,7 @@ class BRAINRINGLIBSHARED_EXPORT MasterController : public QObject
     Q_PROPERTY(br::models::GameSearch* ui_gameSearch READ gameSearch CONSTANT)
     Q_PROPERTY(br::models::TCPClient* ui_tcpClient READ tcpClient CONSTANT)
     Q_PROPERTY(br::models::TCPClientsList* ui_tcpClientList READ tcpClientList CONSTANT)
+    Q_PROPERTY(br::models::Settings* ui_settings READ settings CONSTANT)
 public:
     explicit MasterController(QObject* parent = nullptr);
     ~MasterController();
@@ -62,6 +64,8 @@ public:
     models::TCPClient* tcpClient();
 
     models::TCPClientsList* tcpClientList();
+
+    models::Settings* settings();
 
     const QString& welcomeMessage() const;
 

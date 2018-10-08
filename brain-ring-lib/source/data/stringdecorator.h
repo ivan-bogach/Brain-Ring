@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QScopedPointer>
 #include <QString>
+#include <QDebug>
 
 #include <brain-ring-lib_global.h>
 #include <data/datadecorator.h>

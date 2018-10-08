@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtQml/QQmlListProperty>
+#include <QString>
 
 #include <brain-ring-lib_global.h>
 #include <framework/command.h>
@@ -14,6 +15,7 @@
 #include <models/gamesearch.h>
 #include <models/tcpclient.h>
 #include <models/tcpclientslist.h>
+#include <models/settings.h>
 
 namespace br {
 namespace controllers {
@@ -35,7 +37,8 @@ public:
                                models::Game* selectedGame = nullptr,
                                models::GameSearch* gameSearch = nullptr,
                                models::TCPClient* tcpClient = nullptr,
-                               models::TCPClientsList* tcpClientsList = nullptr
+                               models::TCPClientsList* tcpClientsList = nullptr,
+                               models::Settings* settings = nullptr
                                );
     ~CommandController();
 

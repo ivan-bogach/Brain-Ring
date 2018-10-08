@@ -20,7 +20,8 @@ public:
                    Game* _selectedGame,
                    GameSearch* _gameSearch,
                    TCPClient* _tcpClient,
-                   TCPClientsList* _tcpClientsList
+                   TCPClientsList* _tcpClientsList,
+                   Settings* _settings
                    )
         : commandController(_commandController)
         , tcpController(_tcpController)
@@ -31,6 +32,7 @@ public:
         , gameSearch(_gameSearch)
         , tcpClient(_tcpClient)
         , tcpClientsList(_tcpClientsList)
+        , settings(_settings)
     {
         Command* createGameSaveCommand =  new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
@@ -78,6 +80,8 @@ public:
 
     TCPClientsList* tcpClientsList{nullptr};
 
+    Settings* settings{nullptr};
+
 
     QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
 
@@ -88,10 +92,10 @@ public:
     QList<Command*> settingsViewContextCommands{};
 };
 
-CommandController::CommandController(QObject *parent, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList)
+CommandController::CommandController(QObject *parent, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList, Settings* settings)
     : QObject(parent)
 {
-    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList));
+    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList, settings));
 }
 
 CommandController::~CommandController(){}
@@ -108,15 +112,16 @@ QQmlListProperty<Command> CommandController::ui_gameViewContextCommands()
     return QQmlListProperty<Command>(this, implementation->gameViewContextCommands);
 }
 
+QQmlListProperty<Command> CommandController::ui_settingsViewContextCommands()
+{
+    return QQmlListProperty<Command>(this, implementation->settingsViewContextCommands);
+}
+
 QQmlListProperty<TCPClientCommand> CommandController::ui_gameViewContextTCPClientCommands()
 {
     return QQmlListProperty<TCPClientCommand>(this, implementation->gameViewContextTCPClientCommands);
 }
 
-QQmlListProperty<Command> CommandController::ui_settingsViewContextCommands()
-{
-    return QQmlListProperty<Command>(this, implementation->settingsViewContextCommands);
-}
 
 void CommandController::onCreateGameSaveExecuted()
 {
@@ -140,7 +145,10 @@ void CommandController::onCreateGameSaveExecuted()
 void CommandController::onSaveSettingsExecuted()
 {
     qDebug() << "You executed the Save Settings command!";
-//    implementation->databaseController->createRow()
+//    qDebug() << implementation->settings->quantity->value();
+    qDebug() << implementation->settings->quantity->value();
+    qDebug() << QString::number(implementation->settings->askQuestions->value());
+    implementation->databaseController->createRow(implementation->settings->key(), "1", implementation->settings->toJson());
 }
 
 void CommandController::onEditGameSaveExecuteed()

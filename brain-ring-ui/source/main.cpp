@@ -16,6 +16,7 @@
 #include <models/gamesearch.h>
 #include <models/tcpclient.h>
 #include <models/tcpclientslist.h>
+#include <models/settings.h>
 
 int main(int argc, char *argv[])
 {
@@ -34,13 +35,14 @@ int main(int argc, char *argv[])
 
 //    qmlRegisterType<br::data::DateTimeDecorator>("BR", 1, 0, "DateTimeDecorator");
 //    qmlRegisterType<br::data::EnumeratorDecorator>("BR", 1, 0, "EnumeratorDecorator");
-//    qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");
+    qmlRegisterType<br::data::IntDecorator>("BR", 1, 0, "IntDecorator");
     qmlRegisterType<br::data::StringDecorator>("BR", 1, 0, "StringDecorator");
 
     qmlRegisterType<br::models::Game>("BR", 1, 0, "Game");
     qmlRegisterType<br::models::GameSearch>("BR", 1, 0, "GameSearch");
     qmlRegisterType<br::models::TCPClient>("BR", 1, 0, "TCPClient");
     qmlRegisterType<br::models::TCPClientsList>("BR", 1, 0, "TCPClientsList");
+    qmlRegisterType<br::models::Settings>("BR", 1, 0, "Settings");
 
     qmlRegisterType<br::framework::Command>("BR", 1, 0, "Command");
 
