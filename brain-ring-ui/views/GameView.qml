@@ -19,21 +19,14 @@ Item {
     }
 
 
-//    TCPBar {
-//        id: tcpBar
-//        commandList: masterController.ui_commandController.ui_gameViewContextCommands
-//    }
-
     Rectangle {
         width: 500
         height: 50
 
         anchors.bottom: parent.bottom
 
-//        color: Style.colourTCPBar
         color: "red"
         anchors.horizontalCenter: parent.horizontalCenter
-//        anchors.verticalCenter: parent.verticalCenter
 
         ListView {
             width: parent.width

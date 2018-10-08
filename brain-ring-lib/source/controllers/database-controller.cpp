@@ -50,7 +50,7 @@ private:
 
     bool createTables() const
     {
-        return createJsonTable("game");
+        return createJsonTable("game") && createJsonTable("settings");
     }
 
 

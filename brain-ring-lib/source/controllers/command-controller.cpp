@@ -33,10 +33,13 @@ public:
         , tcpClientsList(_tcpClientsList)
     {
         Command* createGameSaveCommand =  new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
-
-// connect	the	 executed() signal of the command to the onCreateGmaeSaveExecuted() slot of the CommandController
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
         addQuestionPanelContextCommands.append(createGameSaveCommand);
+
+
+        Command* saveSettings = new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
+        QObject::connect(saveSettings, &Command::executed, commandController, &CommandController::onSaveSettingsExecuted);
+        settingsViewContextCommands.append(saveSettings);
 
         Command* startServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
@@ -76,11 +79,13 @@ public:
     TCPClientsList* tcpClientsList{nullptr};
 
 
-    QList<Command*> gameViewContextCommands{};
-
     QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
 
+    QList<Command*> gameViewContextCommands{};
+
     QList<Command*> addQuestionPanelContextCommands{};
+
+    QList<Command*> settingsViewContextCommands{};
 };
 
 CommandController::CommandController(QObject *parent, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList)
@@ -108,6 +113,11 @@ QQmlListProperty<TCPClientCommand> CommandController::ui_gameViewContextTCPClien
     return QQmlListProperty<TCPClientCommand>(this, implementation->gameViewContextTCPClientCommands);
 }
 
+QQmlListProperty<Command> CommandController::ui_settingsViewContextCommands()
+{
+    return QQmlListProperty<Command>(this, implementation->settingsViewContextCommands);
+}
+
 void CommandController::onCreateGameSaveExecuted()
 {
     qDebug() << "You executed the Save command!";
@@ -125,6 +135,12 @@ void CommandController::onCreateGameSaveExecuted()
 //    implementation->navigationController->goFindGameView();
 
     qDebug() << "New client saved.";
+}
+
+void CommandController::onSaveSettingsExecuted()
+{
+    qDebug() << "You executed the Save Settings command!";
+//    implementation->databaseController->createRow()
 }
 
 void CommandController::onEditGameSaveExecuteed()
