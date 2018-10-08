@@ -22,7 +22,7 @@ public:
 //    bool deleteRow(const QString& tableName, const QString& id) const override;
 //    QJsonArray find(const QString& tableName, const QString& searchText) const override;
     QJsonArray findAll(const QString& tableName) const override;
-//    QJsonObject readRow(const QString& tableName, const QString& id) const override;
+    QJsonObject readRow(const QString& tableName, const QString& id) const override;
     bool updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const override;
 
 private:

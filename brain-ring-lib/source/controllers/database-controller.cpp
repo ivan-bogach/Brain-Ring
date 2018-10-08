@@ -166,30 +166,30 @@ bool DatabaseController::updateRow(const QString& tableName, const QString& id, 
 //    return query.numRowsAffected() > 0;
 //}
 
-//QJsonObject DatabaseController::readRow(const QString& tableName, const QString& id) const
-//{
-//    if(tableName.isEmpty()) return {};
-//    if(id.isEmpty()) return {};
+QJsonObject DatabaseController::readRow(const QString& tableName, const QString& id) const
+{
+    if(tableName.isEmpty()) return {};
+    if(id.isEmpty()) return {};
 
-//    QSqlQuery query(implementation->database);
+    QSqlQuery query(implementation->database);
 
-//    QString sqlStatement = "SELECT json FROM " + tableName + " WHERE id=:id";
+    QString sqlStatement = "SELECT json FROM " + tableName + " WHERE id=:id";
 
-//    if(!query.prepare(sqlStatement)) return {};
+    if(!query.prepare(sqlStatement)) return {};
 
-//    query.bindValue(":id", QVariant(id));
+    query.bindValue(":id", QVariant(id));
 
-//    if(!query.exec()) return {};
+    if(!query.exec()) return {};
 
-//    if(!query.first()) return {};
+    if(!query.first()) return {};
 
-//    auto json = query.value(0).toByteArray();
-//    auto jsonDocument = QJsonDocument::fromJson(json);
+    auto json = query.value(0).toByteArray();
+    auto jsonDocument = QJsonDocument::fromJson(json);
 
-//    if(!jsonDocument.isObject()) return {};
-//    return jsonDocument.object();
+    if(!jsonDocument.isObject()) return {};
+    return jsonDocument.object();
 
-//}
+}
 
 //QJsonArray DatabaseController::find(const QString& tableName, const QString& searchText) const
 //{

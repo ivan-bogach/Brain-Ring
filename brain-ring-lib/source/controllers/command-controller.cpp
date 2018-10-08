@@ -182,6 +182,9 @@ void CommandController::onStartServerExecuted()
 {
     qDebug() << "Command controller: You executed the Start command!";
     implementation->tcpController->startServer();
+    QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
+    qDebug() << "Ask Questions? " << jsonObject.value("ask").toInt();
+    qDebug() << "Quantity: " << jsonObject.value("quantity").toInt();
     qDebug() << "Command controller: server started!";
 }
 
