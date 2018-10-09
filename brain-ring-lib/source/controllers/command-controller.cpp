@@ -38,6 +38,9 @@ public:
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
         addQuestionPanelContextCommands.append(createGameSaveCommand);
 
+        Command* startSettingsCommand = new Command(commandController, "", "");
+        QObject::connect(startSettingsCommand, &Command::executed, commandController, &CommandController::onStartSettingsView);
+        settingsViewContextCommands.append(startSettingsCommand);
 
         Command* saveSettings = new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
         QObject::connect(saveSettings, &Command::executed, commandController, &CommandController::onSaveSettingsExecuted);
@@ -53,9 +56,7 @@ public:
             TCPClientCommand* tcpClientCommand = new TCPClientCommand(commandController, str, str + ".png");
             QObject::connect(tcpClientCommand, &TCPClientCommand::executed, commandController, &CommandController::onTCPClientExecuted);
             gameViewContextTCPClientCommands.append(tcpClientCommand);
-
         }
-
 
 //        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
 //        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
@@ -129,17 +130,19 @@ void CommandController::onCreateGameSaveExecuted()
 
     implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->num(), implementation->newGame->toJson());
 
-//    implementation->gameSearch->searchText()->setValue("*");
-//    implementation->gameSearch->searchText()->setValue(implementation->newGame->id());
-
-//    implementation->gameSearch->search();
     implementation->newGame->clear();
 
     implementation->gameSearch->searchAll();
 
-//    implementation->navigationController->goFindGameView();
-
     qDebug() << "New client saved.";
+}
+
+void CommandController::onStartSettingsView()
+{
+     QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
+     implementation->settings->askQuestions->setValue(jsonObject.value("ask").toInt());
+     implementation->settings->quantity->setValue(jsonObject.value("quantity").toInt());
+     qDebug() << "Command controller: Settings view started!";
 }
 
 void CommandController::onSaveSettingsExecuted()
@@ -182,9 +185,11 @@ void CommandController::onStartServerExecuted()
 {
     qDebug() << "Command controller: You executed the Start command!";
     implementation->tcpController->startServer();
+
     QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
-    qDebug() << "Ask Questions? " << jsonObject.value("ask").toInt();
-    qDebug() << "Quantity: " << jsonObject.value("quantity").toInt();
+
+    implementation->settings->askQuestions->setValue(jsonObject.value("ask").toInt());
+    implementation->settings->quantity->setValue(jsonObject.value("quantity").toInt());
     qDebug() << "Command controller: server started!";
 }
 

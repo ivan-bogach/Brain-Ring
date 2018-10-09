@@ -39,6 +39,7 @@ public slots:
 
 private:
      QTcpServer *tcpServer;
+
     class Implementation;
     QScopedPointer<Implementation> implementation;
 };

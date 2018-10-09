@@ -27,8 +27,6 @@ TCPController::~TCPController(){}
 
 QJsonArray TCPController::SClients()
 {
-    qDebug() << "I`m here!!!!!!!!!!!!!!!!!!!!";
-
  //VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
     int clientsNumber = 5;
  //-/////////////////////////////////////////////////////////////////////////
@@ -38,19 +36,12 @@ QJsonArray TCPController::SClients()
         jsonMap[QString::number(i)] = false;
     }
 
-    qDebug() << "At first jsonMap has " << QString::number(jsonMap.size()) << " elements";
-
-
     QJsonArray returnArray;
     QJsonObject jsonObject;
     QMapIterator<int, QTcpSocket *> i(implementation->SClients);
     while (i.hasNext())
     {
         i.next();
-
-
-//        jsonObject.insert("number", i.key());
-
         QString entireIp = i.value()->peerAddress().toString();
         int sizeIP =entireIp.size();
         QString ip = QString(entireIp[sizeIP - 1]);
@@ -59,14 +50,6 @@ QJsonArray TCPController::SClients()
         jsonObject.insert("ip", ip);
 
         jsonMap[ip] = true;
-
-
-//        jsonObject.insert("isConnected", QString("true"));
-
-//        qDebug() << "TCPController ip: " << i.value()->peerAddress().toString();
-//        qDebug()  << "TCPController num: " << i.key();
-
-//        returnArray.append(QJsonValue(jsonObject));
     }
 
     QMap<QString, bool>::iterator it = jsonMap.begin();

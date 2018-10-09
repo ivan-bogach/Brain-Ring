@@ -6,9 +6,6 @@ Item {
 
     property bool isConnected: tcpClient.ui_isConnected.ui_value
 
-//    anchors.fill: parent
-//    implicitWidth: parent.width
-//    implicitHeight: text.implicitHeight
     width: text.width
     height: text.height
 
@@ -23,12 +20,6 @@ Item {
             id: text
             text: tcpClient.ui_ip.ui_value
         }
-//        Text {
-//            anchors.centerIn: parent
-//            color: isConnected ? "red" : "blue"
-//            id: ext
-//            text: tcpClient.ui_ip.ui_value
-//        }
     }
 
 }

@@ -27,6 +27,7 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
     Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_gameViewContextCommands READ ui_gameViewContextCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_addQuestionPanelContextCommands READ ui_addQuestionPanelContextCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_settingsViewContextCommands READ ui_settingsViewContextCommands CONSTANT)
+//    Q_PROPERTY(type name READ name WRITE setName NOTIFY nameChanged)
 
 public:
     explicit CommandController(QObject* _parent = nullptr,
@@ -57,6 +58,7 @@ public slots:
     void onStopServerExecuted();
     void onTCPClientExecuted();
     void onSaveSettingsExecuted();
+    void onStartSettingsView();
 
 private:
     class Implementation;

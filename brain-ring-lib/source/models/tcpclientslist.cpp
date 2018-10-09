@@ -42,12 +42,6 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
         jsonObject.insert("ip", QString::number(i));
         jsonObject.insert("isConnected", "");
 
-//-DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE
-//    QJsonDocument doc(jsonObject);
-//    QString strJson(doc.toJson(QJsonDocument::Compact));
-//    qDebug() << "TCPClientsList with " << strJson << " at " << QString::number(i);
-//-DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE//DELETE
-
     resultsArray.append(QJsonValue(jsonObject));
 
     }

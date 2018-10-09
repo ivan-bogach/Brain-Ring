@@ -25,7 +25,7 @@ Item {
             id: name
             anchors.left: parent.left
             anchors.top: parent.top
-
+            color: "white"
             text: "Задавать вопросы? " + askQuestion.ui_value
         }
         Text {
@@ -33,6 +33,7 @@ Item {
             anchors.top: name.bottom
             id: ame
             text: "Количество игроков: " + quantity.ui_value
+            color: "white"
         }
     }
 

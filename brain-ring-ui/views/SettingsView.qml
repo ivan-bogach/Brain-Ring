@@ -4,16 +4,14 @@ import BR 1.0
 import components 1.0
 
 Item {
+    Component.onCompleted: masterController.ui_commandController.ui_settingsViewContextCommands[0].executed()
+
     property StringDecorator stringDecoratorQuantity
     property IntDecorator intDecoratorAskQuestions
     property Settings settings: masterController.ui_settings
 
-    Component.onCompleted: {
-        settings.ui_askQuestions.ui_value = "2"
-        settings.ui_quantity.ui_value = 5
-        console.log(settings.ui_askQuestions.ui_value)
-        console.log(settings.ui_quantity.ui_value)
-    }
+    property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
+    property IntDecorator quantity: masterController.ui_settings.ui_quantity
 
     anchors.fill: parent
 
@@ -23,7 +21,7 @@ Item {
         spacing: 27
         CheckBox {
             text: "Показывать вопросы?"
-            checked: true
+            checked: askQuestion.ui_value == 2 ? true : false
             onClicked: {
                 settings.ui_askQuestions.ui_value = checkedState
                 console.log(checkedState)
@@ -31,7 +29,7 @@ Item {
         }
 
         SpinBox {
-            value: 5
+            value: quantity.ui_value
             onValueChanged: {
                 settings.ui_quantity.ui_value = value
                 console.log(value)
