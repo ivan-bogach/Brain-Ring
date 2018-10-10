@@ -11,7 +11,7 @@ Item {
     property TCPClientsList tcpClientList: masterController.ui_tcpClientList
 
     property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
-    property IntDecorator quantity: masterController.ui_settings.ui_quantity
+    property int quantity: masterController.ui_settings.ui_quantity.ui_value
 
 
     focus: true
@@ -32,7 +32,7 @@ Item {
             anchors.left: name.left
             anchors.top: name.bottom
             id: ame
-            text: "Количество игроков: " + quantity.ui_value
+            text: "Количество игроков: " + quantity
             color: "white"
         }
     }
@@ -68,15 +68,18 @@ Item {
 
     Rectangle {
         id: listViewWrapper
-        width: parent.width/4
-        height: 50
+        width: parent.width
+        height: parent.height/10
         anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-
+        anchors.left: parent.left
+//        anchors.horizontalCenter: parent.horizontalCenter
+        color: Style.colourTCPBar
 
         ListView {
             id: view
             anchors.fill: parent
+            anchors.left: listViewWrapper.left
+            anchors.leftMargin: 10
             orientation: ListView.Horizontal
             clip: true
 
@@ -88,8 +91,8 @@ Item {
                 property var view: ListView.view
                 property var isCurrent: ListView.isCurrentItem
 
-                width: view.width / (quantity.ui_value +1)
-                height: 50
+                width: listViewWrapper.width/(2*quantity)
+                height: listViewWrapper.height
 
                 Column {
                     anchors.fill: parent
@@ -99,7 +102,7 @@ Item {
                         anchors.top: parent.top
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        height: 25
+                        height: listDelegate.height/2
 
                         color: model.ui_isConnected.ui_value ? "red" : "blue"
 
@@ -125,7 +128,7 @@ Item {
                         anchors.top: upRect.bottom
                         anchors.left: upRect.left
                         anchors.right: upRect.right
-                        height: 25
+                        height: listDelegate.height/2
 
                         color: model.ui_isConnected.ui_value ? "red" : "blue"
 
