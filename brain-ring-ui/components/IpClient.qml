@@ -18,7 +18,8 @@ Item {
             anchors.centerIn: parent
             color: isConnected ? "red" : "blue"
             id: text
-            text: tcpClient.ui_ip.ui_value
+//            text: tcpClient.ui_ip.ui_value
+            text: model.index + 1
         }
     }
 

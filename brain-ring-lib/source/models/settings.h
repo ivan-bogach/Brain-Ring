@@ -22,6 +22,8 @@ public:
     Settings(QObject* parent, const QJsonObject& json);
 
     void clear();
+    data::IntDecorator* getGamersQuantity();
+
     data::IntDecorator* quantity{nullptr};
     data::IntDecorator* askQuestions{nullptr};
 };

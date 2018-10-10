@@ -23,7 +23,7 @@ namespace controllers {
 class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QQmlListProperty <br::framework::TCPClientCommand> ui_gameViewContextTCPClientCommands READ ui_gameViewContextTCPClientCommands CONSTANT)
+//    Q_PROPERTY(QQmlListProperty <br::framework::TCPClientCommand> ui_gameViewContextTCPClientCommands READ ui_gameViewContextTCPClientCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty <br::framework::Command> ui_gameViewContextCommands READ ui_gameViewContextCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_addQuestionPanelContextCommands READ ui_addQuestionPanelContextCommands CONSTANT)
     Q_PROPERTY(QQmlListProperty<br::framework::Command> ui_settingsViewContextCommands READ ui_settingsViewContextCommands CONSTANT)
@@ -46,7 +46,7 @@ public:
     QQmlListProperty<framework::Command> ui_gameViewContextCommands();
     QQmlListProperty<framework::Command> ui_addQuestionPanelContextCommands();
     QQmlListProperty<framework::Command> ui_settingsViewContextCommands();
-    QQmlListProperty<framework::TCPClientCommand> ui_gameViewContextTCPClientCommands();
+//    QQmlListProperty<framework::TCPClientCommand> ui_gameViewContextTCPClientCommands();
 
 signals:
 
@@ -56,7 +56,7 @@ public slots:
     void onEditGameSaveExecuteed();
     void onStartServerExecuted();
     void onStopServerExecuted();
-    void onTCPClientExecuted();
+//    void onTCPClientExecuted();
     void onSaveSettingsExecuted();
     void onStartSettingsView();
 

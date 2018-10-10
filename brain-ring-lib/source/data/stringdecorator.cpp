@@ -28,7 +28,7 @@ StringDecorator::~StringDecorator(){}
 
 const QString& StringDecorator::value() const
 {
-    qDebug() << "String Decorator: " << implementation->value;
+//    qDebug() << "String Decorator: " << implementation->value;
     return implementation->value;
 }
 

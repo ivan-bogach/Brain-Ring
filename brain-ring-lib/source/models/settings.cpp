@@ -20,4 +20,9 @@ Settings::Settings(QObject* parent, const QJsonObject& json)
     update(json);
 }
 
+IntDecorator* Settings::getGamersQuantity()
+{
+    return this->quantity;
+}
+
 }}

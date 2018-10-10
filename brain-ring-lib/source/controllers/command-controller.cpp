@@ -50,13 +50,13 @@ public:
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
 
-        for (int i = 0; i <= tcpController->SClients().size(); ++i)
-        {
-            QString str = QString::number(i);
-            TCPClientCommand* tcpClientCommand = new TCPClientCommand(commandController, str, str + ".png");
-            QObject::connect(tcpClientCommand, &TCPClientCommand::executed, commandController, &CommandController::onTCPClientExecuted);
-            gameViewContextTCPClientCommands.append(tcpClientCommand);
-        }
+//        for (int i = 0; i <= tcpController->SClients().size(); ++i)
+//        {
+//            QString str = QString::number(i);
+//            TCPClientCommand* tcpClientCommand = new TCPClientCommand(commandController, str, str + ".png");
+//            QObject::connect(tcpClientCommand, &TCPClientCommand::executed, commandController, &CommandController::onTCPClientExecuted);
+//            gameViewContextTCPClientCommands.append(tcpClientCommand);
+//        }
 
 //        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Стоп");
 //        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
@@ -84,7 +84,7 @@ public:
     Settings* settings{nullptr};
 
 
-    QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
+//    QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
 
     QList<Command*> gameViewContextCommands{};
 
@@ -118,10 +118,10 @@ QQmlListProperty<Command> CommandController::ui_settingsViewContextCommands()
     return QQmlListProperty<Command>(this, implementation->settingsViewContextCommands);
 }
 
-QQmlListProperty<TCPClientCommand> CommandController::ui_gameViewContextTCPClientCommands()
-{
-    return QQmlListProperty<TCPClientCommand>(this, implementation->gameViewContextTCPClientCommands);
-}
+//QQmlListProperty<TCPClientCommand> CommandController::ui_gameViewContextTCPClientCommands()
+//{
+//    return QQmlListProperty<TCPClientCommand>(this, implementation->gameViewContextTCPClientCommands);
+//}
 
 
 void CommandController::onCreateGameSaveExecuted()
@@ -168,10 +168,10 @@ void CommandController::onEditGameSaveExecuteed()
 
 }
 
-void CommandController::onTCPClientExecuted()
-{
-    qDebug() << "You executed TCP client click!!!";
-}
+//void CommandController::onTCPClientExecuted()
+//{
+//    qDebug() << "You executed TCP client click!!!";
+//}
 
 
 void CommandController::setSelectedGame(Game *game)

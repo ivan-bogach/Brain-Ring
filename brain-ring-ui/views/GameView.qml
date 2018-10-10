@@ -38,27 +38,117 @@ Item {
     }
 
 
+//    Rectangle {
+//        width: 500
+//        height: 50
+
+//        anchors.bottom: parent.bottom
+
+//        color: "red"
+//        anchors.horizontalCenter: parent.horizontalCenter
+
+//        ListView {
+//            id: view
+
+//            model: tcpClientList.ui_tcpClients
+
+//            width: parent.width
+//            height: parent.height
+//            focus: true
+//            orientation: ListView.Horizontal
+//            spacing: 10
+
+
+//            delegate:
+//                IpClient {
+//                    tcpClient: modelData
+//                }
+//        }
+//    }
+
     Rectangle {
-        width: 500
+        id: listViewWrapper
+        width: parent.width/4
         height: 50
-
         anchors.bottom: parent.bottom
-
-        color: "red"
         anchors.horizontalCenter: parent.horizontalCenter
 
-        ListView {
-            width: parent.width
-            height: parent.height
-            model: tcpClientList.ui_tcpClients
-            focus: true
-            orientation: ListView.Horizontal
-            spacing: 10
 
-            delegate:
-                IpClient {
-                    tcpClient: modelData
+        ListView {
+            id: view
+            anchors.fill: parent
+            orientation: ListView.Horizontal
+            clip: true
+
+            model: tcpClientList.ui_tcpClients
+
+            delegate: Item {
+                id: listDelegate
+
+                property var view: ListView.view
+                property var isCurrent: ListView.isCurrentItem
+
+                width: view.width / (quantity.ui_value +1)
+                height: 50
+
+                Column {
+                    anchors.fill: parent
+
+                    Rectangle {
+                        id: upRect
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        height: 25
+
+                        color: model.ui_isConnected.ui_value ? "red" : "blue"
+
+                        border {
+                            color: "black"
+                            width: 1
+                        }
+
+                        Text {
+                            anchors.centerIn: parent
+                            renderType: Text.NativeRendering
+    //                        text: "%1%2".arg(model.text).arg(isCurrent ? " *" : "")
+                            text: model.ui_ip.ui_value
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: view.currentIndex = model.index
+                        }
+                    }
+
+                    Rectangle {
+                        anchors.top: upRect.bottom
+                        anchors.left: upRect.left
+                        anchors.right: upRect.right
+                        height: 25
+
+                        color: model.ui_isConnected.ui_value ? "red" : "blue"
+
+                        border {
+                            color: "black"
+                            width: 1
+                        }
+
+                        Text {
+                            anchors.centerIn: parent
+                            renderType: Text.NativeRendering
+    //                        text: "%1%2".arg(model.text).arg(isCurrent ? " *" : "")
+                            text: model.ui_ip.ui_value
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: view.currentIndex = model.index
+                        }
+                    }
                 }
+
+            }
         }
     }
 
