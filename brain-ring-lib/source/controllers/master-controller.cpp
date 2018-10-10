@@ -13,13 +13,13 @@ public:
     {
         databaseController = new DatabaseController(masterController);
         navigationController = new NavigationController(masterController);
-        tcpController = new TCPController(masterController);
+        settings = new Settings(masterController, databaseController);
+        tcpController = new TCPController(masterController, settings);
         newGame = new Game(masterController);
         selectedGame = new Game(masterController);
         gameSearch = new GameSearch(masterController, databaseController);
         tcpClient = new TCPClient(masterController);
-        tcpClientList = new TCPClientsList(masterController, tcpController);
-        settings = new Settings(masterController);
+        tcpClientList = new TCPClientsList(masterController, tcpController, settings);
         commandController = new CommandController(masterController, tcpController, databaseController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings);
     }
 

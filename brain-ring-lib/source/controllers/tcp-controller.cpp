@@ -6,29 +6,32 @@ namespace controllers {
 class TCPController::Implementation
 {
 public:
-    Implementation(TCPController* _tcpController)
+    Implementation(TCPController* _tcpController, models::Settings* _settings)
         : tcpController(_tcpController)
+        , settings(_settings)
     {
 
     }
     TCPController* tcpController{nullptr};
+    models::Settings* settings{nullptr};
     int serverStatus;
     QMap<int, QTcpSocket *> SClients;
-//    models::TCPClientsList* tcpClientsList{nullptr};
 };
 
-TCPController::TCPController(QObject *parent)
+TCPController::TCPController(QObject *parent, models::Settings* settings)
     :QObject(parent)
 {
-    implementation.reset(new Implementation(this));
+    implementation.reset(new Implementation(this, settings));
 }
 
 TCPController::~TCPController(){}
 
 QJsonArray TCPController::SClients()
 {
+    qDebug() << "HERE";
  //VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
-    int clientsNumber = 5;
+    int clientsNumber = implementation->settings->quantity()->value();
+    qDebug() << "TCP controller clientsNumber: " << clientsNumber;
  //-/////////////////////////////////////////////////////////////////////////
     QMap<QString, bool> jsonMap;
     for(int i = 1; i <= clientsNumber; ++i)
@@ -123,6 +126,8 @@ void TCPController::newClient()
         connect(implementation->SClients[idUserSocket], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
 
         emit tcpClientArrived();
+
+        qDebug()<< "NEW";
 
         qDebug() << QString::fromUtf8("New connection arrived: ") << clientSocket->peerAddress().toString();
     }

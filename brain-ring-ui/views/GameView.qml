@@ -38,41 +38,12 @@ Item {
     }
 
 
-//    Rectangle {
-//        width: 500
-//        height: 50
-
-//        anchors.bottom: parent.bottom
-
-//        color: "red"
-//        anchors.horizontalCenter: parent.horizontalCenter
-
-//        ListView {
-//            id: view
-
-//            model: tcpClientList.ui_tcpClients
-
-//            width: parent.width
-//            height: parent.height
-//            focus: true
-//            orientation: ListView.Horizontal
-//            spacing: 10
-
-
-//            delegate:
-//                IpClient {
-//                    tcpClient: modelData
-//                }
-//        }
-//    }
-
     Rectangle {
         id: listViewWrapper
         width: parent.width
         height: parent.height/10
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-//        anchors.horizontalCenter: parent.horizontalCenter
         color: Style.colourTCPBar
 
         ListView {
@@ -91,7 +62,7 @@ Item {
                 property var view: ListView.view
                 property var isCurrent: ListView.isCurrentItem
 
-                width: listViewWrapper.width/(2*quantity)
+                width: listViewWrapper.width/(5*quantity)
                 height: listViewWrapper.height
 
                 Column {

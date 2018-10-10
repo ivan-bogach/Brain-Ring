@@ -14,6 +14,7 @@
 #include <QScopedPointer>
 
 #include <brain-ring-lib_global.h>
+#include <models/settings.h>
 
 namespace br {
 namespace controllers {
@@ -23,10 +24,11 @@ class BRAINRINGLIBSHARED_EXPORT TCPController : public QObject
 {
     Q_OBJECT
 public:
-    explicit TCPController(QObject* parent = nullptr);
+    explicit TCPController(QObject* parent = nullptr, models::Settings* settings= nullptr);
     ~TCPController();
 
     QJsonArray SClients();
+    models::Settings* setting{nullptr};
 
 signals:
     void tcpClientArrived();

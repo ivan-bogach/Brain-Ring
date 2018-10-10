@@ -9,21 +9,22 @@ namespace models {
 class TCPClientsList::Implementation
 {
 public:
-    Implementation(TCPClientsList* _tcpClientsList, TCPController* _tcpController)
+    Implementation(TCPClientsList* _tcpClientsList, TCPController* _tcpController, Settings* _settings)
         : tcpClientsList(_tcpClientsList)
         , tcpController(_tcpController)
+        , settings(_settings)
     {}
 
     TCPClientsList* tcpClientsList{nullptr};
     TCPController* tcpController{nullptr};
+    Settings* settings{nullptr};
     data::EntityCollection<TCPClient>* tcpClients{nullptr};
 };
 
-TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
+TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController, Settings* settings)
     : Entity(parent, "TCPClientsList")
 {
-    qDebug() << "tcp clients list initialized";
-    implementation.reset(new Implementation(this, tcpController));
+    implementation.reset(new Implementation(this, tcpController, settings));
     implementation->tcpClients = static_cast<EntityCollection<TCPClient>*>(addChildCollection(new EntityCollection<TCPClient>(this, "tcp")));
 
 
@@ -31,8 +32,10 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
 
     connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &TCPClientsList::scan);
 
+
 //VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
-    int playersNumber = 5;
+    int playersNumber = implementation->settings->quantity()->value();
+    qDebug() << "tcp clients list with playersNumber: " << playersNumber;
     QJsonArray resultsArray;
     QJsonObject jsonObject;
 
@@ -47,6 +50,7 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController)
     }
 
     implementation->tcpClients->update(resultsArray);
+    qDebug() << "Array size: " << QString::number(resultsArray.size());
 }
 
 TCPClientsList::~TCPClientsList(){}
@@ -59,6 +63,7 @@ QQmlListProperty<TCPClient> TCPClientsList::ui_tcpClients()
 void TCPClientsList::scan()
 {
     auto resultsArray = implementation->tcpController->SClients();
+    qDebug() << "TCP client sadfsdas";
 
     implementation->tcpClients->update(resultsArray);
     qDebug() << "TCPClientsList::scan ARRAY SIZE: " << QString::number(resultsArray.size());
