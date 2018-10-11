@@ -161,11 +161,10 @@ void CommandController::onStartServerExecuted()
     implementation->tcpController->startServer();
 
     QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
-
-
-
     implementation->settings->askQuestions()->setValue(jsonObject.value("ask").toInt());
-    qDebug() << "Command controller: server started!";
+    implementation->settings->quantity()->setValue(jsonObject.value("quantity").toInt());
+
+    qDebug() << "Command controller: server started with quantity" << QString::number(implementation->settings->quantity()->value());
 }
 
 

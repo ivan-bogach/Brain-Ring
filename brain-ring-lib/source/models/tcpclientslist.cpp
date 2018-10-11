@@ -57,6 +57,8 @@ TCPClientsList::~TCPClientsList(){}
 
 QQmlListProperty<TCPClient> TCPClientsList::ui_tcpClients()
 {
+    scan();
+    qDebug() << "ui_tcpClients" << QString::number(implementation->tcpClients->derivedEntities().size());
     return QQmlListProperty<TCPClient>(this, implementation->tcpClients->derivedEntities());
 }
 

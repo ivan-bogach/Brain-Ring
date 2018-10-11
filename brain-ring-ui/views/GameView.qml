@@ -13,7 +13,6 @@ Item {
     property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
     property int quantity: masterController.ui_settings.ui_quantity.ui_value
 
-
     focus: true
     Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
 
@@ -36,7 +35,6 @@ Item {
             color: "white"
         }
     }
-
 
     Rectangle {
         id: listViewWrapper
@@ -121,11 +119,7 @@ Item {
                         }
                     }
                 }
-
             }
         }
     }
-
-
-
 }
