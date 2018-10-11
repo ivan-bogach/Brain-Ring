@@ -114,6 +114,7 @@ void TCPController::stopServer()
 
 void TCPController::newClient()
 {
+    qDebug() << "New Client";
     if (implementation->serverStatus == 1)
     {
 

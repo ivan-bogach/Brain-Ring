@@ -10,5 +10,6 @@
         <file alias="Question.qml">components/Question.qml</file>
         <file alias="IpClient.qml">components/IpClient.qml</file>
         <file alias="SettingsBar.qml">components/SettingsBar.qml</file>
+        <file alias="TablePoints.qml">components/TablePoints.qml</file>
     </qresource>
 </RCC>
