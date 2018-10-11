@@ -3,7 +3,13 @@ import assets 1.0
 import BR 1.0
 
 Item {
+//from tcp
     property TCPClientsList clientList
+
+//internal
+    property int connectedClientsQuantity
+
+    Component.onCompleted: console.log("<========================COMPLETED WITH: ", connectedClientsQuantity, "================================>")
 
     Rectangle {
         anchors.fill: parent
@@ -22,6 +28,17 @@ Item {
 
             delegate: Item {
                 id: listDelegate
+
+                Component.onCompleted:{
+                    if (model.ui_isConnected.ui_value){
+                        console.log("connected")
+                        console.log("model.ui_isConnected.ui_value='", model.ui_isConnected.ui_value,"'")
+                        connectedClientsQuantity + 1
+                    }else{
+                        console.log("model.ui_isConnected.ui_value='", model.ui_isConnected.ui_value,"'")
+                        console.log("NOT CONNECTED")
+                    }
+                }
 
                 property var view: ListView.view
                 property var isCurrent: ListView.isCurrentItem

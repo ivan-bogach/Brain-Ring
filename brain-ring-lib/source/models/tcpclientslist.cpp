@@ -33,9 +33,9 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController, Se
     connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &TCPClientsList::scan);
 
 
-//VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
+
     int playersNumber = implementation->settings->quantity()->value();
-    qDebug() << "tcp clients list with playersNumber: " << playersNumber;
+
     QJsonArray resultsArray;
     QJsonObject jsonObject;
 
@@ -50,7 +50,7 @@ TCPClientsList::TCPClientsList(QObject* parent, TCPController* tcpController, Se
     }
 
     implementation->tcpClients->update(resultsArray);
-    qDebug() << "Array size: " << QString::number(resultsArray.size());
+//    qDebug() << "Array size: " << QString::number(resultsArray.size());
 }
 
 TCPClientsList::~TCPClientsList(){}
@@ -58,17 +58,17 @@ TCPClientsList::~TCPClientsList(){}
 QQmlListProperty<TCPClient> TCPClientsList::ui_tcpClients()
 {
     scan();
-    qDebug() << "ui_tcpClients" << QString::number(implementation->tcpClients->derivedEntities().size());
+//    qDebug() << "ui_tcpClients" << QString::number(implementation->tcpClients->derivedEntities().size());
     return QQmlListProperty<TCPClient>(this, implementation->tcpClients->derivedEntities());
 }
 
 void TCPClientsList::scan()
 {
     auto resultsArray = implementation->tcpController->SClients();
-    qDebug() << "TCP client sadfsdas";
+//    qDebug() << "TCP client sadfsdas";
 
     implementation->tcpClients->update(resultsArray);
-    qDebug() << "TCPClientsList::scan ARRAY SIZE: " << QString::number(resultsArray.size());
+//    qDebug() << "TCPClientsList::scan ARRAY SIZE: " << QString::number(resultsArray.size());
 }
 
 }}

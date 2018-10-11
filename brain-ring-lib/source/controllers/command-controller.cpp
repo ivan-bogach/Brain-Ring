@@ -85,7 +85,7 @@ public:
 CommandController::CommandController(QObject *parent, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList, Settings* settings)
     : QObject(parent)
 {
-    qDebug() << "Command Controller Initialized";
+//    qDebug() << "Command Controller Initialized";
     implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList, settings));
 }
 
@@ -110,7 +110,7 @@ QQmlListProperty<Command> CommandController::ui_settingsViewContextCommands()
 
 void CommandController::onCreateGameSaveExecuted()
 {
-    qDebug() << "You executed the Save command!";
+//    qDebug() << "You executed the Save command!";
 
     implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->num(), implementation->newGame->toJson());
 
@@ -118,7 +118,7 @@ void CommandController::onCreateGameSaveExecuted()
 
     implementation->gameSearch->searchAll();
 
-    qDebug() << "New client saved.";
+//    qDebug() << "New client saved.";
 }
 
 void CommandController::onStartSettingsView()
@@ -126,7 +126,7 @@ void CommandController::onStartSettingsView()
      QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
      implementation->settings->askQuestions()->setValue(jsonObject.value("ask").toInt());
      implementation->settings->quantity()->setValue(jsonObject.value("quantity").toInt());
-     qDebug() << "Command controller: Settings view started!";
+//     qDebug() << "Command controller: Settings view started!";
 }
 
 void CommandController::onSaveSettingsExecuted()
@@ -137,13 +137,13 @@ void CommandController::onSaveSettingsExecuted()
 
 void CommandController::onEditGameSaveExecuteed()
 {
-    qDebug () << "SAVE EXECUTED";
+//    qDebug () << "SAVE EXECUTED";
 
     implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->num(), implementation->selectedGame->toJson());
 
     implementation->gameSearch->searchAll();
 
-    qDebug() << "Game updated.";
+//    qDebug() << "Game updated.";
 
 }
 
@@ -151,28 +151,28 @@ void CommandController::onEditGameSaveExecuteed()
 void CommandController::setSelectedGame(Game *game)
 {
     implementation->selectedGame = game;
-    qDebug() << "Selected Game: " << game->text->value();
+//    qDebug() << "Selected Game: " << game->text->value();
 }
 
 
 void CommandController::onStartServerExecuted()
 {
-    qDebug() << "Command controller: You executed the Start command!";
+//    qDebug() << "Command controller: You executed the Start command!";
     implementation->tcpController->startServer();
 
     QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
     implementation->settings->askQuestions()->setValue(jsonObject.value("ask").toInt());
     implementation->settings->quantity()->setValue(jsonObject.value("quantity").toInt());
 
-    qDebug() << "Command controller: server started with quantity" << QString::number(implementation->settings->quantity()->value());
+//    qDebug() << "Command controller: server started with quantity" << QString::number(implementation->settings->quantity()->value());
 }
 
 
 void CommandController::onStopServerExecuted()
 {
-    qDebug() << "Command controller: You executed the STOP command!";
+//    qDebug() << "Command controller: You executed the STOP command!";
     implementation->tcpController->stopServer();
-    qDebug() << "Command controller: server stoped!";
+//    qDebug() << "Command controller: server stoped!";
 }
 
 }

@@ -15,14 +15,14 @@ public:
         : databaseController(_databaseController)
     {
         if (initialise()) {
-            qDebug() << "Database created using Sqlite version: " + sqliteVersion();
+//            qDebug() << "Database created using Sqlite version: " + sqliteVersion();
             if (createTables()) {
-                qDebug() << "Database tables created";
+//                qDebug() << "Database tables created";
             } else {
-                qDebug() << "ERROR: Unable to create database tables";
+//                qDebug() << "ERROR: Unable to create database tables";
             }
         } else {
-            qDebug() << "ERROR: Unable to open database";
+//            qDebug() << "ERROR: Unable to open database";
         }
     }
 
@@ -116,7 +116,7 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
     if(!query.exec()) return false;
 
 //int QSqlResult::numRowsAffected() - Returns the number of rows affected by the last query executed, or -1
-    qDebug() << "SAVED: " << QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact));
+//    qDebug() << "SAVED: " << QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact));
     return query.numRowsAffected() > 0;
 }
 
@@ -126,8 +126,8 @@ bool DatabaseController::updateRow(const QString& tableName, const QString& id, 
     if(id.isEmpty()) return false;
     if(jsonObject.isEmpty()) return false;
 
-    qDebug() << "Table: " << tableName;
-    qDebug() << "ID: " << id;
+//    qDebug() << "Table: " << tableName;
+//    qDebug() << "ID: " << id;
 //    qDebug() << "JSON: " << QString::number(jsonObject.size());
     QJsonDocument doc(jsonObject);
     qDebug() << doc.toJson(QJsonDocument::Compact);
@@ -143,7 +143,7 @@ bool DatabaseController::updateRow(const QString& tableName, const QString& id, 
 
     if(!query.exec()) return false;
 
-    qDebug() << "Rows affected: " << QString::number(query.numRowsAffected());
+//    qDebug() << "Rows affected: " << QString::number(query.numRowsAffected());
 
     return query.numRowsAffected() > 0;
 }
@@ -223,7 +223,7 @@ QJsonArray DatabaseController::findAll(const QString &tableName) const
 {
     if(tableName.isEmpty())
     {
-        qDebug() << "tableName.isEmpty())";
+//        qDebug() << "tableName.isEmpty())";
         return {};
     }
 

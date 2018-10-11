@@ -7,11 +7,17 @@ import BR 1.0
 Item {
     Component.onCompleted: masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
 
+//from tcp
     property TCPClient tcpClient: masterController.ui_tcpClient
     property TCPClientsList tcpClientList: masterController.ui_tcpClientList
 
+//from settings
     property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
     property int quantity: masterController.ui_settings.ui_quantity.ui_value
+
+//internal
+    property int connectedClientsNumber: 0
+
 
     focus: true
     Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
@@ -25,14 +31,17 @@ Item {
             anchors.left: parent.left
             anchors.top: parent.top
             color: "white"
+
             text: "Задавать вопросы? " + askQuestion.ui_value
         }
+
         Text {
+            id: ame
             anchors.left: name.left
             anchors.top: name.bottom
-            id: ame
-            text: "Количество игроков: " + quantity
             color: "white"
+
+            text: "Количество игроков: " + quantity
         }
     }
 
@@ -44,5 +53,6 @@ Item {
         anchors.left: parent.left
 
         clientList: tcpClientList
+        connectedClientsQuantity: connectedClientsNumber
     }
 }

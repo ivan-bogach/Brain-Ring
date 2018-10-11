@@ -36,7 +36,7 @@ Settings::~Settings(){}
 
 IntDecorator* Settings::quantity()
 {
-    qDebug() << "Settings::quantity:" << QString::number(implementation->quantity->value());
+//    qDebug() << "Settings::quantity:" << QString::number(implementation->quantity->value());
     return implementation->quantity;
 }
 

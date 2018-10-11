@@ -28,11 +28,11 @@ TCPController::~TCPController(){}
 
 QJsonArray TCPController::SClients()
 {
-    qDebug() << "HERE";
- //VARIABLE LATER MAY BE ASSIGN FROM UI//////////////////////////////////////
+//    qDebug() << "HERE";
+
     int clientsNumber = implementation->settings->quantity()->value();
-    qDebug() << "TCP controller clientsNumber: " << clientsNumber;
- //-/////////////////////////////////////////////////////////////////////////
+//    qDebug() << "TCP controller clientsNumber: " << clientsNumber;
+
     QMap<QString, bool> jsonMap;
     for(int i = 1; i <= clientsNumber; ++i)
     {
@@ -77,7 +77,7 @@ QJsonArray TCPController::SClients()
 
 void TCPController::startServer()
 {
-    qDebug() << "TCP CONTROLLER: startServer...";
+//    qDebug() << "TCP CONTROLLER: startServer...";
 
     tcpServer = new QTcpServer(this);
 
@@ -90,14 +90,14 @@ void TCPController::startServer()
     else
     {
         implementation->serverStatus = 1;
-        qDebug() << tcpServer->isListening() << "TCP CONTROLLER:  TCPSocket listen on port";
-        qDebug() << tcpServer->serverAddress().toString() << "Address";
+//        qDebug() << tcpServer->isListening() << "TCP CONTROLLER:  TCPSocket listen on port";
+//        qDebug() << tcpServer->serverAddress().toString() << "Address";
     }
 }
 
 void TCPController::stopServer()
 {
-    qDebug() << "TCP CONTROLLER: stopServer...";
+//    qDebug() << "TCP CONTROLLER: stopServer...";
 
     if (implementation->serverStatus == 1)
     {
@@ -107,14 +107,14 @@ void TCPController::stopServer()
         }
 
         tcpServer->close();
-        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
+//        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
         implementation->serverStatus = 0;
     }
 }
 
 void TCPController::newClient()
 {
-    qDebug() << "New Client";
+//    qDebug() << "New Client";
     if (implementation->serverStatus == 1)
     {
 
@@ -128,9 +128,13 @@ void TCPController::newClient()
 
         emit tcpClientArrived();
 
-        qDebug()<< "NEW";
+//        qDebug()<< "NEW";
 
-        qDebug() << QString::fromUtf8("New connection arrived: ") << clientSocket->peerAddress().toString();
+//Writing back client's ip last number
+        QString entireIp = clientSocket->peerAddress().toString();
+        int sizeIP =entireIp.size();
+        QString ip = QString(entireIp[sizeIP - 1]);
+        clientSocket->write(ip.toUtf8());
     }
 }
 
