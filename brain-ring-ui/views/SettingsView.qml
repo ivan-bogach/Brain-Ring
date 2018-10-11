@@ -15,12 +15,14 @@ Item {
 
     anchors.fill: parent
 
-    Column{
+    Row{
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 27
+
         CheckBox {
             text: "Показывать вопросы?"
+            anchors.verticalCenter: spin.verticalCenter
             checked: askQuestion.ui_value == 2 ? true : false
             onClicked: {
                 settings.ui_askQuestions.ui_value = checkedState
@@ -29,16 +31,27 @@ Item {
         }
 
         SpinBox {
+            id: spin
             value: quantity.ui_value
             onValueChanged: {
                 settings.ui_quantity.ui_value = value
                 console.log(value)
             }
         }
+    }
+
+    Rectangle {
+        id: rect
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 100
+        anchors.horizontalCenter: parent.horizontalCenter
 
         SettingsBar {
+            anchors.fill: parent
             id: settingsBar
+
             commandList: masterController.ui_commandController.ui_settingsViewContextCommands
         }
     }
+
 }

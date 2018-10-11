@@ -34,10 +34,12 @@ public:
         , tcpClient(_tcpClient)
         , tcpClientsList(_tcpClientsList)
     {
+//AddQuestionPanel
         Command* createGameSaveCommand =  new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
         addQuestionPanelContextCommands.append(createGameSaveCommand);
 
+//SettingsView
         Command* startSettingsCommand = new Command(commandController, "", "");
         QObject::connect(startSettingsCommand, &Command::executed, commandController, &CommandController::onStartSettingsView);
         settingsViewContextCommands.append(startSettingsCommand);
@@ -46,6 +48,7 @@ public:
         QObject::connect(saveSettings, &Command::executed, commandController, &CommandController::onSaveSettingsExecuted);
         settingsViewContextCommands.append(saveSettings);
 
+//GameView
         Command* startServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
@@ -53,8 +56,6 @@ public:
         Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
         QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
         gameViewContextCommands.append(stopServerCommand);
-
-
     }
 
     CommandController* commandController{nullptr};

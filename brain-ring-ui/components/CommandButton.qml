@@ -42,7 +42,7 @@ Item {
                 name: "hover"
                 PropertyChanges {
                     target: background
-                    color: "#ebf5fe"
+//                    color: "#ebf5fe"
                 }
                 PropertyChanges {
                     target: textIcon
