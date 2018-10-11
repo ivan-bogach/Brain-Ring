@@ -16,21 +16,23 @@ namespace models {
 class BRAINRINGLIBSHARED_EXPORT Game : public data::Entity
 {
     Q_OBJECT
-    Q_PROPERTY(br::data::StringDecorator* ui_number MEMBER number CONSTANT)
-    Q_PROPERTY(br::data::StringDecorator* ui_text MEMBER text CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_number READ number CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_text READ text CONSTANT)
 
 public:
     explicit Game(QObject* parent = nullptr);
     Game(QObject *parent, const QJsonObject& json);
+    ~Game();
 
-    const QString& num() const;
+    data::StringDecorator* number();
+    data::StringDecorator* text();
     void clear();
-
-    data::StringDecorator* number{nullptr};
-    data::StringDecorator* text{nullptr};
 
 signals:
 
+private:
+    class Implementation;
+    QScopedPointer<Implementation> implementation;
 };
 
 }

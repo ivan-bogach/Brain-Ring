@@ -49,6 +49,12 @@ public:
         Command* startServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
         QObject::connect(startServerCommand, &Command::executed, commandController, &CommandController::onStartServerExecuted);
         gameViewContextCommands.append(startServerCommand);
+
+        Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
+        QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
+        gameViewContextCommands.append(stopServerCommand);
+
+
     }
 
     CommandController* commandController{nullptr};
@@ -112,7 +118,7 @@ void CommandController::onCreateGameSaveExecuted()
 {
 //    qDebug() << "You executed the Save command!";
 
-    implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->num(), implementation->newGame->toJson());
+    implementation->databaseController->createRow(implementation->newGame->key(), implementation->newGame->number()->value(), implementation->newGame->toJson());
 
     implementation->newGame->clear();
 
@@ -133,13 +139,14 @@ void CommandController::onSaveSettingsExecuted()
 {
     qDebug() << "You executed the Save Settings command!";
     implementation->databaseController->createRow(implementation->settings->key(), "1", implementation->settings->toJson());
+    implementation->navigationController->goDashboardView();
 }
 
 void CommandController::onEditGameSaveExecuteed()
 {
 //    qDebug () << "SAVE EXECUTED";
 
-    implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->num(), implementation->selectedGame->toJson());
+    implementation->databaseController->updateRow(implementation->selectedGame->key(), implementation->selectedGame->number()->value(), implementation->selectedGame->toJson());
 
     implementation->gameSearch->searchAll();
 
@@ -170,9 +177,9 @@ void CommandController::onStartServerExecuted()
 
 void CommandController::onStopServerExecuted()
 {
-//    qDebug() << "Command controller: You executed the STOP command!";
+    qDebug() << "Command controller: You executed the STOP command!";
     implementation->tcpController->stopServer();
-//    qDebug() << "Command controller: server stoped!";
+    qDebug() << "Command controller: server stoped!";
 }
 
 }

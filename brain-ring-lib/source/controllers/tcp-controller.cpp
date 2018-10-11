@@ -107,7 +107,7 @@ void TCPController::stopServer()
         }
 
         tcpServer->close();
-//        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
+        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
         implementation->serverStatus = 0;
     }
 }

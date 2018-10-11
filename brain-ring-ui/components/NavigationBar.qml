@@ -52,7 +52,7 @@ Item {
                 btnText: "НАСТРОЙКИ"
                 onNavigationButtonClicked: {
                     masterController.ui_navigationController.goSettingsView();
-                    isCollapsed = true
+                    isCollapsed = false
                 }
             }
 
