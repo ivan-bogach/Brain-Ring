@@ -45,7 +45,9 @@ SOURCES += \
     source/models/tcpclient.cpp \
     source/models/tcpclientslist.cpp \
     source/framework/tcpclientcommand.cpp \
-    source/models/settings.cpp
+    source/models/settings.cpp \
+    source/gameplay/gameplay.cpp \
+    source/gameplay/player.cpp
 
 HEADERS += source/brain-ring-lib_global.h \
     source/controllers/master-controller.h \
@@ -67,7 +69,9 @@ HEADERS += source/brain-ring-lib_global.h \
     source/models/tcpclient.h \
     source/models/tcpclientslist.h \
     source/framework/tcpclientcommand.h \
-    source/models/settings.h
+    source/models/settings.h \
+    source/gameplay/gameplay.h \
+    source/gameplay/player.h
 
 unix {
     target.path = /usr/lib
