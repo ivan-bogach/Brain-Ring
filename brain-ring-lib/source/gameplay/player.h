@@ -14,8 +14,8 @@ class BRAINRINGLIBSHARED_EXPORT Player : public data::Entity
 {
 
     Q_OBJECT
-    Q_PROPERTY(br::data::StringDecorator* ui_number READ number CONSTANT)
-    Q_PROPERTY(br::data::IntDecorator* ui_points READ points CONSTANT)
+    Q_PROPERTY(br::data::IntDecorator* ui_number READ number CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_points READ points CONSTANT)
 public:
     explicit Player(QObject* parent = nullptr);
     Player(QObject* parent, const QJsonObject& json);

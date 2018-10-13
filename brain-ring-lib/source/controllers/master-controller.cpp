@@ -1,6 +1,7 @@
 #include "master-controller.h"
 
 using namespace br::models;
+using namespace br::gameplay;
 
 namespace br {
 namespace controllers {
@@ -14,19 +15,21 @@ public:
         databaseController = new DatabaseController(masterController);
         navigationController = new NavigationController(masterController);
         settings = new Settings(masterController, databaseController);
-        tcpController = new TCPController(masterController, settings);
+        newPlayer = new Player(masterController);
+        tcpController = new TCPController(masterController, settings, databaseController, newPlayer);
         newGame = new Game(masterController);
         selectedGame = new Game(masterController);
         gameSearch = new GameSearch(masterController, databaseController);
         tcpClient = new TCPClient(masterController);
         tcpClientList = new TCPClientsList(masterController, tcpController, settings);
-        commandController = new CommandController(masterController, tcpController, databaseController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings);
+        commandController = new CommandController(masterController, databaseController, newPlayer, tcpController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings);
     }
 
     MasterController* masterController{nullptr};
     CommandController* commandController{nullptr};
     DatabaseController* databaseController{nullptr};
     NavigationController* navigationController{nullptr};
+    Player* newPlayer{nullptr};
     TCPController* tcpController{nullptr};
     Game* newGame{nullptr};
     Game* selectedGame{nullptr};
@@ -86,6 +89,12 @@ GameSearch* MasterController::gameSearch()
     return implementation->gameSearch;
 }
 
+Player* MasterController::newPlayer()
+{
+    return implementation->newPlayer;
+}
+
+
 TCPClient* MasterController::tcpClient()
 {
     return implementation->tcpClient;
@@ -100,6 +109,7 @@ Settings* MasterController::settings()
 {
     return implementation->settings;
 }
+
 
 //void MasterController::selectGame(Game *game)
 //{

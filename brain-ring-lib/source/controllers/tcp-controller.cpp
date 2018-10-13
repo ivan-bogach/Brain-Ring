@@ -6,22 +6,27 @@ namespace controllers {
 class TCPController::Implementation
 {
 public:
-    Implementation(TCPController* _tcpController, models::Settings* _settings)
+    Implementation(TCPController* _tcpController, models::Settings* _settings, IDatabaseController* _databaseController, gameplay::Player* _newPlayer)
         : tcpController(_tcpController)
         , settings(_settings)
+        , databaseController(_databaseController)
+        , newPlayer(_newPlayer)
     {
 
     }
     TCPController* tcpController{nullptr};
     models::Settings* settings{nullptr};
+    IDatabaseController* databaseController{nullptr};
+    gameplay::Player* newPlayer{nullptr};
+
     int serverStatus;
     QMap<int, QTcpSocket *> SClients;
 };
 
-TCPController::TCPController(QObject *parent, models::Settings* settings)
+TCPController::TCPController(QObject *parent, models::Settings* settings, IDatabaseController* databaseController, gameplay::Player *newPlayer)
     :QObject(parent)
 {
-    implementation.reset(new Implementation(this, settings));
+    implementation.reset(new Implementation(this, settings, databaseController, newPlayer));
 }
 
 TCPController::~TCPController(){}
@@ -114,7 +119,6 @@ void TCPController::stopServer()
 
 void TCPController::newClient()
 {
-//    qDebug() << "New Client";
     if (implementation->serverStatus == 1)
     {
 
@@ -128,13 +132,22 @@ void TCPController::newClient()
 
         emit tcpClientArrived();
 
-//        qDebug()<< "NEW";
 
 //Writing back client's ip last number
         QString entireIp = clientSocket->peerAddress().toString();
         int sizeIP =entireIp.size();
         QString ip = QString(entireIp[sizeIP - 1]);
         clientSocket->write(ip.toUtf8());
+
+//Create new player
+        QJsonObject jsonObject;
+        implementation->newPlayer->number()->setValue(ip.toInt());
+        jsonObject.insert("number", ip);
+
+//Save to database
+//        QJsonObject jsonObject;
+        implementation->databaseController->createRow(implementation->newPlayer->key(), QString::number(implementation->newPlayer->number()->value()), jsonObject);
+
     }
 }
 

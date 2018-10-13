@@ -15,6 +15,7 @@
 #include <models/tcpclient.h>
 #include <models/tcpclientslist.h>
 #include <models/settings.h>
+#include <gameplay/player.h>
 
 
 namespace br {
@@ -51,6 +52,8 @@ public:
 
     DatabaseController* databaseController();
 
+    gameplay::Player* newPlayer();
+
     TCPController* tcpController();
 
     NavigationController* navigationController();
@@ -66,6 +69,7 @@ public:
     models::TCPClientsList* tcpClientList();
 
     models::Settings* settings();
+
 
     const QString& welcomeMessage() const;
 

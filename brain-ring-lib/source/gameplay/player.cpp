@@ -1,7 +1,7 @@
 #include "player.h"
 
 using namespace br::data;
-using namespace br::models;
+
 
 namespace br {
 namespace gameplay {

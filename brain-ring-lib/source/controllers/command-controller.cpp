@@ -5,6 +5,7 @@
 
 using namespace br::framework;
 using namespace br::models;
+using namespace br::gameplay;
 
 namespace br {
 namespace controllers {
@@ -13,8 +14,9 @@ class CommandController::Implementation
 {
 public:
     Implementation(CommandController* _commandController,
-                   TCPController* _tcpController,
                    IDatabaseController* _databaseController,
+                   Player* _newPlayer,
+                   TCPController* _tcpController,
                    NavigationController* _navigationController,
                    Game* _newGame,
                    Game* _selectedGame,
@@ -24,8 +26,9 @@ public:
                    Settings* _settings
                    )
         : commandController(_commandController)
-        , tcpController(_tcpController)
         , databaseController(_databaseController)
+        , newPlayer(_newPlayer)
+        , tcpController(_tcpController)
         , navigationController(_navigationController)
         , settings(_settings)
         , newGame(_newGame)
@@ -60,9 +63,12 @@ public:
 
     CommandController* commandController{nullptr};
 
+    IDatabaseController* databaseController{nullptr};
+
+    Player* newPlayer{nullptr};
+
     TCPController* tcpController{nullptr};
 
-    IDatabaseController* databaseController{nullptr};
 
     NavigationController* navigationController{nullptr};
 
@@ -89,11 +95,11 @@ public:
     QList<Command*> settingsViewContextCommands{};
 };
 
-CommandController::CommandController(QObject *parent, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList, Settings* settings)
+CommandController::CommandController(QObject *parent, IDatabaseController* databaseController, Player* newPlayer, TCPController* tcpController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList, Settings* settings)
     : QObject(parent)
 {
 //    qDebug() << "Command Controller Initialized";
-    implementation.reset(new Implementation(this, tcpController,databaseController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList, settings));
+    implementation.reset(new Implementation(this, databaseController, newPlayer, tcpController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList, settings));
 }
 
 CommandController::~CommandController(){}

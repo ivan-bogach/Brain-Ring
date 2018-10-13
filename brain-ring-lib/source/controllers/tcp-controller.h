@@ -14,7 +14,9 @@
 #include <QScopedPointer>
 
 #include <brain-ring-lib_global.h>
+#include <controllers/i-database-controller.h>
 #include <models/settings.h>
+#include <gameplay/player.h>
 
 namespace br {
 namespace controllers {
@@ -24,7 +26,11 @@ class BRAINRINGLIBSHARED_EXPORT TCPController : public QObject
 {
     Q_OBJECT
 public:
-    explicit TCPController(QObject* parent = nullptr, models::Settings* settings= nullptr);
+    explicit TCPController(QObject* parent = nullptr,
+                           models::Settings* settings= nullptr,
+                           IDatabaseController* databaseController = nullptr,
+                           gameplay::Player* newPlayer = nullptr
+                           );
     ~TCPController();
 
     QJsonArray SClients();

@@ -16,6 +16,7 @@
 #include <models/tcpclient.h>
 #include <models/tcpclientslist.h>
 #include <models/settings.h>
+#include <gameplay/player.h>
 
 namespace br {
 namespace controllers {
@@ -31,8 +32,9 @@ class BRAINRINGLIBSHARED_EXPORT CommandController : public QObject
 
 public:
     explicit CommandController(QObject* _parent = nullptr,
-                               TCPController* tcpController = nullptr,
                                IDatabaseController* databaseController = nullptr,
+                               gameplay::Player* newPlayer = nullptr,
+                               TCPController* tcpController = nullptr,
                                NavigationController* navigationController = nullptr,
                                models::Game* newGame= nullptr,
                                models::Game* selectedGame = nullptr,
