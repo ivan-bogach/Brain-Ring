@@ -21,7 +21,7 @@ public:
     TCPController* tcpController{nullptr};
     IDatabaseController* databaseControler{nullptr};
 
-    bool isAllClientsConnected{nullptr};
+    bool isAllClientsConnected;
     IntDecorator* isQuestion{nullptr};
     IntDecorator* numberPlayersInSettings{nullptr};
     int numberConnectedPlayers;
@@ -32,11 +32,9 @@ public:
 GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController)
     : Entity(parent, "gamePlay")
 {
-    qDebug() << "HERE i AM";
     implementation.reset(new Implementation(this, settings, tcpController, databaseController));
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "playersList")));
 
-    implementation->isAllClientsConnected = false;
     implementation->isQuestion = implementation->settings->askQuestions();
     implementation->numberPlayersInSettings = implementation->settings->quantity();
 
@@ -48,13 +46,13 @@ GamePlay::~GamePlay(){}
 
 QQmlListProperty<Player> GamePlay::ui_players()
 {
+    qDebug() << " Size of GamePlay::ui_players = " << implementation->playersList->derivedEntities().size();
     return QQmlListProperty<Player>(this, implementation->playersList->derivedEntities());
 }
 
 bool GamePlay::isAllClientsConnected()
 {
-    implementation->numberConnectedPlayers = implementation->tcpController->SClients().size();
-    return (implementation->numberPlayersInSettings->value() - implementation->numberConnectedPlayers == 0);
+    return implementation->isAllClientsConnected;
 }
 
 IntDecorator* GamePlay::isQuestion()
@@ -69,14 +67,18 @@ IntDecorator* GamePlay::numberPlayersInSettings()
 
 void GamePlay::searchAll()
 {
-    auto resultsArray = implementation->databaseControler->findAll("players");
-    implementation->playersList->update(resultsArray);
-}
 
-//void GamePlay::addPlayer()
-//{
-//    implementation->databaseControler->
-//}
+    if (implementation->numberPlayersInSettings->value() - implementation->numberConnectedPlayers == 0)
+    {
+        qDebug() << "All Clients Connected";
+        emit allClientsConnected();
+    }
+
+    auto resultsArray = implementation->databaseControler->findAll("player");
+    implementation->playersList->update(resultsArray);
+
+    qDebug() << "GamePlay::searchAll updated " << resultsArray.size() << "playerList Player";
+}
 
 }
 }

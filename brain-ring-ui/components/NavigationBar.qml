@@ -36,8 +36,7 @@ Item {
                 btnText: "ИГРАТЬ"
                 onNavigationButtonClicked: {
                     masterController.ui_navigationController.goGameView();
-                    onNavigationButtonClicked: isCollapsed = true
-
+                    isCollapsed = true
                 }
             }
             NavigationButton {
@@ -61,6 +60,7 @@ Item {
             anchors.bottom: parent.bottom
             btnText: "ВЫХОД"
             onNavigationButtonClicked: {
+                masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
                 Qt.quit()
                 masterController.ui_navigationController.goDashboardView();
                 isCollapsed = false

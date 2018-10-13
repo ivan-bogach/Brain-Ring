@@ -5,67 +5,75 @@ import components 1.0
 import BR 1.0
 
 Item {
-    Component.onCompleted: masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
+    Component.onCompleted: {
+        mainWindow.visibility = "FullScreen"
+        masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
+    }
     Component.onDestruction: masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
 
 //from tcp
-    property TCPClient tcpClient: masterController.ui_tcpClient
-    property TCPClientsList tcpClientList: masterController.ui_tcpClientList
+//    property TCPClient tcpClient: masterController.ui_tcpClient
+//    property TCPClientsList tcpClientList: masterController.ui_tcpClientList
 
 //from settings
-    property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
-    property int quantity: masterController.ui_settings.ui_quantity.ui_value
+//    property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
+//    property int quantity: masterController.ui_settings.ui_quantity.ui_value
 
 //from GamePlay
-
+    property GamePlay gamePlay: masterController.ui_gamePlay
+//    property bool isAllClientsConnected: masterController.ui_gamePlay.ui_isAllClientsConnected
+//    property type name: value
 
 //internal
-    property int connectedClientsNumber: 0
+//    property int connectedClientsNumber: 0
 
 
     focus: true
-    Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
+    Keys.onEscapePressed: {
+        contentFrame.replace("qrc:/views/DashboardView.qml")
+    }
 
     Rectangle {
         anchors.fill: parent
-        color: Style.colourTCPBar
 
-        Text {
-            id: name
-            anchors.left: parent.left
-            anchors.top: parent.top
-            color: "white"
+        ListView {
+            width: 180; height: 200
 
-            text: "Задавать вопросы? " + askQuestion.ui_value
+            model: gamePlay.ui_players
+            delegate: Text {
+                text: modelData.ui_name.ui_value + ": "
+            }
         }
-
-        Text {
-            id: ame
-            anchors.left: name.left
-            anchors.top: name.bottom
-            color: "white"
-
-            text: "Количество игроков: " + quantity
-        }
+//        color: "red" : "green"
 
 //        Text {
-//            id: dame
+//            id: name
+//            anchors.left: parent.left
+//            anchors.top: parent.top
+//            color: "white"
+
+//            text: "Задавать вопросы? " + askQuestion.ui_value
+//        }
+
+//        Text {
+//            id: ame
 //            anchors.left: name.left
 //            anchors.top: name.bottom
 //            color: "white"
 
-//            text: "игроков: " + gamePlay.ui_numberPlayersInSettings.ui_value
+//            text: "Количество игроков: " + quantity
 //        }
+
     }
 
-    TablePoints {
-        id: table
-        width: parent.width
-        height: parent.height/10
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
+//    TablePoints {
+//        id: table
+//        width: parent.width
+//        height: parent.height/10
+//        anchors.bottom: parent.bottom
+//        anchors.left: parent.left
 
-        clientList: tcpClientList
-        connectedClientsQuantity: connectedClientsNumber
-    }
+//        clientList: tcpClientList
+//        connectedClientsQuantity: connectedClientsNumber
+//    }
 }

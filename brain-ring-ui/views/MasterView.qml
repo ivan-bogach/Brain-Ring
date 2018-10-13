@@ -5,9 +5,9 @@ import components 1.0
 import assets 1.0
 
 Window {
-
+    id: mainWindow
 //=========================================================================
-//    onActiveFocusItemChanged: print("activeFocusItem", activeFocusItem)//==
+    onActiveFocusItemChanged: print("activeFocusItem", activeFocusItem)//==
 //=========================================================================
 
     visible: true
@@ -25,20 +25,11 @@ Window {
         onGoCreateGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
         onGoSettingsView: contentFrame.replace("qrc:/views/SettingsView.qml")
         onGoDashboardView: contentFrame.replace("qrc:/views/DashboardView.qml")
-//        onGoEditGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
-//        onGoGameView: contentFrame.replace("qrc:/views/GameView.qml", {selectedGame: game})
-//        onGoEditQuestionView: contentFrame.replace("qrc:/views/EditQuestionView.qml", {selectedGame: game})
-//        onGoFindGameView: contentFrame.replace("qrc:/views/FindGameView.qml")
     }
 
     NavigationBar {
         id: navigationBar
         isCollapsed: false
-
-        focus: true
-        Keys.onEscapePressed: {
-            isCollapsed = !isCollapsed
-        }
     }
 
     StackView {
@@ -49,8 +40,10 @@ Window {
         anchors.left: navigationBar.right
         initialItem: "qrc:/views/SplashView.qml"
 
-// For FindGameView
-        Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
+        onCurrentItemChanged: {
+                currentItem.forceActiveFocus()
+        }
+
     }
 }
 

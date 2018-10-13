@@ -21,9 +21,10 @@ namespace gameplay {
 class BRAINRINGLIBSHARED_EXPORT GamePlay : public data::Entity
 {
     Q_OBJECT
-    Q_PROPERTY(bool ui_isAllClientsConnected READ isAllClientsConnected CONSTANT)
     Q_PROPERTY(br::data::IntDecorator* ui_isQuestion READ isQuestion CONSTANT)
     Q_PROPERTY(br::data::IntDecorator* ui_numberPlayersInSettings READ numberPlayersInSettings CONSTANT)
+
+    Q_PROPERTY(bool ui_isAllClientsConnected READ isAllClientsConnected NOTIFY allClientsConnected)
     Q_PROPERTY(QQmlListProperty<br::gameplay::Player> ui_players READ ui_players NOTIFY playersChanged)
 
 public:
@@ -44,6 +45,7 @@ public:
 
 signals:
     void playersChanged();
+    void allClientsConnected();
 
 private:
     class Implementation;

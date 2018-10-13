@@ -82,7 +82,7 @@ QJsonArray TCPController::SClients()
 
 void TCPController::startServer()
 {
-//    qDebug() << "TCP CONTROLLER: startServer...";
+    qDebug() << "TCP CONTROLLER: startServer...";
 
     tcpServer = new QTcpServer(this);
 
@@ -95,8 +95,6 @@ void TCPController::startServer()
     else
     {
         implementation->serverStatus = 1;
-//        qDebug() << tcpServer->isListening() << "TCP CONTROLLER:  TCPSocket listen on port";
-//        qDebug() << tcpServer->serverAddress().toString() << "Address";
     }
 }
 

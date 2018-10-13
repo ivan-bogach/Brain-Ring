@@ -21,6 +21,7 @@ Item {
         spacing: 27
 
         CheckBox {
+            focus: true
             text: "Показывать вопросы?"
             anchors.verticalCenter: spin.verticalCenter
             checked: askQuestion.ui_value == 2 ? true : false
