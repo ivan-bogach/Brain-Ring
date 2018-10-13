@@ -16,8 +16,8 @@ public:
         , tcpController(_tcpController)
         , databaseControler(_databaseControler)
     {}
-    GamePlay gamePlay{nullptr};
-    Settings settings{nullptr};
+    GamePlay* gamePlay{nullptr};
+    Settings* settings{nullptr};
     TCPController* tcpController{nullptr};
     IDatabaseController* databaseControler{nullptr};
 
@@ -32,12 +32,13 @@ public:
 GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController)
     : Entity(parent, "gamePlay")
 {
+    qDebug() << "HERE i AM";
     implementation.reset(new Implementation(this, settings, tcpController, databaseController));
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "playersList")));
 
     implementation->isAllClientsConnected = false;
-    implementation->isQuestion = implementation->settings.askQuestions();
-    implementation->numberPlayersInSettings = implementation->settings.quantity();
+    implementation->isQuestion = implementation->settings->askQuestions();
+    implementation->numberPlayersInSettings = implementation->settings->quantity();
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersChanged);
     connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &GamePlay::searchAll);

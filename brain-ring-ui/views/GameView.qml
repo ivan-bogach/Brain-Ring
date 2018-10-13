@@ -16,6 +16,9 @@ Item {
     property IntDecorator askQuestion: masterController.ui_settings.ui_askQuestions
     property int quantity: masterController.ui_settings.ui_quantity.ui_value
 
+//from GamePlay
+
+
 //internal
     property int connectedClientsNumber: 0
 
@@ -44,6 +47,15 @@ Item {
 
             text: "Количество игроков: " + quantity
         }
+
+//        Text {
+//            id: dame
+//            anchors.left: name.left
+//            anchors.top: name.bottom
+//            color: "white"
+
+//            text: "игроков: " + gamePlay.ui_numberPlayersInSettings.ui_value
+//        }
     }
 
     TablePoints {

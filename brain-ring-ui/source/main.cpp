@@ -17,6 +17,8 @@
 #include <models/tcpclient.h>
 #include <models/tcpclientslist.h>
 #include <models/settings.h>
+#include <gameplay/player.h>
+#include <gameplay/gameplay.h>
 
 int main(int argc, char *argv[])
 {
@@ -43,6 +45,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<br::models::TCPClient>("BR", 1, 0, "TCPClient");
     qmlRegisterType<br::models::TCPClientsList>("BR", 1, 0, "TCPClientsList");
     qmlRegisterType<br::models::Settings>("BR", 1, 0, "Settings");
+
+    qmlRegisterType<br::gameplay::Player>("BR", 1, 0, "Player");
+    qmlRegisterType<br::gameplay::GamePlay>("BR", 1, 0, "GamePlay");
 
     qmlRegisterType<br::framework::Command>("BR", 1, 0, "Command");
 
