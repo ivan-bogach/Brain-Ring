@@ -15,22 +15,22 @@ public:
         databaseController = new DatabaseController(masterController);
         navigationController = new NavigationController(masterController);
         settings = new Settings(masterController, databaseController);
-        newPlayer = new Player(masterController);
-        tcpController = new TCPController(masterController, settings, databaseController, newPlayer);
+        player = new Player(masterController);
+        tcpController = new TCPController(masterController, settings, databaseController, player);
         newGame = new Game(masterController);
         selectedGame = new Game(masterController);
         gameSearch = new GameSearch(masterController, databaseController);
         tcpClient = new TCPClient(masterController);
         tcpClientList = new TCPClientsList(masterController, tcpController, settings);
         gamePlay = new GamePlay(masterController, settings, tcpController, databaseController);
-        commandController = new CommandController(masterController, databaseController, newPlayer, tcpController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings);
+        commandController = new CommandController(masterController, databaseController, player, tcpController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings);
     }
 
     MasterController* masterController{nullptr};
     CommandController* commandController{nullptr};
     DatabaseController* databaseController{nullptr};
     NavigationController* navigationController{nullptr};
-    Player* newPlayer{nullptr};
+    Player* player{nullptr};
     TCPController* tcpController{nullptr};
     Game* newGame{nullptr};
     Game* selectedGame{nullptr};
@@ -109,9 +109,9 @@ Settings* MasterController::settings()
 
 
 
-Player* MasterController::newPlayer()
+Player* MasterController::player()
 {
-    return implementation->newPlayer;
+    return implementation->player;
 }
 
 GamePlay* MasterController::gamePlay()

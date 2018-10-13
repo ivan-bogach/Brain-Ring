@@ -56,7 +56,7 @@ public:
 
     DatabaseController* databaseController();
 
-    gameplay::Player* newPlayer();
+    gameplay::Player* player();
 
     TCPController* tcpController();
 
@@ -73,8 +73,6 @@ public:
     models::TCPClientsList* tcpClientList();
 
     models::Settings* settings();
-
-    gameplay::Player* player();
 
     gameplay::GamePlay* gamePlay();
 
