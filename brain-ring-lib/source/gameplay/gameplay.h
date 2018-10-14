@@ -24,6 +24,7 @@ class BRAINRINGLIBSHARED_EXPORT GamePlay : public data::Entity
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<br::gameplay::Player> ui_players READ ui_players NOTIFY playersListChanged)
     Q_PROPERTY(bool ui_isAllPlayersConnected READ isAllPlayersConnected NOTIFY playersListChanged)
+//    Q_PROPERTY(bool ui_isRaundStarted READ isRaundStarted NOTIFY raundStarted)
 
 public:
     explicit GamePlay(QObject* parent = nullptr, models::Settings* settings = nullptr, controllers::TCPController* tcpController = nullptr, controllers::IDatabaseController* databaseController = nullptr);
@@ -35,9 +36,11 @@ public:
 
     QQmlListProperty<Player> ui_players();
     bool isAllPlayersConnected();
+//    bool isRaundStarted();
 
 signals:
     void playersListChanged();
+//    void raundStarted();
 
 private:
     class Implementation;

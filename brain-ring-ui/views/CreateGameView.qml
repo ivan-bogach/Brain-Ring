@@ -7,6 +7,10 @@ import components 1.0
 
 
 Item {
+    Component.onCompleted: {
+        masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
+    }
+
     property Game newGame: masterController.ui_newGame
     property GameSearch gameSearch: masterController.ui_gameSearch
 

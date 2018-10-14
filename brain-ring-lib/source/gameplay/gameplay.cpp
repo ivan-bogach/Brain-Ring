@@ -21,8 +21,11 @@ public:
     TCPController* tcpController{nullptr};
     IDatabaseController* databaseControler{nullptr};
 
+    bool isRaundStarted;
+
     EntityCollection<Player>* playersList{nullptr};
 
+    bool allPlayerConnected;
     QMap <QString, int> gamePoints;
 };
 
@@ -33,6 +36,12 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
     implementation.reset(new Implementation(this, settings, tcpController, databaseController));
 
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "player")));
+
+
+    implementation->allPlayerConnected = false;
+
+    implementation->isRaundStarted = false;
+
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
 
@@ -120,6 +129,13 @@ void GamePlay::scan()
 
 void GamePlay::getMessageFromTCP(const QByteArray& message)
 {
+    QString qstringMessage = QString::fromUtf8(message);
+    if(implementation->allPlayerConnected){
+        if( qstringMessage.trimmed() == "c"){
+            implementation->isRaundStarted = true;
+            qDebug() << "RAUND STARTED";
+        }
+    }
     qDebug() << "Message got: " << message << " FUUUUUU";
 }
 
@@ -127,6 +143,7 @@ bool GamePlay::isAllPlayersConnected()
 {
     if (implementation->settings->quantity()->value() == implementation->tcpController->SClients().size())
     {
+        implementation->allPlayerConnected = true;
         return true;
     }
     return false;

@@ -4,7 +4,10 @@ import BR 1.0
 import components 1.0
 
 Item {
-    Component.onCompleted: masterController.ui_commandController.ui_settingsViewContextCommands[0].executed()
+    Component.onCompleted: {
+        masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
+        masterController.ui_commandController.ui_settingsViewContextCommands[0].executed()
+    }
 
     property StringDecorator stringDecoratorQuantity
     property IntDecorator intDecoratorAskQuestions
