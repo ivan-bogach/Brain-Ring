@@ -13,7 +13,7 @@ Item {
 
 //from gamePlay
     property GamePlay gamePlay: masterController.ui_gamePlay
-//    property bool isAllClientsConnected: masterController.ui_gamePlay.ui_isAllPlayersConnected
+    property bool isAllClientsConnected: masterController.ui_gamePlay.ui_isAllPlayersConnected
 
 //from Settings
     property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
@@ -37,14 +37,33 @@ Item {
 
             Rectangle {
                 id: listViewRect
-                width: parent.width*0.1*numberPlayersFromSettings
-                height: waitPlayers.height
+                width: isAllClientsConnected ? 0 : parent.width*0.1*numberPlayersFromSettings
+                height: isAllClientsConnected ? 0 : waitPlayers.height
+                visible: isAllClientsConnected ? false : true
                 anchors.centerIn: parent
                 color: Style.colourTCPBar
 
                 WaitPlayers {
                     gameP: gamePlay
                     numPlayersFromSettings: numberPlayersFromSettings
+                }
+            }
+
+            Rectangle {
+                anchors.left:  isAllClientsConnected ? parent.left : parent.right
+                anchors.bottom: isAllClientsConnected ? parent.bottom : parent.top
+                width: isAllClientsConnected ? parent.width : 0
+                height: isAllClientsConnected ? parent.height : 0
+                color: Style.colourTCPBar
+
+                Text {
+                    id: readyText
+                    anchors.centerIn: parent
+                    visible: isAllClientsConnected ? true : false
+                    font.pixelSize: 30
+                    font.bold:true
+                    color: "#CD0E5C"
+                    text: qsTr("Все участники готовы!")
                 }
             }
         }
