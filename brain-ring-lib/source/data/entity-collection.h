@@ -6,6 +6,10 @@
 #include <QJsonArray>
 #include<QJsonValue>
 
+//..........................................................................................
+#include <QJsonDocument>
+//..........................................................................................
+
 #include <brain-ring-lib_global.h>
 
 namespace br {
@@ -85,7 +89,11 @@ public:
         {
             addEntity(new T(this, jsonValue.toObject()));
         }
-
+//..........................................................................................
+        QJsonDocument jsonDocument;
+        jsonDocument.setArray(jsonArray);
+        qDebug() << "entity-collection update entity collection with: " << jsonDocument.toJson();
+//..........................................................................................
     }
 
 //creating a new vector on request and populating it with all the items in the collection
@@ -110,9 +118,9 @@ public:
         if(!collection.contains(entity))
         {
             collection.append(entity);
+            qDebug() << "collectionChanged signal from addEntity";
             EntityCollectionObject::collectionChanged();
         }
-//        qDebug() << "EntityCollection AddEntity";
         return entity;
     }
 

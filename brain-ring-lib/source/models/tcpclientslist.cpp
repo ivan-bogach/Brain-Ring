@@ -67,7 +67,7 @@ void TCPClientsList::scan()
     auto resultsArray = implementation->tcpController->SClients();
 //    qDebug() << "TCP client sadfsdas";
 
-    implementation->tcpClients->update(resultsArray);
+//    implementation->tcpClients->update(resultsArray);
 //    qDebug() << "TCPClientsList::scan ARRAY SIZE: " << QString::number(resultsArray.size());
 }
 

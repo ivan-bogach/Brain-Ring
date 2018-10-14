@@ -21,63 +21,97 @@ public:
     TCPController* tcpController{nullptr};
     IDatabaseController* databaseControler{nullptr};
 
-    bool isAllClientsConnected;
-    IntDecorator* isQuestion{nullptr};
-    IntDecorator* numberPlayersInSettings{nullptr};
-    int numberConnectedPlayers;
-
     EntityCollection<Player>* playersList{nullptr};
+
+    QMap <QString, int> gamePoints;
 };
 
 GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController)
     : Entity(parent, "gamePlay")
 {
+
     implementation.reset(new Implementation(this, settings, tcpController, databaseController));
-    implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "playersList")));
 
-    implementation->isQuestion = implementation->settings->askQuestions();
-    implementation->numberPlayersInSettings = implementation->settings->quantity();
+    implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "player")));
 
-    connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersChanged);
-    connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &GamePlay::searchAll);
+    connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
+
+    connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &GamePlay::scan);
+
+    int numberPlayersFromSettings = implementation->settings->quantity()->value();
+
+    QJsonArray resultsArray;
+    QJsonObject jsonObject;
+
+    for (int i =1; i <= numberPlayersFromSettings; ++i)
+    {
+        jsonObject.insert("number", QString::number(i));
+        jsonObject.insert("isConnected", "");
+        jsonObject.insert("points", "0");
+
+       resultsArray.append(QJsonValue(jsonObject));
+    }
+    implementation->playersList->update(resultsArray);
 }
 
 GamePlay::~GamePlay(){}
 
 QQmlListProperty<Player> GamePlay::ui_players()
 {
-    qDebug() << " Size of GamePlay::ui_players = " << implementation->playersList->derivedEntities().size();
+    qDebug() << "GamePlay::ui_players done! With: " << implementation->playersList->derivedEntities().size();
     return QQmlListProperty<Player>(this, implementation->playersList->derivedEntities());
 }
 
-bool GamePlay::isAllClientsConnected()
+void GamePlay::scan()
 {
-    return implementation->isAllClientsConnected;
-}
+    //get number of players from settings and initialize Qmap with size equal number and filled falses
+        int numberPlayersFromSettings = implementation->settings->quantity()->value();
 
-IntDecorator* GamePlay::isQuestion()
-{
-    return implementation->isQuestion;
-}
+        QMap<QString, bool> jsonMap;
+        for(int i = 1; i <= numberPlayersFromSettings; ++i)
+        {
+            jsonMap[QString::number(i)] = false;
+        }
 
-IntDecorator* GamePlay::numberPlayersInSettings()
-{
-    return implementation->numberPlayersInSettings;
-}
 
-void GamePlay::searchAll()
-{
+    //for updating EntityCollection create QJsonArray and QJsonObject for fill QJsonArray
+        QJsonArray returnArray;
+        QJsonObject jsonObject;
 
-    if (implementation->numberPlayersInSettings->value() - implementation->numberConnectedPlayers == 0)
-    {
-        qDebug() << "All Clients Connected";
-        emit allClientsConnected();
-    }
+    //get from tcpcontroller connected clients and for each ip insert "ip" in JsonObject
+        QMapIterator<int, QTcpSocket *> i(implementation->tcpController->SClients());
+        while (i.hasNext())
+        {
+    //insert last number of client`s ip in jsonObject
+            i.next();
+            QString entireIp = i.value()->peerAddress().toString();
+            int sizeIP =entireIp.size();
+            QString ip = QString(entireIp[sizeIP - 1]);
+            jsonObject.insert("number", ip);
+    //insert true for connected ip in jsonMap
+            jsonMap[ip] = true;
 
-    auto resultsArray = implementation->databaseControler->findAll("player");
-    implementation->playersList->update(resultsArray);
+        }
 
-    qDebug() << "GamePlay::searchAll updated " << resultsArray.size() << "playerList Player";
+        QMap<QString, bool>::iterator it = jsonMap.begin();
+        for(; it != jsonMap.end(); ++it)
+        {
+            if(it.value() == false)
+            {
+                jsonObject.insert("number", it.key());
+                jsonObject.insert("isConnected", "");
+                jsonObject.insert("points", "0");
+            }
+            else if(it.value() == true)
+            {
+                jsonObject.insert("number", it.key());
+                jsonObject.insert("isConnected", "true");
+                jsonObject.insert("points", implementation->gamePoints[it.key()]);
+            }
+            returnArray.append(QJsonValue(jsonObject));
+        }
+        implementation->playersList->update(returnArray);
+        qDebug() << "GamePlay::scan done!";
 }
 
 }

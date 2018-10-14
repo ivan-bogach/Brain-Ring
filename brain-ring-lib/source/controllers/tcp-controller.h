@@ -33,7 +33,7 @@ public:
                            );
     ~TCPController();
 
-    QJsonArray SClients();
+    QMap<int, QTcpSocket *> SClients();
     models::Settings* setting{nullptr};
 
 signals:

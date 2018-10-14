@@ -2,9 +2,10 @@
 #define GAMEPLAY_H
 
 #include <QObject>
-
 #include <QScopedPointer>
 #include <QtQml/QQmlListProperty>
+#include <QJsonObject>
+#include <QJsonValue>
 
 #include "brain-ring-lib_global.h"
 #include <controllers/tcp-controller.h>
@@ -21,31 +22,19 @@ namespace gameplay {
 class BRAINRINGLIBSHARED_EXPORT GamePlay : public data::Entity
 {
     Q_OBJECT
-    Q_PROPERTY(br::data::IntDecorator* ui_isQuestion READ isQuestion CONSTANT)
-    Q_PROPERTY(br::data::IntDecorator* ui_numberPlayersInSettings READ numberPlayersInSettings CONSTANT)
-
-    Q_PROPERTY(bool ui_isAllClientsConnected READ isAllClientsConnected NOTIFY allClientsConnected)
-    Q_PROPERTY(QQmlListProperty<br::gameplay::Player> ui_players READ ui_players NOTIFY playersChanged)
+    Q_PROPERTY(QQmlListProperty<br::gameplay::Player> ui_players READ ui_players NOTIFY playersListChanged)
 
 public:
     explicit GamePlay(QObject* parent = nullptr, models::Settings* settings = nullptr, controllers::TCPController* tcpController = nullptr, controllers::IDatabaseController* databaseController = nullptr);
     ~GamePlay();
 
-//    void clear();
-    void searchAll();
-//    void addPlayer();
-
-    bool isAllClientsConnected();
-    data::IntDecorator* isQuestion();
-    data::IntDecorator* numberPlayersInSettings();
-    int numberConnectedPlayers();
     QQmlListProperty<Player> ui_players();
+    void scan();
 
 
 
 signals:
-    void playersChanged();
-    void allClientsConnected();
+    void playersListChanged();
 
 private:
     class Implementation;
