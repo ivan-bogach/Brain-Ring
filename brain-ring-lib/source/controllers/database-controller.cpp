@@ -94,7 +94,7 @@ DatabaseController::DatabaseController(QObject* parent)
 
 DatabaseController::~DatabaseController(){}
 
-bool DatabaseController::createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
+bool DatabaseController::createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject)
 {
     if(tableName.isEmpty()) return false;
     if(id.isEmpty()) return false;
@@ -115,8 +115,8 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
 
     if(!query.exec()) return false;
 
-//int QSqlResult::numRowsAffected() - Returns the number of rows affected by the last query executed, or -1
-//    qDebug() << "SAVED: " << QVariant(QJsonDocument(jsonObject).toJson(QJsonDocument::Compact));
+    emit databaseChanged();
+
     return query.numRowsAffected() > 0;
 }
 

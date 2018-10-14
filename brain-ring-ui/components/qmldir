@@ -9,3 +9,4 @@ Question 1.0 Question.qml
 IpClient 1.0 IpClient.qml
 SettingsBar 1.0 SettingsBar.qml
 TablePoints 1.0 TablePoints.qml
+WaitPlayers 1.0 WaitPlayers.qml

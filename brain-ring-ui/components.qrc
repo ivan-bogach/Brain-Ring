@@ -11,5 +11,6 @@
         <file alias="IpClient.qml">components/IpClient.qml</file>
         <file alias="SettingsBar.qml">components/SettingsBar.qml</file>
         <file alias="TablePoints.qml">components/TablePoints.qml</file>
+        <file alias="WaitPlayers.qml">WaitPlayers.qml</file>
     </qresource>
 </RCC>
