@@ -38,12 +38,13 @@ public:
 
 signals:
     void tcpClientArrived();
+    void messageArrived(const QByteArray& message);
 
 public slots:
     void startServer();
     void stopServer();
     void newClient();
-    QByteArray slotReadClient();
+    void slotReadClient();
 
 private:
      QTcpServer *tcpServer;

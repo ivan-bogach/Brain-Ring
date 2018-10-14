@@ -38,6 +38,8 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     connect(implementation->tcpController, &TCPController::tcpClientArrived, this, &GamePlay::scan);
 
+    connect(implementation->tcpController, &TCPController::messageArrived, this, &GamePlay::getMessageFromTCP);
+
     int numberPlayersFromSettings = implementation->settings->quantity()->value();
 
     QJsonArray resultsArray;
@@ -112,6 +114,11 @@ void GamePlay::scan()
         }
         implementation->playersList->update(returnArray);
         qDebug() << "GamePlay::scan done!";
+}
+
+void GamePlay::getMessageFromTCP(const QByteArray& message)
+{
+    qDebug() << "Message got: " << message << " FUUUUUU";
 }
 
 }

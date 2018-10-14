@@ -24,12 +24,14 @@ class BRAINRINGLIBSHARED_EXPORT GamePlay : public data::Entity
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<br::gameplay::Player> ui_players READ ui_players NOTIFY playersListChanged)
 
+
 public:
     explicit GamePlay(QObject* parent = nullptr, models::Settings* settings = nullptr, controllers::TCPController* tcpController = nullptr, controllers::IDatabaseController* databaseController = nullptr);
     ~GamePlay();
 
     QQmlListProperty<Player> ui_players();
     void scan();
+    void getMessageFromTCP(const QByteArray &);
 
 
 

@@ -33,51 +33,7 @@ TCPController::~TCPController(){}
 
 QMap<int, QTcpSocket *> TCPController::SClients()
 {
-////    qDebug() << "HERE";
-
-//    int clientsNumber = implementation->settings->quantity()->value();
-////    qDebug() << "TCP controller clientsNumber: " << clientsNumber;
-
-//    QMap<QString, bool> jsonMap;
-//    for(int i = 1; i <= clientsNumber; ++i)
-//    {
-//        jsonMap[QString::number(i)] = false;
-//    }
-
-//    QJsonArray returnArray;
-//    QJsonObject jsonObject;
     return implementation->SClients;
-//    while (i.hasNext())
-//    {
-//        i.next();
-//        QString entireIp = i.value()->peerAddress().toString();
-//        int sizeIP =entireIp.size();
-//        QString ip = QString(entireIp[sizeIP - 1]);
-
-
-//        jsonObject.insert("ip", ip);
-
-//        jsonMap[ip] = true;
-//    }
-
-//    QMap<QString, bool>::iterator it = jsonMap.begin();
-//    for(; it != jsonMap.end(); ++it)
-//    {
-//        if(it.value() == false)
-//        {
-//            jsonObject.insert("ip", it.key());
-//            jsonObject.insert("isConnected", "");
-//        }
-//        else if(it.value() == true)
-//        {
-//            jsonObject.insert("ip", it.key());
-//            jsonObject.insert("isConnected", "true");
-
-//        }
-//        returnArray.append(QJsonValue(jsonObject));
-//    }
-
-//    return returnArray;
 }
 
 void TCPController::startServer()
@@ -136,33 +92,12 @@ void TCPController::newClient()
         QString ip = QString(entireIp[sizeIP - 1]);
         clientSocket->write(ip.toUtf8());
 
-//Create new player
-//        QJsonObject jsonObject;
-//      implementation->newPlayer->number()->setValue(ip.toInt());
-//        jsonObject.insert("number", ip);
-//        jsonObject.insert("points", "8");
-
-//Save to database
-//        QJsonObject jsonObject;
-//        implementation->databaseController->createRow(implementation->newPlayer->key(), QString::number(implementation->newPlayer->number()->value()), jsonObject);
-
-
-
-//        if(implementation->databaseController->updateRow(implementation->newPlayer->key(), QString::number(implementation->newPlayer->number()->value()), jsonObject))
-//        {
-//            qDebug() << "Updated new row in DB and sent tcpClientArrived";
-//        }
-//        else
-//        {
-//            implementation->databaseController->createRow(implementation->newPlayer->key(), QString::number(implementation->newPlayer->number()->value()), jsonObject);
-//            qDebug() << "Created new row in DB and sent tcpClientArrived";
-//        }
 
         emit tcpClientArrived();
     }
 }
 
-QByteArray TCPController::slotReadClient()
+void TCPController::slotReadClient()
 {
     QByteArray returnValue;
 
@@ -170,7 +105,10 @@ QByteArray TCPController::slotReadClient()
 
     returnValue = clientSocket->readAll();
 
-    return returnValue;
+//    qDebug()<< "MESSAGE:" << returnValue;
+
+//    return returnValue;
+    emit messageArrived(returnValue);
 }
 
 }
