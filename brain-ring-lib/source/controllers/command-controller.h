@@ -17,6 +17,7 @@
 #include <models/tcpclientslist.h>
 #include <models/settings.h>
 #include <gameplay/player.h>
+#include <gameplay/gameplay.h>
 
 namespace br {
 namespace controllers {
@@ -41,7 +42,8 @@ public:
                                models::GameSearch* gameSearch = nullptr,
                                models::TCPClient* tcpClient = nullptr,
                                models::TCPClientsList* tcpClientsList = nullptr,
-                               models::Settings* settings = nullptr
+                               models::Settings* settings = nullptr,
+                               gameplay::GamePlay* gamePlay = nullptr
                                );
     ~CommandController();
 

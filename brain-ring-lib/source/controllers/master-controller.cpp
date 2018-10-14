@@ -23,7 +23,7 @@ public:
         tcpClient = new TCPClient(masterController);
         tcpClientList = new TCPClientsList(masterController, tcpController, settings);
         gamePlay = new GamePlay(masterController, settings, tcpController, databaseController);
-        commandController = new CommandController(masterController, databaseController, player, tcpController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings);
+        commandController = new CommandController(masterController, databaseController, player, tcpController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings, gamePlay);
     }
 
     MasterController* masterController{nullptr};

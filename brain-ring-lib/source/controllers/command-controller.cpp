@@ -23,7 +23,8 @@ public:
                    GameSearch* _gameSearch,
                    TCPClient* _tcpClient,
                    TCPClientsList* _tcpClientsList,
-                   Settings* _settings
+                   Settings* _settings,
+                   GamePlay* _gamePlay
                    )
         : commandController(_commandController)
         , databaseController(_databaseController)
@@ -36,6 +37,7 @@ public:
         , gameSearch(_gameSearch)
         , tcpClient(_tcpClient)
         , tcpClientsList(_tcpClientsList)
+        , gamePlay(_gamePlay)
     {
 //AddQuestionPanel
         Command* createGameSaveCommand =  new Command(commandController, QChar( 0xf0c7 ), "Сохранить");
@@ -84,6 +86,8 @@ public:
 
     TCPClientsList* tcpClientsList{nullptr};
 
+    GamePlay* gamePlay{nullptr};
+
 
 
 //    QList<TCPClientCommand*> gameViewContextTCPClientCommands{};
@@ -95,11 +99,11 @@ public:
     QList<Command*> settingsViewContextCommands{};
 };
 
-CommandController::CommandController(QObject *parent, IDatabaseController* databaseController, Player* newPlayer, TCPController* tcpController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList, Settings* settings)
+CommandController::CommandController(QObject *parent, IDatabaseController* databaseController, Player* newPlayer, TCPController* tcpController, NavigationController* navigationController , Game* newGame, Game *selectedGame, GameSearch* gameSearch, TCPClient* tcpClient, TCPClientsList* tcpClientsList, Settings* settings, GamePlay *gamePlay)
     : QObject(parent)
 {
 //    qDebug() << "Command Controller Initialized";
-    implementation.reset(new Implementation(this, databaseController, newPlayer, tcpController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList, settings));
+    implementation.reset(new Implementation(this, databaseController, newPlayer, tcpController, navigationController ,newGame,selectedGame ,gameSearch, tcpClient, tcpClientsList, settings, gamePlay));
 }
 
 CommandController::~CommandController(){}
@@ -186,6 +190,7 @@ void CommandController::onStopServerExecuted()
 {
     qDebug() << "Command controller: You executed the STOP command!";
     implementation->tcpController->stopServer();
+    implementation->gamePlay->clear();
     qDebug() << "Command controller: server stoped!";
 }
 

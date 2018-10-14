@@ -31,6 +31,7 @@ public:
 
     void scan();
     void getMessageFromTCP(const QByteArray &);
+    void clear();
 
     QQmlListProperty<Player> ui_players();
     bool isAllPlayersConnected();

@@ -132,5 +132,23 @@ bool GamePlay::isAllPlayersConnected()
     return false;
 }
 
+void GamePlay::clear()
+{
+    int numberPlayersFromSettings = implementation->settings->quantity()->value();
+
+    QJsonArray resultsArray;
+    QJsonObject jsonObject;
+
+    for (int i =1; i <= numberPlayersFromSettings; ++i)
+    {
+        jsonObject.insert("number", QString::number(i));
+        jsonObject.insert("isConnected", "");
+        jsonObject.insert("points", "0");
+
+       resultsArray.append(QJsonValue(jsonObject));
+    }
+    implementation->playersList->update(resultsArray);
+}
+
 }
 }
