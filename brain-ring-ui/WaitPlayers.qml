@@ -1,10 +1,16 @@
 import QtQuick 2.0
+import assets 1.0
 import BR 1.0
 
 Item {
+    id: waitPlayers
     property GamePlay gameP
+    property int numPlayersFromSettings
 
-    anchors.fill: parent
+    anchors.centerIn: parent
+    width: parent.width
+    height: parent.height
+
     ListView {
         anchors.fill: parent
         orientation: ListView.Horizontal
@@ -13,45 +19,19 @@ Item {
         model: gameP.ui_players
 
         delegate: Rectangle {
-            width: mainRect.width/10
-            Text {
-                id: topTop
-                anchors.top: parent.top
-                anchors.topMargin: 30
-                text: modelData.ui_number.ui_value
-            }
-            Text {
-                id: topDown
-                anchors.top:topTop.bottom
-                anchors.topMargin: 30
-                text: modelData.ui_number.ui_label
-            }
+            width: listViewRect.width/(numPlayersFromSettings + 1)
+            height: listViewRect.width/(numPlayersFromSettings + 1)
+            color: (modelData.ui_isConnected.ui_value === "true")  ? "#FF9243" : Style.colourTCPBar
+            border.color: (modelData.ui_isConnected.ui_value === "true") ? "#6EB3FE" : Style.colourTCPBar
+            border.width: 3
+            radius: listViewRect.width/(numPlayersFromSettings + 1)
 
             Text {
-                id: middleTop
-                anchors.top: topDown.bottom
-                anchors.topMargin: 30
-                text: modelData.ui_points.ui_value
-            }
-            Text {
-                id: middleDown
-                anchors.top:middleTop.bottom
-                anchors.topMargin: 30
-                text: modelData.ui_points.ui_value
-            }
-            Text {
-                id: downTop
-                anchors.top: middleDown.bottom
-                anchors.topMargin: 30
-                text: modelData.ui_isConnected.ui_value
-            }
-            Text {
-                id: downDown
-                anchors.top:downTop.bottom
-                anchors.topMargin: 30
-                text: modelData.ui_isConnected.ui_label
+                id: topTop
+                anchors.centerIn: parent
+                color:  "#7432EE"
+                text: (modelData.ui_isConnected.ui_value === "true")  ? "кнопка " + modelData.ui_number.ui_value : ""
             }
         }
     }
-
 }
