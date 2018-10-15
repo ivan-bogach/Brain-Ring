@@ -32,7 +32,8 @@ public:
                       models::Settings* settings = nullptr,
                       controllers::TCPController* tcpController = nullptr,
                       controllers::IDatabaseController* databaseController = nullptr,
-                      controllers::NavigationController* navigationController = nullptr
+                      controllers::NavigationController* navigationController = nullptr,
+                      models::Game* game = nullptr
                       );
     ~GamePlay();
 

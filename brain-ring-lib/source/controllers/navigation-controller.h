@@ -6,7 +6,6 @@
 #include <brain-ring-lib_global.h>
 #include <models/game.h>
 
-
 namespace br {
 namespace controllers {
 
@@ -22,7 +21,7 @@ signals:
     void goGameView();
     void goCreateGameView();
     void goSettingsView();
-    void goGameQuestionView();
+    void goGameQuestionView(br::models::Game* game);
 //    void goEditGameView(br::models::Game* game);
 //    void goFindGameView();
 };

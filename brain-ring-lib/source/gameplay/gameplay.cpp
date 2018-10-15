@@ -10,18 +10,20 @@ namespace gameplay {
 class GamePlay::Implementation
 {
 public:
-    Implementation(GamePlay* _gamePlay, Settings* _settings, TCPController* _tcpController, IDatabaseController* _databaseControler, NavigationController* _navigationController)
+    Implementation(GamePlay* _gamePlay, Settings* _settings, TCPController* _tcpController, IDatabaseController* _databaseControler, NavigationController* _navigationController, Game* _game)
         : gamePlay(_gamePlay)
         , settings(_settings)
         , tcpController(_tcpController)
         , databaseControler(_databaseControler)
         , navigationController(_navigationController)
+        , game(_game)
     {}
     GamePlay* gamePlay{nullptr};
     Settings* settings{nullptr};
     TCPController* tcpController{nullptr};
     IDatabaseController* databaseControler{nullptr};
     NavigationController* navigationController{nullptr};
+    Game* game{nullptr};
 
     bool isRaundStarted;
 
@@ -29,20 +31,28 @@ public:
 
     bool allPlayerConnected;
     QMap <QString, int> gamePoints;
+
+     data::EntityCollection<Game>* questions{nullptr};
 };
 
-GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController)
+GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController, Game* game)
     : Entity(parent, "gamePlay")
 {
 
-    implementation.reset(new Implementation(this, settings, tcpController, databaseController, navigationController));
+    implementation.reset(new Implementation(this, settings, tcpController, databaseController, navigationController, game));
 
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "player")));
-
 
     implementation->allPlayerConnected = false;
 
     implementation->isRaundStarted = false;
+
+    implementation->questions = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "questions")));
+
+    auto questionsArray = implementation->databaseControler->findAll("game");
+
+    implementation->questions->update(questionsArray);
+    qDebug() << implementation->questions->derivedEntities().size() << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
@@ -136,7 +146,15 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
     if(implementation->allPlayerConnected){
         if( qstringMessage.trimmed() == "n"){
             implementation->isRaundStarted = true;
-            implementation->navigationController->goGameQuestionView();
+            if (implementation->questions->derivedEntities().isEmpty())
+            {
+                implementation->navigationController->goCreateGameView();
+            }
+            else
+            {
+                implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                implementation->questions->derivedEntities().removeFirst();
+            }
         }
     }
     qDebug() << "Message got: " << message << " FUUUUUU";

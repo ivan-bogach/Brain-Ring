@@ -1,6 +1,10 @@
 import QtQuick 2.0
+import assets 1.0
+import BR 1.0
 
 Item {
+    property Game question
+
     anchors.fill: parent
 
     focus: true
@@ -8,10 +12,26 @@ Item {
         contentFrame.replace("qrc:/views/DashboardView.qml")
     }
 
-    Text {
-        id: questionText
-        font.pixelSize: 30
-        text: "Тут вопрос."
+    Rectangle {
+        id: background
+        anchors.fill: parent
+        color: Style.colourTCPBar
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.leftMargin: 50
+            anchors.rightMargin: 50
+            color: Style.colourTCPBar
+
+            Text {
+                id: questionText
+                anchors.centerIn: parent
+                font.pixelSize: 50
+                color: "#05E4B5"
+                text: question.ui_text.ui_value
+            }
+        }
     }
+
 }
 

@@ -22,7 +22,7 @@ public:
         gameSearch = new GameSearch(masterController, databaseController);
         tcpClient = new TCPClient(masterController);
         tcpClientList = new TCPClientsList(masterController, tcpController, settings);
-        gamePlay = new GamePlay(masterController, settings, tcpController, databaseController, navigationController);
+        gamePlay = new GamePlay(masterController, settings, tcpController, databaseController, navigationController, newGame);
         commandController = new CommandController(masterController, databaseController, player, tcpController, navigationController, newGame, selectedGame, gameSearch, tcpClient, tcpClientList, settings, gamePlay);
     }
 
