@@ -21,10 +21,11 @@ Window {
     Connections {
 //target : Object - This property holds the object that sends the signal.
         target: masterController.ui_navigationController
-        onGoGameView: contentFrame.replace("qrc:/views/GameView.qml")
-        onGoCreateGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
-        onGoSettingsView: contentFrame.replace("qrc:/views/SettingsView.qml")
         onGoDashboardView: contentFrame.replace("qrc:/views/DashboardView.qml")
+        onGoSettingsView: contentFrame.replace("qrc:/views/SettingsView.qml")
+        onGoCreateGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
+        onGoGameView: contentFrame.replace("qrc:/views/GameView.qml")
+        onGoGameQuestionView: contentFrame.replace("qrc:/views/GameQuestionView.qml")
     }
 
     NavigationBar {

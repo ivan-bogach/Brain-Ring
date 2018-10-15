@@ -23,7 +23,7 @@ Item {
         contentFrame.replace("qrc:/views/DashboardView.qml")
     }
 
-    Rectangle{
+    Rectangle {
         id: background
         color: Style.colourTCPBar
         anchors.fill: parent

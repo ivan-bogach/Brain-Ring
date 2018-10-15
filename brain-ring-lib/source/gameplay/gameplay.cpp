@@ -10,16 +10,18 @@ namespace gameplay {
 class GamePlay::Implementation
 {
 public:
-    Implementation(GamePlay* _gamePlay, Settings* _settings, TCPController* _tcpController, IDatabaseController* _databaseControler)
+    Implementation(GamePlay* _gamePlay, Settings* _settings, TCPController* _tcpController, IDatabaseController* _databaseControler, NavigationController* _navigationController)
         : gamePlay(_gamePlay)
         , settings(_settings)
         , tcpController(_tcpController)
         , databaseControler(_databaseControler)
+        , navigationController(_navigationController)
     {}
     GamePlay* gamePlay{nullptr};
     Settings* settings{nullptr};
     TCPController* tcpController{nullptr};
     IDatabaseController* databaseControler{nullptr};
+    NavigationController* navigationController{nullptr};
 
     bool isRaundStarted;
 
@@ -29,11 +31,11 @@ public:
     QMap <QString, int> gamePoints;
 };
 
-GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController)
+GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpController, IDatabaseController* databaseController, NavigationController* navigationController)
     : Entity(parent, "gamePlay")
 {
 
-    implementation.reset(new Implementation(this, settings, tcpController, databaseController));
+    implementation.reset(new Implementation(this, settings, tcpController, databaseController, navigationController));
 
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "player")));
 
@@ -130,10 +132,11 @@ void GamePlay::scan()
 void GamePlay::getMessageFromTCP(const QByteArray& message)
 {
     QString qstringMessage = QString::fromUtf8(message);
+
     if(implementation->allPlayerConnected){
-        if( qstringMessage.trimmed() == "c"){
+        if( qstringMessage.trimmed() == "n"){
             implementation->isRaundStarted = true;
-            qDebug() << "RAUND STARTED";
+            implementation->navigationController->goGameQuestionView();
         }
     }
     qDebug() << "Message got: " << message << " FUUUUUU";

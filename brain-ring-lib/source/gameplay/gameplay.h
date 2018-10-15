@@ -10,6 +10,7 @@
 #include "brain-ring-lib_global.h"
 #include <controllers/tcp-controller.h>
 #include <controllers/i-database-controller.h>
+#include <controllers/navigation-controller.h>
 #include <data/entity.h>
 #include <data/stringdecorator.h>
 #include <data/intdecorator.h>
@@ -27,7 +28,12 @@ class BRAINRINGLIBSHARED_EXPORT GamePlay : public data::Entity
 //    Q_PROPERTY(bool ui_isRaundStarted READ isRaundStarted NOTIFY raundStarted)
 
 public:
-    explicit GamePlay(QObject* parent = nullptr, models::Settings* settings = nullptr, controllers::TCPController* tcpController = nullptr, controllers::IDatabaseController* databaseController = nullptr);
+    explicit GamePlay(QObject* parent = nullptr,
+                      models::Settings* settings = nullptr,
+                      controllers::TCPController* tcpController = nullptr,
+                      controllers::IDatabaseController* databaseController = nullptr,
+                      controllers::NavigationController* navigationController = nullptr
+                      );
     ~GamePlay();
 
     void scan();
