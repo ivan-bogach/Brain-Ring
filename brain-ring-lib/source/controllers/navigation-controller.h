@@ -22,6 +22,7 @@ signals:
     void goCreateGameView();
     void goSettingsView();
     void goGameQuestionView(br::models::Game* game);
+    void goEmptyQuestionsListView();
 //    void goEditGameView(br::models::Game* game);
 //    void goFindGameView();
 };

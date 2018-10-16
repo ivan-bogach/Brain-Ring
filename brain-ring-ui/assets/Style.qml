@@ -6,6 +6,7 @@ Item {
 
     property alias imageDashboard: imageDashboardLoader.source
     property alias imageLogo: logoLoader.source
+    property alias imageGameOver: gameOverLoader.source
 
     readonly property real sizeScreenMargine: 20
     readonly property color colourBackground: "#efefef"
@@ -69,6 +70,11 @@ Item {
     Image {
         id: logoLoader
         source: "logo.png"
+    }
+
+    Image {
+        id: gameOverLoader
+        source: "gameover.png"
     }
 
 }

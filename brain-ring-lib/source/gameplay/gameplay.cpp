@@ -30,6 +30,8 @@ public:
     EntityCollection<Player>* playersList{nullptr};
 
     bool allPlayerConnected;
+    bool gameStarted;
+
     QMap <QString, int> gamePoints;
 
      data::EntityCollection<Game>* questions{nullptr};
@@ -45,15 +47,11 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->allPlayerConnected = false;
 
+    implementation->gameStarted = false;
+
     implementation->isRaundStarted = false;
 
     implementation->questions = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "questions")));
-
-    auto questionsArray = implementation->databaseControler->findAll("game");
-
-    implementation->questions->update(questionsArray);
-    qDebug() << implementation->questions->derivedEntities().size() << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
 
@@ -148,7 +146,8 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
             implementation->isRaundStarted = true;
             if (implementation->questions->derivedEntities().isEmpty())
             {
-                implementation->navigationController->goCreateGameView();
+                implementation->gameStarted = false;
+                implementation->navigationController->goEmptyQuestionsListView();
             }
             else
             {
@@ -164,6 +163,11 @@ bool GamePlay::isAllPlayersConnected()
 {
     if (implementation->settings->quantity()->value() == implementation->tcpController->SClients().size())
     {
+        if (!implementation->gameStarted){
+            implementation->gameStarted = true;
+            auto questionsArray = implementation->databaseControler->findAll("game");
+            implementation->questions->update(questionsArray);
+        }
         implementation->allPlayerConnected = true;
         return true;
     }

@@ -7,5 +7,6 @@
         <file alias="GameView.qml">views/GameView.qml</file>
         <file alias="SettingsView.qml">views/SettingsView.qml</file>
         <file alias="GameQuestionView.qml">views/GameQuestionView.qml</file>
+        <file alias="EmptyQuestionsListView.qml">views/EmptyQuestionsListView.qml</file>
     </qresource>
 </RCC>

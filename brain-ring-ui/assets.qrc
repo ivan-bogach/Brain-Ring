@@ -5,5 +5,6 @@
         <file alias="ring.jpg">assets/ring.jpg</file>
         <file alias="fontawesome.ttf">assets/fontawesome-webfont.ttf</file>
         <file alias="logo.png">assets/logo.png</file>
+        <file alias="gameover.png">assets/gameover.png</file>
     </qresource>
 </RCC>
