@@ -25,12 +25,14 @@ public:
     NavigationController* navigationController{nullptr};
     Game* game{nullptr};
 
-    bool isRaundStarted;
+//    bool isRaundStarted;
 
     EntityCollection<Player>* playersList{nullptr};
 
     bool allPlayerConnected;
     bool gameStarted;
+    bool isFirstQuestion;
+
 
     QMap <QString, int> gamePoints;
 
@@ -49,7 +51,9 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->gameStarted = false;
 
-    implementation->isRaundStarted = false;
+//    implementation->isRaundStarted = false;
+
+    implementation->isFirstQuestion = true;
 
     implementation->questions = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "questions")));
 
@@ -141,20 +145,57 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 {
     QString qstringMessage = QString::fromUtf8(message);
 
-    if(implementation->allPlayerConnected){
-        if( qstringMessage.trimmed() == "n"){
-            implementation->isRaundStarted = true;
-            if (implementation->questions->derivedEntities().isEmpty())
+    if( implementation->allPlayerConnected ){
+
+//Start game
+        if( qstringMessage.trimmed() == "n" || qstringMessage.trimmed() == "a" )
+        {
+
+            if ( implementation->questions->derivedEntities().size() > 0 )
+            {
+
+                if ( implementation->isFirstQuestion || qstringMessage.trimmed() == "a" )
+                {
+                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                }
+                else
+                {
+                    if ( implementation->questions->derivedEntities().size() == 1 )
+                    {
+
+                        implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                        implementation->questions->derivedEntities().removeFirst();
+                    }
+                    else
+                    {
+                        implementation->questions->derivedEntities().removeFirst();
+                        implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                    }
+                }
+
+            }
+            else
             {
                 implementation->gameStarted = false;
                 implementation->navigationController->goEmptyQuestionsListView();
             }
-            else
-            {
-                implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                implementation->questions->derivedEntities().removeFirst();
-            }
+
+            implementation->isFirstQuestion = false;
         }
+//        else if (qstringMessage.trimmed() == "a") {
+
+//            implementation->isRaundStarted = true;
+
+//            if (implementation->questions->derivedEntities().isEmpty())
+//            {
+//                implementation->gameStarted = false;
+//                implementation->navigationController->goEmptyQuestionsListView();
+//            }
+//            else
+//            {
+//                implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+//            }
+//        }
     }
     qDebug() << "Message got: " << message << " FUUUUUU";
 }
