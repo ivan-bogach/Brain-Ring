@@ -45,7 +45,6 @@ Window {
         onCurrentItemChanged: {
                 currentItem.forceActiveFocus()
         }
-
     }
 }
 

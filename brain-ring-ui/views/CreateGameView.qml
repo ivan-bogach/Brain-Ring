@@ -22,7 +22,18 @@ Item {
     anchors.rightMargin: 15
 
     focus: true
-    Keys.onEscapePressed: navigationBar.isCollapsed = !navigationBar.isCollapsed
+    Keys.onPressed: {
+
+        if (event.key == Qt.Key_Escape)
+        {
+            navigationBar.isCollapsed = !navigationBar.isCollapsed;
+        }
+        else if(event.key == Qt.Key_Return)
+        {
+            masterController.ui_commandController.ui_addQuestionPanelContextCommands[0].executed()
+        }
+
+    }
 
     Rectangle {
         id: addQuestionRect
