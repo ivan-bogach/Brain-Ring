@@ -36,6 +36,8 @@ public:
 
     QMap <QString, int> gamePoints;
 
+    IntDecorator* playerNumber{nullptr};
+
      data::EntityCollection<Game>* questions{nullptr};
 };
 
@@ -46,6 +48,8 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
     implementation.reset(new Implementation(this, settings, tcpController, databaseController, navigationController, game));
 
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "player")));
+
+    implementation->playerNumber = static_cast<IntDecorator*>(addDataItem(new IntDecorator(this, "number", "Номер")));
 
     implementation->allPlayerConnected = false;
 
@@ -182,20 +186,13 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 
             implementation->isFirstQuestion = false;
         }
-//        else if (qstringMessage.trimmed() == "a") {
+        else
+        {
+            qDebug() << ".............................................................HERE";
+            implementation->playerNumber->setValue(5);
+            implementation->navigationController->goGameAnswerView(implementation->playerNumber);
+        }
 
-//            implementation->isRaundStarted = true;
-
-//            if (implementation->questions->derivedEntities().isEmpty())
-//            {
-//                implementation->gameStarted = false;
-//                implementation->navigationController->goEmptyQuestionsListView();
-//            }
-//            else
-//            {
-//                implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-//            }
-//        }
     }
     qDebug() << "Message got: " << message << " FUUUUUU";
 }
