@@ -10,7 +10,7 @@ Player::Player(QObject* parent)
     : Entity(parent, "player")
 {
   number = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "number", "Номер")));
-  points = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "points", "Очки")));
+  points = static_cast<IntDecorator*>(addDataItem(new IntDecorator(this, "points", "Очки")));
   isConnected = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "isConnected", "Подключен")));
 }
 

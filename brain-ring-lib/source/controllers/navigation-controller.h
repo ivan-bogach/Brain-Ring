@@ -25,6 +25,7 @@ signals:
     void goGameQuestionView(br::models::Game* game);
     void goEmptyQuestionsListView();
     void goGameAnswerView(br::data::StringDecorator* number);
+    void goPlayerWinView(br::data::StringDecorator* number);
 //    void goEditGameView(br::models::Game* game);
 //    void goFindGameView();
 };

@@ -32,6 +32,8 @@ public:
     bool allPlayerConnected;
     bool gameStarted;
     bool isFirstQuestion;
+    bool waitAnswer;
+    bool nextQuestion;
 
 
     QMap <QString, int> gamePoints;
@@ -55,9 +57,11 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->gameStarted = false;
 
-//    implementation->isRaundStarted = false;
+    implementation->waitAnswer = false;
 
     implementation->isFirstQuestion = true;
+
+    implementation->nextQuestion =  true;
 
     implementation->questions = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "questions")));
 
@@ -184,47 +188,69 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 {
     QString qstringMessage = QString::fromUtf8(message);
 
+//Start game
     if( implementation->allPlayerConnected ){
 
-//Start game
-        if( qstringMessage.trimmed() == "n" || qstringMessage.trimmed() == "a" )
+
+//Question did not asked yet
+        if ( !implementation->waitAnswer )
         {
 
-            if ( implementation->questions->derivedEntities().size() > 0 )
+//Check either correct message from tcp client
+            if( qstringMessage.trimmed() == "n" || qstringMessage.trimmed() == "a" )
             {
-
-                if ( implementation->isFirstQuestion || qstringMessage.trimmed() == "a" )
+//Check either a questions list not emty yet
+                if ( implementation->questions->derivedEntities().size() > 0 )
                 {
-                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                }
-                else
-                {
-                    if ( implementation->questions->derivedEntities().size() == 1 )
+//Check either the first question in the questions list or message was "a"
+                    if ( implementation->isFirstQuestion || qstringMessage.trimmed() == "a" )
                     {
-
                         implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                        implementation->questions->derivedEntities().removeFirst();
+                        implementation->waitAnswer = true;
                     }
                     else
                     {
-                        implementation->questions->derivedEntities().removeFirst();
-                        implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                        if(!implementation->nextQuestion)
+                        {
+                            implementation->nextQuestion =  true;
+                            implementation->navigationController->goPlayerWinView(implementation->playerNumber);
+                        }
+                        else
+                        {
+//Check either last the question in the questions list
+                            if ( implementation->questions->derivedEntities().size() == 1 )
+                            {
+
+                                implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                                implementation->questions->derivedEntities().removeFirst();
+                                implementation->waitAnswer = true;
+                            }
+                            else
+                            {
+                                implementation->questions->derivedEntities().removeFirst();
+                                implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                                implementation->waitAnswer = true;
+                            }
+                        }
                     }
                 }
+//The question list emty -  game over
+                else
+                {
+                    implementation->gameStarted = false;
+                    implementation->navigationController->goEmptyQuestionsListView();
+                }
 
+                implementation->isFirstQuestion = false;
             }
-            else
-            {
-                implementation->gameStarted = false;
-                implementation->navigationController->goEmptyQuestionsListView();
-            }
-
-            implementation->isFirstQuestion = false;
         }
-        else
+//Question asked and message was not "n" or "a app - wait answer
+        else if ( qstringMessage.trimmed() != "n" && qstringMessage.trimmed() != "a" && implementation->waitAnswer )
         {
             implementation->playerNumber->setValue( qstringMessage.trimmed() );
             implementation->navigationController->goGameAnswerView( implementation->playerNumber );
+            implementation->waitAnswer = false;
+            implementation->nextQuestion = false;
         }
 
     }

@@ -6,7 +6,7 @@ import BR 1.0
 
 Item {
     Component.onCompleted: {
-        mainWindow.visibility = "FullScreen"
+//        mainWindow.visibility = "FullScreen"
         masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
     }
 //    Component.onDestruction: masterController.ui_commandController.ui_gameViewContextCommands[1].executed()

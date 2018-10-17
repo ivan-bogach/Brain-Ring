@@ -28,6 +28,7 @@ Window {
         onGoGameQuestionView: contentFrame.replace("qrc:/views/GameQuestionView.qml", {question: game})
         onGoEmptyQuestionsListView: contentFrame.replace("qrc:/views/EmptyQuestionsListView.qml")
         onGoGameAnswerView: contentFrame.replace("qrc:/views/GameAnswerView.qml", {playerNumber: number})
+        onGoPlayerWinView: contentFrame.replace("qrc:/views/PlayerWinView.qml", {playerNumber: number})
     }
 
     NavigationBar {
