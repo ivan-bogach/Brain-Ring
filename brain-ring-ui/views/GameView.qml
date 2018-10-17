@@ -44,6 +44,7 @@ Item {
                 color: Style.colourTCPBar
 
                 WaitPlayers {
+                    id: waitPlayers
                     gameP: gamePlay
                     numPlayersFromSettings: numberPlayersFromSettings
                 }

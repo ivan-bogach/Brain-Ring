@@ -1,9 +1,13 @@
 import QtQuick 2.0
 import assets 1.0
 import BR 1.0
+import components 1.0
 
 Item {
     property StringDecorator playerNumber
+    property GamePlay gamePlayInPlayerWin: masterController.ui_gamePlay
+    property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
+
 
     anchors.fill: parent
 

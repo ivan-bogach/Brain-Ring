@@ -37,11 +37,11 @@ Item {
             Text {
                 id: text
                 anchors.left: numQuestion.right
-                anchors.leftMargin: 15
+                anchors.leftMargin: 30
                 width: parent.width * 0.8
                 wrapMode: Text.WordWrap
                 font.pixelSize: 20
-                text: "   " + game.ui_text.ui_value
+                text: game.ui_text.ui_value
             }
         }
 

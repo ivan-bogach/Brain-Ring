@@ -53,6 +53,8 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->playerNumber = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "number", "Номер")));
 
+    implementation->questions = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "questions")));
+
     implementation->allPlayerConnected = false;
 
     implementation->gameStarted = false;
@@ -63,7 +65,9 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->nextQuestion =  true;
 
-    implementation->questions = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "questions")));
+
+    int numberPlayersFromSettings = implementation->settings->quantity()->value();
+
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
 
@@ -72,8 +76,6 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
     connect(implementation->databaseControler, &IDatabaseController::databaseChanged, this, &GamePlay::scan);
 
     connect(implementation->tcpController, &TCPController::messageArrived, this, &GamePlay::getMessageFromTCP);
-
-    int numberPlayersFromSettings = implementation->settings->quantity()->value();
 
     QJsonArray resultsArray;
     QJsonObject jsonObject;
@@ -150,6 +152,11 @@ void GamePlay::scan()
 }
 
 
+void updatePlayersPoints()
+{
+
+}
+
 bool GamePlay::isAllPlayersConnected()
 {
     if (implementation->settings->quantity()->value() == implementation->tcpController->SClients().size())
@@ -180,7 +187,19 @@ void GamePlay::clear()
 
        resultsArray.append(QJsonValue(jsonObject));
     }
+
     implementation->playersList->update(resultsArray);
+
+
+    implementation->allPlayerConnected = false;
+
+    implementation->gameStarted = false;
+
+    implementation->waitAnswer = false;
+
+    implementation->isFirstQuestion = true;
+
+    implementation->nextQuestion =  true;
 }
 
 
@@ -191,16 +210,14 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Start game
     if( implementation->allPlayerConnected ){
 
-
 //Question did not asked yet
         if ( !implementation->waitAnswer )
         {
-
 //Check either correct message from tcp client
             if( qstringMessage.trimmed() == "n" || qstringMessage.trimmed() == "a" )
             {
 //Check either a questions list not emty yet
-                if ( implementation->questions->derivedEntities().size() > 0 )
+                if ( implementation->questions->derivedEntities().size() > 1 )
                 {
 //Check either the first question in the questions list or message was "a"
                     if ( implementation->isFirstQuestion || qstringMessage.trimmed() == "a" )
@@ -213,6 +230,8 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
                         if(!implementation->nextQuestion)
                         {
                             implementation->nextQuestion =  true;
+                            implementation->gamePoints[implementation->playerNumber->value()]++;
+                            scan();
                             implementation->navigationController->goPlayerWinView(implementation->playerNumber);
                         }
                         else
@@ -220,7 +239,6 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Check either last the question in the questions list
                             if ( implementation->questions->derivedEntities().size() == 1 )
                             {
-
                                 implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                                 implementation->questions->derivedEntities().removeFirst();
                                 implementation->waitAnswer = true;
