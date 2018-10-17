@@ -13,5 +13,6 @@
         <file alias="TablePoints.qml">components/TablePoints.qml</file>
         <file alias="WaitPlayers.qml">components/WaitPlayers.qml</file>
         <file alias="Points.qml">components/Points.qml</file>
+        <file alias="PointsGameOver.qml">components/PointsGameOver.qml</file>
     </qresource>
 </RCC>

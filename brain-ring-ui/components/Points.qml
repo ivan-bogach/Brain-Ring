@@ -27,9 +27,9 @@ Item {
 
             ListView {
                 anchors.fill: parent
-                anchors.top: headerRect.bottom
-                anchors.bottom: parent.bottom
-                width: parent.width
+//                anchors.top: headerRect.bottom
+//                anchors.bottom: parent.bottom
+//                width: parent.width
                 orientation: ListView.Horizontal
                 spacing: 10
 

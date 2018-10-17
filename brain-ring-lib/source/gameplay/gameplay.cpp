@@ -193,6 +193,7 @@ void GamePlay::clear()
 
     implementation->playersList->update(resultsArray);
 
+    implementation->gamePoints.clear();
 
     implementation->allPlayerConnected = false;
 
@@ -262,6 +263,8 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
                 else
                 {
                     implementation->gameStarted = false;
+                    implementation->gamePoints[implementation->playerNumber->value()]++;
+                    scan();
                     implementation->navigationController->goEmptyQuestionsListView();
                 }
 
