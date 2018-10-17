@@ -3,7 +3,7 @@ import assets 1.0
 import BR 1.0
 
 Item {
-    property IntDecorator playerNumber
+    property StringDecorator playerNumber
 
     anchors.fill: parent
 

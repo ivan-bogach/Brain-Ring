@@ -5,7 +5,7 @@
 
 #include <brain-ring-lib_global.h>
 #include <models/game.h>
-#include <data/intdecorator.h>
+#include <data/stringdecorator.h>
 
 namespace br {
 namespace controllers {
@@ -24,7 +24,7 @@ signals:
     void goSettingsView();
     void goGameQuestionView(br::models::Game* game);
     void goEmptyQuestionsListView();
-    void goGameAnswerView(br::data::IntDecorator* number);
+    void goGameAnswerView(br::data::StringDecorator* number);
 //    void goEditGameView(br::models::Game* game);
 //    void goFindGameView();
 };

@@ -36,7 +36,7 @@ public:
 
     QMap <QString, int> gamePoints;
 
-    IntDecorator* playerNumber{nullptr};
+    StringDecorator* playerNumber{nullptr};
 
      data::EntityCollection<Game>* questions{nullptr};
 };
@@ -49,7 +49,7 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->playersList = static_cast<EntityCollection<Player>*>(addChildCollection(new EntityCollection<Player>(this, "player")));
 
-    implementation->playerNumber = static_cast<IntDecorator*>(addDataItem(new IntDecorator(this, "number", "Номер")));
+    implementation->playerNumber = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "number", "Номер")));
 
     implementation->allPlayerConnected = false;
 
@@ -145,6 +145,41 @@ void GamePlay::scan()
         qDebug() << "GamePlay::scan done!";
 }
 
+
+bool GamePlay::isAllPlayersConnected()
+{
+    if (implementation->settings->quantity()->value() == implementation->tcpController->SClients().size())
+    {
+        if (!implementation->gameStarted){
+            implementation->gameStarted = true;
+            auto questionsArray = implementation->databaseControler->findAll("game");
+            implementation->questions->update(questionsArray);
+        }
+        implementation->allPlayerConnected = true;
+        return true;
+    }
+    return false;
+}
+
+void GamePlay::clear()
+{
+    int numberPlayersFromSettings = implementation->settings->quantity()->value();
+
+    QJsonArray resultsArray;
+    QJsonObject jsonObject;
+
+    for (int i =1; i <= numberPlayersFromSettings; ++i)
+    {
+        jsonObject.insert("number", QString::number(i));
+        jsonObject.insert("isConnected", "");
+        jsonObject.insert("points", "0");
+
+       resultsArray.append(QJsonValue(jsonObject));
+    }
+    implementation->playersList->update(resultsArray);
+}
+
+
 void GamePlay::getMessageFromTCP(const QByteArray& message)
 {
     QString qstringMessage = QString::fromUtf8(message);
@@ -188,47 +223,13 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
         }
         else
         {
-            qDebug() << ".............................................................HERE";
-            implementation->playerNumber->setValue(5);
-            implementation->navigationController->goGameAnswerView(implementation->playerNumber);
+            implementation->playerNumber->setValue( qstringMessage.trimmed() );
+            implementation->navigationController->goGameAnswerView( implementation->playerNumber );
         }
 
     }
     qDebug() << "Message got: " << message << " FUUUUUU";
 }
 
-bool GamePlay::isAllPlayersConnected()
-{
-    if (implementation->settings->quantity()->value() == implementation->tcpController->SClients().size())
-    {
-        if (!implementation->gameStarted){
-            implementation->gameStarted = true;
-            auto questionsArray = implementation->databaseControler->findAll("game");
-            implementation->questions->update(questionsArray);
-        }
-        implementation->allPlayerConnected = true;
-        return true;
-    }
-    return false;
-}
 
-void GamePlay::clear()
-{
-    int numberPlayersFromSettings = implementation->settings->quantity()->value();
-
-    QJsonArray resultsArray;
-    QJsonObject jsonObject;
-
-    for (int i =1; i <= numberPlayersFromSettings; ++i)
-    {
-        jsonObject.insert("number", QString::number(i));
-        jsonObject.insert("isConnected", "");
-        jsonObject.insert("points", "0");
-
-       resultsArray.append(QJsonValue(jsonObject));
-    }
-    implementation->playersList->update(resultsArray);
-}
-
-}
-}
+}}

@@ -43,11 +43,10 @@ public:
 
     QQmlListProperty<Player> ui_players();
     bool isAllPlayersConnected();
-//    bool isRaundStarted();
 
 signals:
     void playersListChanged();
-//    void raundStarted();
+
 
 private:
     class Implementation;

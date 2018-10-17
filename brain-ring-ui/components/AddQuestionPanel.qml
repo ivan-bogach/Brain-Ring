@@ -86,7 +86,7 @@ Item {
             TextField {
                 id: textValue
                 anchors.fill: parent
-                horizontalAlignment: TextInput.AlignHCenter
+                horizontalAlignment: TextInput.AlignLeft
                 font.pixelSize: 15
                 text: stringDecoratorText.ui_value
             }
