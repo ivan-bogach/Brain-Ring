@@ -8,13 +8,12 @@ Item {
     property GamePlay gamePlayInPlayerWin: masterController.ui_gamePlay
     property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
 
-
-    anchors.fill: parent
-
     focus: true
     Keys.onEscapePressed: {
         contentFrame.replace("qrc:/views/DashboardView.qml")
     }
+
+    anchors.fill: parent
 
     Rectangle {
         id: background
@@ -25,6 +24,7 @@ Item {
             anchors.fill: parent
             anchors.leftMargin: 50
             anchors.rightMargin: 50
+            anchors.bottomMargin: parent.height/10
             color: Style.colourTCPBar
 
             Text {
@@ -32,8 +32,14 @@ Item {
                 anchors.centerIn: parent
                 font.pixelSize: 50
                 color: "#05E4B5"
-                text: "Выигра участник номмер " + playerNumber.ui_value
+                text: "Выиграл участник номер " + playerNumber.ui_value
             }
+        }
+
+        Points {
+            id: points
+            gamePlay: gamePlayInPlayerWin
+            numPlayersFromSettings: numberPlayersFromSettings
         }
     }
 }

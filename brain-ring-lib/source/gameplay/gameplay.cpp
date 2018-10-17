@@ -34,6 +34,7 @@ public:
     bool isFirstQuestion;
     bool waitAnswer;
     bool nextQuestion;
+    bool aDisabled;
 
 
     QMap <QString, int> gamePoints;
@@ -65,8 +66,7 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->nextQuestion =  true;
 
-
-    int numberPlayersFromSettings = implementation->settings->quantity()->value();
+    implementation->aDisabled = false;
 
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
@@ -79,6 +79,9 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     QJsonArray resultsArray;
     QJsonObject jsonObject;
+
+
+    int numberPlayersFromSettings = implementation->settings->quantity()->value();
 
     for (int i =1; i <= numberPlayersFromSettings; ++i)
     {
@@ -220,7 +223,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
                 if ( implementation->questions->derivedEntities().size() > 1 )
                 {
 //Check either the first question in the questions list or message was "a"
-                    if ( implementation->isFirstQuestion || qstringMessage.trimmed() == "a" )
+                    if ( implementation->isFirstQuestion || (qstringMessage.trimmed() == "a" && !implementation->aDisabled))
                     {
                         implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                         implementation->waitAnswer = true;
@@ -233,6 +236,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
                             implementation->gamePoints[implementation->playerNumber->value()]++;
                             scan();
                             implementation->navigationController->goPlayerWinView(implementation->playerNumber);
+                            implementation->aDisabled = true;
                         }
                         else
                         {
@@ -242,12 +246,14 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
                                 implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                                 implementation->questions->derivedEntities().removeFirst();
                                 implementation->waitAnswer = true;
+                                implementation->aDisabled = false;
                             }
                             else
                             {
                                 implementation->questions->derivedEntities().removeFirst();
                                 implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                                 implementation->waitAnswer = true;
+                                implementation->aDisabled = false;
                             }
                         }
                     }

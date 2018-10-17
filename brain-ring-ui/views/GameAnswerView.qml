@@ -28,7 +28,7 @@ Item {
                 anchors.centerIn: parent
                 font.pixelSize: 50
                 color: "#05E4B5"
-                text: "Отвечает участник номмер " + playerNumber.ui_value
+                text: "Отвечает участник номер " + playerNumber.ui_value
             }
         }
     }
