@@ -5,6 +5,7 @@ import BR 1.0
 Item {
     property GamePlay gamePlay
     property int numPlayersFromSettings
+    property StringDecorator winnerNumber
 
     anchors.fill: parent
 
@@ -13,9 +14,8 @@ Item {
         width: parent.width*0.9
         height: parent.height/7
 
-//        radius: parent.width/7
+        color: Style.colourGameViewsBackground
 
-        color: Style.colourTCPBar
         anchors.bottom: parent.bottom
         anchors.bottomMargin: parent.height/20
         anchors.horizontalCenter: parent.horizontalCenter
@@ -23,25 +23,21 @@ Item {
         Rectangle {
             id: listViewRect
             anchors.fill: parent
-            color: Style.colourTCPBar
+            color: Style.colourGameViewsBackground
 
             ListView {
                 anchors.fill: parent
-//                anchors.top: headerRect.bottom
-//                anchors.bottom: parent.bottom
-//                width: parent.width
                 orientation: ListView.Horizontal
-                spacing: 10
+
 
                 header: Rectangle {
                     id: header
-//                    width: listViewRect.width/(numPlayersFromSettings)
+
                     width: topHeader.width + 10
                     height: parent.height
-                    color: Style.colourTCPBar
+                    color: Style.colourPointsHeaderBackground
 
                     Column {
-//                        id: listView
                         anchors.centerIn: parent
                         width: parent.width
                         height: parent.height
@@ -51,18 +47,14 @@ Item {
                             anchors.top: parent.top
                             anchors.left: parent.left
 
-                            border.color: "#05E4B5"
-                            border.width: 2
-
                             height: parent.height/2
                             width: parent.width
-                            color: Style.colourTCPBar
+                            color: Style.colourPointsBorder
 
                             Text {
                                 id: topHeader
                                 anchors.centerIn: parent
-                                color:  "#05E4B5"
-                                font.italic: true
+                                color:  Style.colourPointsText
                                 font.pixelSize: parent.height > 50 ? 30 : 15
                                 text: "Участник"
                             }
@@ -72,21 +64,16 @@ Item {
                             id: bottomRectHeader
                             anchors.top: topRectHeader.bottom
                             anchors.right: parent.right
-                            color: Style.colourTCPBar
-
-                            border.color: "#05E4B5"
-                            border.width: 2
+                            color: Style.colourPointsBackground
 
                             height: parent.height/2
                             width: parent.width
 
-
                             Text {
                                 id: bottomHeader
                                 anchors.centerIn: parent
-                                color: "#05E4B5"
+                                color: Style.colourPointsText
                                 font.pixelSize: parent.height > 50 ? 30 : 15
-                                font.italic: true
                                 text: "Очки"
                             }
                         }
@@ -101,7 +88,8 @@ Item {
                     id: delegate
                     width: listViewRect.width/12
                     height: parent.height
-                    color: Style.colourTCPBar
+                    color: Style.colourPointsBackground
+                    anchors.leftMargin: 10
 
                     Column {
                         id: listView
@@ -114,20 +102,16 @@ Item {
                             anchors.top: parent.top
                             anchors.left: parent.left
 
-                            border.color: "#05E4B5"
-                            border.width: 2
-
                             height: parent.height/2
                             width: parent.width
-                            color: Style.colourTCPBar
+                            color: Style.colourPointsBorder
 
                             Text {
                                 id: top
                                 anchors.centerIn: parent
-                                color:  "#05E4B5"
-                                font.italic: true
+                                color:  Style.colourPointsText
                                 font.family: "Helvetica"
-                                font.pixelSize: parent.height > 50 ? 50 : 25
+                                font.pixelSize: parent.height > 50 ? 30 : 15
                                 text: modelData.ui_number.ui_value
                             }
                         }
@@ -136,24 +120,33 @@ Item {
                             id: bottomRect
                             anchors.top: topRect.bottom
                             anchors.right: parent.right
-                            color: Style.colourTCPBar
+                            color: Style.colourPointsBackground
 
-                            border.color: "#05E4B5"
-                            border.width: 2
 
                             height: parent.height/2
                             width: parent.width
 
-
-                            Text {
-                                id: bottom
+                            Rectangle {
+                                width: parent.width*0.7
+                                height: parent.height*0.7
                                 anchors.centerIn: parent
-                                color: "#05E4B5"
-                                font.family: "Helvetica"
-                                font.pixelSize: parent.height > 50 ? 50 : 25
-                                font.italic: true
-                                text: modelData.ui_points.ui_value
+
+                                color: Style.colourPointsBackground
+
+                                radius: (height>50) ? 3 : 0
+                                border.color: (modelData.ui_number.ui_value === winnerNumber.ui_value) ? Style.colourPointsWinnerBorder : Style.colourPointsBorder
+                                border.width: 2
+
+                                Text {
+                                    id: bottom
+                                    anchors.centerIn: parent
+                                    color: Style.colourPointsText
+                                    font.family: "Helvetica"
+                                    font.pixelSize: parent.height > 50 ? 30 : 15
+                                    text: modelData.ui_points.ui_value
+                                }
                             }
+
                         }
                     }
                 }

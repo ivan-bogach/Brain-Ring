@@ -15,19 +15,19 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourTCPBar
+        color: Style.colourGameViewsBackground
 
         Rectangle {
             anchors.fill: parent
             anchors.leftMargin: 50
             anchors.rightMargin: 50
-            color: Style.colourTCPBar
+            color: Style.colourGameViewsBackground
 
             Text {
                 id: questionText
                 anchors.centerIn: parent
                 font.pixelSize: 50
-                color: "#05E4B5"
+                color: Style.colourGameViewsText
                 text: question.ui_text.ui_value
             }
         }

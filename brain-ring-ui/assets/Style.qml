@@ -11,6 +11,17 @@ Item {
     readonly property real sizeScreenMargine: 20
     readonly property color colourBackground: "#efefef"
 
+    readonly property color colourGameViewsBackground: "#062e2e"
+    readonly property color colourGameViewsText: "#da967f"
+
+    readonly property color colourPointsBackground: "#18191d"
+    readonly property color colourPointsHeaderBackground: "#18191d"
+    readonly property color colourPointsBorder: "#232428"
+    readonly property color colourPointsWinnerBorder: "#0080ff"
+    readonly property color colourPointsText: "#cccccc"
+
+    readonly property color colourPointsGameOverText: "#feff04"
+    readonly property color colourPointsGameOverHeaderText: "#f8b800"
 
     readonly property real widthNavigationButton: widthNavigationBar - leftMarginNavigationButton
     readonly property real heightNavigationButton: 2.5*pixelSizeNavigationBarFont

@@ -9,6 +9,12 @@ Item {
         masterController.ui_commandController.ui_settingsViewContextCommands[0].executed()
     }
 
+    focus: true
+    Keys.onReturnPressed: {
+        commandList: masterController.ui_commandController.ui_settingsViewContextCommands[1].executed()
+        console.log("-----------------------------------------------------------------------------")
+    }
+
     property StringDecorator stringDecoratorQuantity
     property IntDecorator intDecoratorAskQuestions
     property Settings settings: masterController.ui_settings

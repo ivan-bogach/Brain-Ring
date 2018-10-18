@@ -262,10 +262,19 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //The question list emty -  game over
                 else
                 {
-                    implementation->gameStarted = false;
-                    implementation->gamePoints[implementation->playerNumber->value()]++;
-                    scan();
-                    implementation->navigationController->goEmptyQuestionsListView();
+                    if ( qstringMessage.trimmed() == "a" && !implementation->aDisabled)
+                    {
+                        implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                        implementation->waitAnswer = true;
+                    }
+                    else
+                    {
+                        implementation->gameStarted = false;
+                        implementation->gamePoints[implementation->playerNumber->value()]++;
+                        scan();
+                        implementation->navigationController->goEmptyQuestionsListView();
+                    }
+
                 }
 
                 implementation->isFirstQuestion = false;
@@ -279,7 +288,6 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
             implementation->waitAnswer = false;
             implementation->nextQuestion = false;
         }
-
     }
     qDebug() << "Message got: " << message << " FUUUUUU";
 }

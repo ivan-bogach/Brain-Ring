@@ -18,20 +18,20 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourTCPBar
+        color: Style.colourGameViewsBackground
 
         Rectangle {
             anchors.fill: parent
             anchors.leftMargin: 50
             anchors.rightMargin: 50
             anchors.bottomMargin: parent.height/10
-            color: Style.colourTCPBar
+            color: Style.colourGameViewsBackground
 
             Text {
                 id: questionText
                 anchors.centerIn: parent
                 font.pixelSize: 50
-                color: "#05E4B5"
+                color: Style.colourGameViewsText
                 text: "Выиграл участник номер " + playerNumber.ui_value
             }
         }
@@ -40,6 +40,7 @@ Item {
             id: points
             gamePlay: gamePlayInPlayerWin
             numPlayersFromSettings: numberPlayersFromSettings
+            winnerNumber: playerNumber
         }
     }
 }

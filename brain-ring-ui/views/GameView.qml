@@ -25,7 +25,7 @@ Item {
 
     Rectangle {
         id: background
-        color: Style.colourTCPBar
+        color: Style.colourGameViewsBackground
         anchors.fill: parent
 
         Rectangle {
@@ -33,7 +33,7 @@ Item {
             anchors.fill: parent
             anchors.leftMargin: 5
             anchors.rightMargin: 5
-            color: Style.colourTCPBar
+            color: Style.colourGameViewsBackground
 
             Rectangle {
                 id: listViewRect
@@ -41,7 +41,7 @@ Item {
                 height: isAllClientsConnected ? 0 : waitPlayers.height
                 visible: isAllClientsConnected ? false : true
                 anchors.centerIn: parent
-                color: Style.colourTCPBar
+                color: Style.colourGameViewsBackground
 
                 WaitPlayers {
                     id: waitPlayers
@@ -55,7 +55,7 @@ Item {
                 anchors.bottom: isAllClientsConnected ? parent.bottom : parent.top
                 width: isAllClientsConnected ? parent.width : 0
                 height: isAllClientsConnected ? parent.height : 0
-                color: Style.colourTCPBar
+                color: Style.colourGameViewsBackground
 
                 Text {
                     id: readyText
@@ -63,7 +63,7 @@ Item {
                     visible: isAllClientsConnected ? true : false
                     font.pixelSize: 30
                     font.bold:true
-                    color: "#CD0E5C"
+                    color: Style.colourGameViewsText
                     text: qsTr("Все участники готовы!")
                 }
             }

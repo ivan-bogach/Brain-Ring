@@ -19,9 +19,4 @@ Item {
         id: gameOver
         source: Style.imageGameOver
     }
-    PointsGameOver {
-        id: points
-        gamePlay: gamePlayInPlayerWin
-        numPlayersFromSettings: numberPlayersFromSettings
-    }
 }

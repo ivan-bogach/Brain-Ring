@@ -21,8 +21,8 @@ Item {
         delegate: Rectangle {
             width: listViewRect.width/(numPlayersFromSettings + 1)
             height: listViewRect.width/(numPlayersFromSettings + 1)
-            color: (modelData.ui_isConnected.ui_value === "true")  ? "#FF9243" : Style.colourTCPBar
-            border.color: (modelData.ui_isConnected.ui_value === "true") ? "#6EB3FE" : Style.colourTCPBar
+            color: (modelData.ui_isConnected.ui_value === "true")  ? "#FF9243" : Style.colourGameViewsBackground
+            border.color: (modelData.ui_isConnected.ui_value === "true") ? "#6EB3FE" : Style.colourGameViewsBackground
             border.width: 3
             radius: listViewRect.width/(numPlayersFromSettings + 1)
 

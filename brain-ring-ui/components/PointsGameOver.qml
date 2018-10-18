@@ -10,10 +10,8 @@ Item {
 
     Rectangle {
 
-        width: parent.width/7
+        width: parent.width/4
         height: parent.height*0.9
-
-//        radius: parent.width/7
 
         color: "transparent"
         anchors.right: parent.right
@@ -22,7 +20,9 @@ Item {
 
         Rectangle {
             id: listViewRect
+
             anchors.fill: parent
+
             color: "transparent"
 
             ListView {
@@ -31,63 +31,98 @@ Item {
                 orientation: ListView.Vertical
                 spacing: 10
 
-//                header: Rectangle {
-//                    id: header
-//                    width: topHeader.width + 10
-//                    height: parent.height
-//                    color: "transparent"
+                header: Rectangle {
+                    id: headerRect
 
-//                    Column {
-//                        anchors.centerIn: parent
-//                        width: parent.width
-//                        height: parent.height
+                    width: listViewRect.width
+                    height: top.height
 
-//                        Rectangle {
-//                            id: topRectHeader
-//                            anchors.top: parent.top
-//                            anchors.left: parent.left
+                    anchors.right: listViewRect.right
+                    color: "transparent"
 
-//                            border.color: "#05E4B5"
-//                            border.width: 2
+                    border.color: "blue"
+                    border.width: 1
 
-//                            height: parent.height/2
-//                            width: parent.width
-//                            color: "transparent"
-
-//                            Text {
-//                                id: topHeader
-//                                anchors.centerIn: parent
-//                                color:  "#05E4B5"
-//                                font.italic: true
-//                                font.pixelSize: parent.height > 50 ? 30 : 15
-//                                text: "Участник"
-//                            }
-//                        }
-
-//                        Rectangle {
-//                            id: bottomRectHeader
-//                            anchors.top: topRectHeader.bottom
-//                            anchors.right: parent.right
-//                            color: "transparent"
-
-//                            border.color: "#05E4B5"
-//                            border.width: 2
-
-//                            height: parent.height/2
-//                            width: parent.width
+                    Column {
+                        anchors.fill: parent
 
 
-//                            Text {
-//                                id: bottomHeader
-//                                anchors.centerIn: parent
-//                                color: "#05E4B5"
-//                                font.pixelSize: parent.height > 50 ? 30 : 15
-//                                font.italic: true
-//                                text: "Очки"
-//                            }
-//                        }
-//                    }
-//                }
+                        Rectangle {
+                            id: points
+
+                            width: parent.width
+                            height: parent.height/2
+
+                            anchors.top: headerRect.top
+                            anchors.left: headerRect.left
+
+                            Text {
+                                id: pointsHeader
+                                anchors.centerIn: parent
+                                color:  Style.colourPointsGameOverHeaderText
+                                font.italic: true
+                                font.family: "Helvetica"
+                                font.pixelSize: 30
+                                text: "Счет"
+                            }
+                        }
+
+                        Row {
+                            id: headerRow
+
+                            width: parent.width
+                            height: parent.height/2
+
+                            anchors.right: parent.right
+                            anchors.top: points.bottom
+                            spacing: 30
+
+                            Rectangle {
+                                id: topHeaderRect
+
+                                height: parent.height
+                                width: parent.width/2
+
+                                anchors.top: parent.top
+                                anchors.left: parent.left
+
+                                color: "transparent"
+
+                                Text {
+                                    id: topHeader
+                                    anchors.centerIn: parent
+                                    color:  Style.colourPointsGameOverHeaderText
+                                    font.italic: true
+                                    font.family: "Helvetica"
+                                    font.pixelSize: 30
+                                    text: "Участник"
+                                }
+                            }
+
+                            Rectangle {
+                                id: bottomHeaderRect
+
+                                height: parent.height
+                                width: parent.width/2
+
+                                anchors.top: parent.top
+                                anchors.left: topHeaderRect.right
+                                color: "transparent"
+
+                                Text {
+                                    id: bottomHeader
+                                    anchors.centerIn: parent
+                                    color: Style.colourPointsGameOverHeaderText
+                                    font.family: "Helvetica"
+                                    font.pixelSize: 30
+                                    font.italic: true
+                                    text: "Очки"
+                                }
+                            }
+                        }
+                    }
+
+                }
 
 //===================================================================================================
 
@@ -95,60 +130,73 @@ Item {
 
                 delegate: Rectangle {
                     id: delegate
-                    width: listViewRect.width/12
-                    height: parent.height
+
+                    width: listViewRect.width
+                    height: listViewRect.height/( numPlayersFromSettings + 2 )
+
+                    anchors.right: listViewRect.right
+//                    anchors.top: headerRect.bottom
+
                     color: "transparent"
+
+                    border.color: "red"
+                    border.width: 1
 
                     Row {
                         id: listView
-                        anchors.centerIn: parent
+
                         width: parent.width
                         height: parent.height
+
+                        anchors.right: parent.right
+                        spacing: 30
 
                         Rectangle {
                             id: topRect
                             anchors.top: parent.top
                             anchors.left: parent.left
 
-                            border.color: "#05E4B5"
-                            border.width: 2
+                            height: top.height
+                            width: parent.width/2
 
-                            height: parent.height/2
-                            width: parent.width
                             color: "transparent"
 
                             Text {
                                 id: top
+
+                                font.pixelSize: 100/numPlayersFromSettings
+
                                 anchors.centerIn: parent
-                                color:  "#05E4B5"
                                 font.italic: true
+                                font.bold: true
                                 font.family: "Helvetica"
-                                font.pixelSize: parent.height > 50 ? 50 : 25
+                                color:  Style.colourPointsGameOverText
                                 text: modelData.ui_number.ui_value
                             }
                         }
 
                         Rectangle {
                             id: bottomRect
+
+                            height: bottom.height
+                            width: parent.width/2
+
                             anchors.top: parent.top
                             anchors.left: topRect.right
                             color: "transparent"
 
-                            border.color: "#05E4B5"
-                            border.width: 2
-
-                            height: parent.height/2
-                            width: parent.width
-
 
                             Text {
                                 id: bottom
+
+                                font.pixelSize: 100/numPlayersFromSettings
+
                                 anchors.centerIn: parent
-                                color: "#05E4B5"
-                                font.family: "Helvetica"
-//                                font.pixelSize: parent.height > 50 ? 50 : 25
-                                font.pixelSize: 30
+                                color: Style.colourPointsGameOverText
+                                font.family: "Bitstream Charter"
+                                font.bold: true
                                 font.italic: true
+                                style: Text.Raised
                                 text: modelData.ui_points.ui_value
                             }
                         }
