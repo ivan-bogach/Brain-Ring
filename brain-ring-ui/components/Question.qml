@@ -44,7 +44,9 @@ Item {
                 text: game.ui_text.ui_value
             }
 
+
         }
+
 
         MouseArea {
             anchors.fill: parent
@@ -57,6 +59,34 @@ Item {
                 stringDecoratorText.ui_value = text.text
             }
         }
+
+        Text{
+            id: deleteX
+
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+
+            color: "#f0f0f0"
+            font.pixelSize: 25
+            text: "x"
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                hoverEnabled: true
+                onEntered: background.state = "hover"
+                onExited: background.state = ""
+                onClicked: {
+                    stringDecoratorNumber.ui_value = game.ui_number.ui_value
+                    stringDecoratorText.ui_value = text.text
+                    masterController.ui_commandController.ui_addQuestionPanelContextCommands[1].executed()
+                }
+            }
+        }
+
+
+
 
         states: [
             State {
@@ -74,13 +104,8 @@ Item {
                     font.italic: true
                 }
                 PropertyChanges {
-                    target: del
-                    width: 15
-                    height: 15
-                }
-                PropertyChanges {
-                    target: delText
-                    text: "x"
+                    target: deleteX
+                    color: "#409cf9"
                 }
             }
         ]

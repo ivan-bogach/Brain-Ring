@@ -155,11 +155,6 @@ void GamePlay::scan()
 }
 
 
-void updatePlayersPoints()
-{
-
-}
-
 bool GamePlay::isAllPlayersConnected()
 {
     if (implementation->settings->quantity()->value() == implementation->tcpController->SClients().size())

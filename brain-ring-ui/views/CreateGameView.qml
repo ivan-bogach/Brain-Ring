@@ -32,10 +32,11 @@ Item {
         {
             masterController.ui_commandController.ui_addQuestionPanelContextCommands[0].executed()
         }
-        else if (event.key == Qt.Key_Delete)
-        {
-            masterController.ui_commandController.ui_addQuestionPanelContextCommands[1].executed()
-        }
+//        else if (event.key == Qt.Key_Delete)
+//        {
+//            masterController.ui_commandController.ui_addQuestionPanelContextCommands[1].executed()
+//            console.log("DELETE")
+//        }
 
     }
 
