@@ -35,6 +35,7 @@ public:
     bool waitAnswer;
     bool nextQuestion;
     bool aDisabled;
+    bool inEmtyQuestionList;
 
 
     QMap <QString, int> gamePoints;
@@ -66,7 +67,10 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
 
     implementation->nextQuestion =  true;
 
+//"a"="n" from tcp rc
     implementation->aDisabled = false;
+
+    implementation->inEmtyQuestionList = false;
 
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
@@ -215,8 +219,20 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Check either correct message from tcp client
             if( qstringMessage.trimmed() == "n" || qstringMessage.trimmed() == "a" )
             {
+                if( implementation->inEmtyQuestionList )
+                {
+                    implementation->inEmtyQuestionList = false;
+                    implementation->navigationController->goGameOverView();
+                    implementation->aDisabled = true;
+                }
+//If question only one
+                else if( implementation->isFirstQuestion )
+                {
+                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                    implementation->waitAnswer = true;
+                }
 //Check either a questions list not emty yet
-                if ( implementation->questions->derivedEntities().size() > 1 )
+                else if ( implementation->questions->derivedEntities().size() > 1 )
                 {
 //Check either the first question in the questions list or message was "a"
                     if ( implementation->isFirstQuestion || (qstringMessage.trimmed() == "a" && !implementation->aDisabled))
@@ -257,19 +273,22 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //The question list emty -  game over
                 else
                 {
+//a from rc
                     if ( qstringMessage.trimmed() == "a" && !implementation->aDisabled)
                     {
                         implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                         implementation->waitAnswer = true;
                     }
+//n from rc
                     else
                     {
                         implementation->gameStarted = false;
                         implementation->gamePoints[implementation->playerNumber->value()]++;
                         scan();
+                        implementation->waitAnswer = false;
                         implementation->navigationController->goEmptyQuestionsListView();
+                        implementation->inEmtyQuestionList = true;
                     }
-
                 }
 
                 implementation->isFirstQuestion = false;

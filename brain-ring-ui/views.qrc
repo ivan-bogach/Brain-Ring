@@ -10,5 +10,6 @@
         <file alias="EmptyQuestionsListView.qml">views/EmptyQuestionsListView.qml</file>
         <file alias="GameAnswerView.qml">views/GameAnswerView.qml</file>
         <file alias="PlayerWinView.qml">views/PlayerWinView.qml</file>
+        <file alias="GameOverView.qml">views/GameOverView.qml</file>
     </qresource>
 </RCC>

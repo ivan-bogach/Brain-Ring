@@ -26,9 +26,10 @@ Window {
         onGoCreateGameView: contentFrame.replace("qrc:/views/CreateGameView.qml")
         onGoGameView: contentFrame.replace("qrc:/views/GameView.qml")
         onGoGameQuestionView: contentFrame.replace("qrc:/views/GameQuestionView.qml", {question: game})
-        onGoEmptyQuestionsListView: contentFrame.replace("qrc:/views/EmptyQuestionsListView.qml")
         onGoGameAnswerView: contentFrame.replace("qrc:/views/GameAnswerView.qml", {playerNumber: number})
         onGoPlayerWinView: contentFrame.replace("qrc:/views/PlayerWinView.qml", {playerNumber: number})
+        onGoEmptyQuestionsListView: contentFrame.replace("qrc:/views/EmptyQuestionsListView.qml")
+        onGoGameOverView: contentFrame.replace("qrc:/views/GameOverView.qml")
     }
 
     NavigationBar {
