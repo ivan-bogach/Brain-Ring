@@ -228,6 +228,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //If question only one
                 else if( implementation->isFirstQuestion )
                 {
+                    implementation->isFirstQuestion = false;
                     implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                     implementation->waitAnswer = true;
                 }
