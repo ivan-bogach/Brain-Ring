@@ -4,6 +4,7 @@ import BR 1.0
 
 Item {
     property Game question
+    property Settings settings: masterController.ui_settings
 
     anchors.fill: parent
 
@@ -30,10 +31,9 @@ Item {
                 anchors.centerIn: parent
                 font.pixelSize: 50
                 color: Style.colourGameViewsText
-                text: question.ui_text.ui_value
+                text: (settings.ui_askQuestions.ui_value === 2) ? question.ui_text.ui_value : "Новый раунд"
             }
         }
     }
-
 }
 
