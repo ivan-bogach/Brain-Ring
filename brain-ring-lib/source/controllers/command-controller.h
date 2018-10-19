@@ -57,6 +57,7 @@ signals:
 public slots:
     void setSelectedGame(br::models::Game* game);
     void onCreateGameSaveExecuted();
+    void onCreateGameDeleteExecuted();
     void onEditGameSaveExecuteed();
     void onStartServerExecuted();
     void onStopServerExecuted();

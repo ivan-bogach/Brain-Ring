@@ -5,10 +5,6 @@ import components 1.0
 import BR 1.0
 
 Item {
-    Component.onCompleted: {
-//        mainWindow.visibility = "FullScreen"
-        masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
-    }
 //    Component.onDestruction: masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
 
 //from gamePlay
@@ -17,6 +13,26 @@ Item {
 
 //from Settings
     property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
+    property GameSearch gameSearch: masterController.ui_gameSearch
+    property string playerText
+
+    Component.onCompleted: {
+//        mainWindow.visibility = "FullScreen"
+        masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
+
+        if (numberPlayersFromSettings > 1 && numberPlayersFromSettings < 5)
+        {
+            playerText = "игрока"
+        }
+        else if(numberPlayersFromSettings == 1)
+        {
+            playerText = "игрок"
+        }
+        else
+        {
+            playerText = "игроков"
+        }
+    }
 
     focus: true
     Keys.onEscapePressed: {
@@ -34,6 +50,37 @@ Item {
             anchors.leftMargin: 5
             anchors.rightMargin: 5
             color: Style.colourGameViewsBackground
+
+            Text {
+                id: questionsQuantity
+                anchors.bottom: playersQuantity.top
+                anchors.left: parent.left
+                color: Style.colourGameViewsText
+                font.pixelSize: 25
+                text: "Количество вопросов: " + gameSearch.ui_questionsQuantity.ui_value
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        questionsQuantity.text=""
+                    }
+                }
+            }
+            Text {
+                id: playersQuantity
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                color: Style.colourGameViewsText
+                font.pixelSize: 25
+                text: "Состав участников: " + numberPlayersFromSettings + " " + playerText
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        playersQuantity.text=""
+                    }
+                }
+            }
 
             Rectangle {
                 id: listViewRect

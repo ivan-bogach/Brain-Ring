@@ -43,6 +43,7 @@ Item {
                 font.pixelSize: 20
                 text: game.ui_text.ui_value
             }
+
         }
 
         MouseArea {
@@ -71,6 +72,15 @@ Item {
                 PropertyChanges {
                     target: text
                     font.italic: true
+                }
+                PropertyChanges {
+                    target: del
+                    width: 15
+                    height: 15
+                }
+                PropertyChanges {
+                    target: delText
+                    text: "x"
                 }
             }
         ]

@@ -25,6 +25,8 @@ Item {
 
             Text {
                 id: questionText
+                width: parent.width * 0.8
+                wrapMode: Text.WordWrap
                 anchors.centerIn: parent
                 font.pixelSize: 50
                 color: Style.colourGameViewsText

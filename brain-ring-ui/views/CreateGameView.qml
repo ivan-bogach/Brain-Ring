@@ -32,6 +32,10 @@ Item {
         {
             masterController.ui_commandController.ui_addQuestionPanelContextCommands[0].executed()
         }
+        else if (event.key == Qt.Key_Delete)
+        {
+            masterController.ui_commandController.ui_addQuestionPanelContextCommands[1].executed()
+        }
 
     }
 
@@ -46,7 +50,7 @@ Item {
             id: addQuestionPanel
             stringDecoratorNumber: newGame.ui_number
             stringDecoratorText: newGame.ui_text
-            commandList: masterController.ui_commandController.ui_addQuestionPanelContextCommands
+            commandList: masterController.ui_commandController.ui_addQuestionPanelContextCommands[0]
         }
     }
 
@@ -73,6 +77,5 @@ Item {
                     }
             }
         }
-
     }
 }

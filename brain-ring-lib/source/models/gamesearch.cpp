@@ -20,6 +20,7 @@ public:
     GameSearch* gameSearch{nullptr};
     IDatabaseController* databaseControler{nullptr};
     data::StringDecorator* searchText{nullptr};
+    data::IntDecorator* questionsQuantity{nullptr};
     data::EntityCollection<Game>* searchResults{nullptr};
 };
 
@@ -28,6 +29,7 @@ GameSearch::GameSearch(QObject* parent, IDatabaseController* databaseController)
 {
     implementation.reset(new Implementation(this, databaseController));
     implementation->searchText = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "searchText", "Search Text")));
+    implementation->questionsQuantity = static_cast<IntDecorator*>(addDataItem(new IntDecorator(this, "questionQuantity", "Quantity of questions")));
     implementation->searchResults = static_cast<EntityCollection<Game>*>(addChildCollection(new EntityCollection<Game>(this, "searchResults")));
 
     connect(implementation->searchResults, &EntityCollection<Game>::collectionChanged, this, &GameSearch::searchResultsChanged);
@@ -37,6 +39,7 @@ GameSearch::GameSearch(QObject* parent, IDatabaseController* databaseController)
 
     implementation->searchResults->update(resultsArray);
 /////////////////////////////////////////////////////////////////////////////
+    searchAll();
 }
 
 GameSearch::~GameSearch(){}
@@ -44,6 +47,11 @@ GameSearch::~GameSearch(){}
 StringDecorator* GameSearch::searchText()
 {
     return implementation->searchText;
+}
+
+IntDecorator* GameSearch::ui_questionsQuantity()
+{
+    return implementation->questionsQuantity;
 }
 
 QQmlListProperty<Game> GameSearch::ui_searchResults()
@@ -59,7 +67,9 @@ void GameSearch::searchAll()
 
     implementation->searchResults->update(resultsArray);
 
-    qDebug() << "Found " << implementation->searchResults->baseEntities().size() << " matches";
+    int temp = static_cast<int>(implementation->searchResults->baseEntities().size());
+    qDebug() << "searchAll " + temp;
+    implementation->questionsQuantity->setValue(temp);
 }
 
 }

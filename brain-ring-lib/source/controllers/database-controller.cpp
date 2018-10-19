@@ -120,6 +120,16 @@ bool DatabaseController::createRow(const QString& tableName, const QString& id, 
     return query.numRowsAffected() > 0;
 }
 
+int DatabaseController::countRows(const QString &tableName) const
+{
+    QSqlQuery query(implementation->database);
+    QString sqlStatement = "SELECT * FROM " + tableName;
+    if(!query.prepare(sqlStatement)) return 0;
+    if(!query.exec()) return 0;
+    qDebug() << "from db " + QString::number(query.size()) + "rows";
+    return query.size();
+}
+
 bool DatabaseController::updateRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) const
 {
     if(tableName.isEmpty()) return false;
@@ -148,23 +158,25 @@ bool DatabaseController::updateRow(const QString& tableName, const QString& id, 
     return query.numRowsAffected() > 0;
 }
 
-//bool DatabaseController::deleteRow(const QString& tableName, const QString& id) const
-//{
-//    if(tableName.isEmpty()) return false;
-//    if(id.isEmpty()) return false;
+bool DatabaseController::deleteRow(const QString& tableName, const QString& id) const
+{
+    if(tableName.isEmpty()) return false;
+    if(id.isEmpty()) return false;
 
-//    QSqlQuery query(implementation->database);
+    QSqlQuery query(implementation->database);
 
-//    QString sqlStatement = "DELETE FROM " + tableName + " WHERE id=:id";
+    QString sqlStatement = "DELETE FROM " + tableName + " WHERE id=:id";
 
-//    if(!query.prepare(sqlStatement)) return false;
+    if(!query.prepare(sqlStatement)) return false;
 
-//    query.bindValue(":id", QVariant(id));
+    query.bindValue(":id", QVariant(id));
 
-//    if(!query.exec()) return false;
+    if(!query.exec()) return false;
 
-//    return query.numRowsAffected() > 0;
-//}
+    qDebug() << "DELETE ROW FROM DBC";
+
+    return query.numRowsAffected() > 0;
+}
 
 QJsonObject DatabaseController::readRow(const QString& tableName, const QString& id) const
 {

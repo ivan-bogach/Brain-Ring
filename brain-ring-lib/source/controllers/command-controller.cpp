@@ -44,6 +44,10 @@ public:
         QObject::connect(createGameSaveCommand, &Command::executed, commandController, &CommandController::onCreateGameSaveExecuted);
         addQuestionPanelContextCommands.append(createGameSaveCommand);
 
+        Command* createGameDeleteCommand = new Command( commandController, QChar( 0xf235 ), "Delete" );
+        QObject::connect( createGameDeleteCommand, &Command::executed, commandController, &CommandController::onCreateGameDeleteExecuted );
+        addQuestionPanelContextCommands.append( createGameDeleteCommand );
+
 //SettingsView
         Command* startSettingsCommand = new Command(commandController, "", "");
         QObject::connect(startSettingsCommand, &Command::executed, commandController, &CommandController::onStartSettingsView);
@@ -136,6 +140,19 @@ void CommandController::onCreateGameSaveExecuted()
     implementation->gameSearch->searchAll();
 
 //    qDebug() << "New client saved.";
+}
+
+void CommandController::onCreateGameDeleteExecuted()
+{
+    qDebug() << "You executed the Delete command!";
+
+    implementation->databaseController->deleteRow(implementation->newGame->key(), implementation->newGame->number()->value());
+
+    implementation->newGame->clear();
+
+    implementation->gameSearch->searchAll();
+
+    qDebug() << "Game deleted.";
 }
 
 void CommandController::onStartSettingsView()

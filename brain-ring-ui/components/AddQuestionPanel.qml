@@ -108,6 +108,7 @@ Item {
 
             Repeater {
                 id: commandRepeater
+                anchors.centerIn: parent
                 delegate: CommandButton {
                     command: modelData
                 }

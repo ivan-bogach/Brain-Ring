@@ -19,7 +19,8 @@ public:
     ~DatabaseController();
 
     bool createRow(const QString& tableName, const QString& id, const QJsonObject& jsonObject) override;
-//    bool deleteRow(const QString& tableName, const QString& id) const override;
+    bool deleteRow(const QString& tableName, const QString& id) const override;
+    int countRows(const QString& tableName) const override;
 //    QJsonArray find(const QString& tableName, const QString& searchText) const override;
     QJsonArray findAll(const QString& tableName) const override;
     QJsonObject readRow(const QString& tableName, const QString& id) const override;
