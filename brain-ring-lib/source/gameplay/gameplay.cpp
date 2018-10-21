@@ -252,19 +252,23 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Check either correct message from tcp client
             if( qstringMessage.trimmed() == "n" || qstringMessage.trimmed() == "a" )
             {
-                if( implementation->inEmtyQuestionList )
-                {
-                    implementation->inEmtyQuestionList = false;
-                    implementation->navigationController->goGameOverView();
-                    implementation->aDisabled = true;
-                }
 //If question only one
-                else if( implementation->isFirstQuestion )
+                if( implementation->isFirstQuestion )
                 {
+                    qDebug() << "FIRST QUESTION";
                     implementation->isFirstQuestion = false;
                     implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                     implementation->waitAnswer = true;
                 }
+
+//                else if( implementation->inEmtyQuestionList )
+//                {
+//                    qDebug() << "EmtyQuestion" << implementation->inEmtyQuestionList;
+//                    implementation->inEmtyQuestionList = false;
+//                    implementation->isFirstQuestion = true;
+//                    implementation->navigationController->goGameOverView();
+//                    implementation->aDisabled = true;
+//                }
 //Check either a questions list not emty yet
                 else if ( implementation->questions->derivedEntities().size() > 1 )
                 {
@@ -322,6 +326,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
                         implementation->waitAnswer = false;
                         implementation->navigationController->goEmptyQuestionsListView();
                         implementation->inEmtyQuestionList = true;
+                        qDebug() << "SEY INEQ in: " << implementation->inEmtyQuestionList;
                     }
                 }
 

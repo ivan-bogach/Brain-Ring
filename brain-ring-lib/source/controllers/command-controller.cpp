@@ -207,6 +207,7 @@ void CommandController::onStartServerExecuted()
     implementation->settings->bgColor()->setValue(jsonObject.value("bgColor").toString());
     implementation->settings->txtColor()->setValue(jsonObject.value("txtColor").toString());
 
+
 //    qDebug() << "Command controller: server started with quantity" << QString::number(implementation->settings->quantity()->value());
 }
 
@@ -221,7 +222,7 @@ void CommandController::onStopServerExecuted()
 
 void CommandController::onExitGameExecuted()
 {
-    qDebug() << "Command controller: You executed the Exit command!";
+    qDebug() << "SearchALL Command controller: You executed the Exit command!";
     implementation->gamePlay->clear();
 }
 
