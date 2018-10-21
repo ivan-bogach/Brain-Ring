@@ -128,6 +128,22 @@ Item {
 
             radius: 3
 
+            Rectangle {
+                anchors.top: parent.top
+                anchors.left: parent.left
+                width: parent.width/2
+                height: parent.height
+                color: bgColor
+            }
+
+            Rectangle {
+                anchors.top: parent.top
+                anchors.right: parent.right
+                width: parent.width/2
+                height: parent.height
+                color: txtColor
+            }
+
             Text {
                 id: defaultColorTxt
                 anchors.centerIn: parent
