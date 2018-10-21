@@ -8,6 +8,7 @@ Item {
         mainWindow.visibility = "Windowed"
         navigationBar.isCollapsed = false
         masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
+        masterController.ui_commandController.ui_gameViewContextCommands[2].executed()
     }
 
     Image {

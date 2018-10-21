@@ -29,7 +29,7 @@ Item {
                 width: parent.width * 0.8
                 wrapMode: Text.WordWrap
                 anchors.centerIn: parent
-                font.pixelSize: 50
+                font.pixelSize: parent.height > 600 ? 50 : 25
                 color: Style.colourGameViewsText
                 text: (settings.ui_askQuestions.ui_value === 2) ? question.ui_text.ui_value : "Новый раунд"
             }

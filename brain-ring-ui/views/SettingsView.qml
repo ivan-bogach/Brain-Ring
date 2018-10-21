@@ -6,6 +6,7 @@ import components 1.0
 Item {
     Component.onCompleted: {
         masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
+        masterController.ui_commandController.ui_gameViewContextCommands[2].executed()
         masterController.ui_commandController.ui_settingsViewContextCommands[0].executed()
     }
 

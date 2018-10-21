@@ -81,6 +81,11 @@ Item {
                     stringDecoratorNumber.ui_value = game.ui_number.ui_value
                     stringDecoratorText.ui_value = text.text
                     masterController.ui_commandController.ui_addQuestionPanelContextCommands[1].executed()
+                    text.text = ""
+                    numQuestion.text = ""
+                    deleteX.width = 0
+                    deleteX.text = ""
+                    background.width = 0
                 }
             }
         }
