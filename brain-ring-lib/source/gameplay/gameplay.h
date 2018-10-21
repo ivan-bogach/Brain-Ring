@@ -40,6 +40,8 @@ public:
     void scan();
     void getMessageFromTCP(const QByteArray &);
     void clear();
+//    void setLeader();
+    int getMaxPoints();
 
     QQmlListProperty<Player> ui_players();
     bool isAllPlayersConnected();

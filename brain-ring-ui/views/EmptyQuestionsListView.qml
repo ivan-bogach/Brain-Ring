@@ -152,6 +152,8 @@ Item {
                         width: parent.width * 0.75
                         height: listViewRect.height/(settings.ui_quantity.ui_value + 2)
 
+//                        border.width:
+//                        border.color: "red"
                         anchors.horizontalCenter: parent.horizontalCenter
 
                         color: Style.colourGameViewsBackground
@@ -176,8 +178,8 @@ Item {
                                     id: numberText
                                     anchors.centerIn: parent
 
-                                    color: Style.colourGameViewsText
-                                    font.pixelSize: 25
+                                    color: (modelData.ui_isLeader.ui_value === "true") ? "red" : Style.colourGameViewsText
+                                    font.pixelSize: (modelData.ui_isLeader.ui_value === "true") ? 50 : 25
                                     text: modelData.ui_number.ui_value
                                 }
                             }

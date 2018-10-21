@@ -109,7 +109,7 @@ Item {
                             Text {
                                 id: top
                                 anchors.centerIn: parent
-                                color:  Style.colourPointsText
+                                color:  (modelData.ui_isLeader.ui_value === "true") ? "red" : Style.colourPointsText
                                 font.family: "Helvetica"
                                 font.pixelSize: parent.height > 50 ? 30 : 15
                                 text: modelData.ui_number.ui_value

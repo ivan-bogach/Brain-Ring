@@ -94,6 +94,7 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
         jsonObject.insert("isConnected", "");
         jsonObject.insert("points", "0");
         jsonObject.insert("attempts", "0");
+        jsonObject.insert("isLeader", "false");
 
        resultsArray.append(QJsonValue(jsonObject));
     }
@@ -106,6 +107,20 @@ QQmlListProperty<Player> GamePlay::ui_players()
 {
     qDebug() << "GamePlay::ui_players done! With: " << implementation->playersList->derivedEntities().size();
     return QQmlListProperty<Player>(this, implementation->playersList->derivedEntities());
+}
+
+int GamePlay::getMaxPoints()
+{
+    int max = 0;
+    QMap<QString, int>::iterator it = implementation->gamePoints.begin();
+    for ( ; it != implementation->gamePoints.end(); ++it)
+    {
+        if ( max <= it.value())
+        {
+            max = it.value();
+        }
+    }
+    return max;
 }
 
 void GamePlay::scan()
@@ -139,6 +154,7 @@ void GamePlay::scan()
 
         }
 
+        int maxPoints = getMaxPoints();
         QMap<QString, bool>::iterator it = jsonMap.begin();
         for(; it != jsonMap.end(); ++it)
         {
@@ -148,6 +164,7 @@ void GamePlay::scan()
                 jsonObject.insert("isConnected", "");
                 jsonObject.insert("points", "0");
                 jsonObject.insert("attempts", "0");
+                jsonObject.insert("isLeader", "false");
             }
             else if(it.value() == true)
             {
@@ -155,6 +172,15 @@ void GamePlay::scan()
                 jsonObject.insert("isConnected", "true");
                 jsonObject.insert("points", implementation->gamePoints[it.key()]);
                 jsonObject.insert("attempts", implementation->gameAttempts[it.key()]);
+                if (implementation->gamePoints[it.key()] == maxPoints)
+                {
+                    jsonObject.insert("isLeader", "true");
+                }
+                else
+                {
+                    jsonObject.insert("isLeader", "false");
+                }
+
             }
             returnArray.append(QJsonValue(jsonObject));
         }

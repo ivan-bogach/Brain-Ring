@@ -18,6 +18,7 @@ class BRAINRINGLIBSHARED_EXPORT Player : public data::Entity
     Q_PROPERTY(br::data::IntDecorator* ui_points MEMBER points CONSTANT)
     Q_PROPERTY(br::data::IntDecorator* ui_attempts MEMBER attempts CONSTANT)
     Q_PROPERTY(br::data::StringDecorator* ui_isConnected MEMBER isConnected CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_isLeader MEMBER isLeader CONSTANT)
 public:
     explicit Player(QObject* parent = nullptr);
     Player(QObject* parent, const QJsonObject& json);
@@ -26,6 +27,7 @@ public:
     data::IntDecorator* points{nullptr};
     data::IntDecorator* attempts{nullptr};
     data::StringDecorator* isConnected{nullptr};
+    data::StringDecorator* isLeader{nullptr};
 //    void clear();
 
 };
