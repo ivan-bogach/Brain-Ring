@@ -7,25 +7,32 @@ Item {
     property GamePlay gamePlay: masterController.ui_gamePlay
     property Settings settings: masterController.ui_settings
 
+    Component.onCompleted: {
+        masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
+    }
+
+     Keys.onPressed: {
+         if (event.key === Qt.Key_Escape)
+         {
+             masterController.ui_navigationController.goGameOverView()
+         }
+     }
+
     Rectangle {
         id:background
 
         anchors.fill: parent
         color: Style.colourGameViewsBackground
 
-//        border.color: "black"
-//        border.width: 1
+        border.color: "black"
+        border.width: 1
 
         Rectangle {
             id: titleRect
             width: parent.width
-            height: parent.height/5
+            height: parent.height/7
             anchors.top: parent.top
             color: Style.colourGameViewsBackground
-
-
-//            border.color: "orange"
-//            border.width: 1
 
             Text {
                 id: titleText
@@ -41,10 +48,7 @@ Item {
             width: parent.width
             anchors.top: titleRect.bottom
             anchors.bottom: parent.bottom
-
-
-//            border.color: "pink"
-//            border.width: 1
+            anchors.bottomMargin: 10
 
             color: Style.colourGameViewsBackground
 
@@ -53,24 +57,118 @@ Item {
                 orientation: ListView.Vertical
                 anchors.fill: parent
 
+                header: Rectangle {
+                    id: headerRect
+                    width: parent.width * 0.75
+                    height: listViewRect.height/12
+
+                    anchors.top: listViewRect.top
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    color: Style.colourGameViewsBackground
+                    border.color: Style.colourGameViewsText
+                    border.width: 1
+
+                    Row {
+                        anchors.fill: parent
+
+                        Rectangle{
+                            id: headerNumberRect
+                            width: parent.width/3
+                            height: parent.height
+
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+
+                            color: Style.colourGameViewsBackground
+                            border.color: Style.colourGameViewsText
+                            border.width: 1
+
+
+                            Text{
+                                id: headerNumberText
+                                anchors.centerIn: parent
+                                font.bold: true
+                                color: Style.colourGameViewsText
+                                font.pixelSize: 25
+                                text: "Участник"
+                            }
+                        }
+
+                        Rectangle{
+                            id: headerAttemptsRect
+                            width: parent.width/3
+                            height: parent.height
+
+                            anchors.left: headerNumberRect.right
+                            anchors.top: parent.top
+
+                            color: Style.colourGameViewsBackground
+                            border.color: Style.colourGameViewsText
+                            border.width: 1
+
+                            Text{
+                                id: headerattemptsText
+
+                                font.bold: true
+                                color: Style.colourGameViewsText
+                                anchors.centerIn: parent
+                                font.pixelSize: 25
+                                text: "Ответов"
+                            }
+                        }
+
+                        Rectangle{
+                            id: headerPointsRect
+                            width: parent.width/3
+                            height: parent.height
+
+                            anchors.left: headerAttemptsRect.right
+
+                            anchors.top: parent.top
+
+                            color: Style.colourGameViewsBackground
+                            border.color: Style.colourGameViewsText
+                            border.width: 1
+
+                            Text{
+                                id: headerPointsText
+                                font.pixelSize: 25
+                                font.bold: true
+                                color: Style.colourGameViewsText
+                                anchors.centerIn: parent
+                                text: "Правильных"
+                            }
+                        }
+
+
+                    }
+
+                }
+
                 model: gamePlay.ui_players
 
                 delegate:Rectangle {
-                        width: parent.width
-                        height: listViewRect.height/settings.ui_quantity.ui_value
+                        width: parent.width * 0.75
+                        height: listViewRect.height/(settings.ui_quantity.ui_value + 2)
 
-                        border.color: "red"
-                        border.width: 1
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        color: Style.colourGameViewsBackground
 
                         Row {
                             anchors.fill: parent
+
                             Rectangle{
                                 id: numberRect
-                                width: parent.width/2
+                                width: parent.width/3
+                                height: parent.height
+
                                 anchors.left: parent.left
                                 anchors.top: parent.top
 
-                                border.color: "blue"
+                                color: Style.colourGameViewsBackground
+                                border.color: Style.colourGameViewsText
                                 border.width: 1
 
 
@@ -78,26 +176,55 @@ Item {
                                     id: numberText
                                     anchors.centerIn: parent
 
+                                    color: Style.colourGameViewsText
                                     font.pixelSize: 25
-                                    text: "number" + modelData.ui_number.ui_value
+                                    text: modelData.ui_number.ui_value
                                 }
                             }
 
                             Rectangle{
-                                width: parent.width/2
+                                id: attemptsRect
+                                width: parent.width/3
+                                height: parent.height
 
                                 anchors.left: numberRect.right
+
                                 anchors.top: parent.top
 
-                                border.color: "yellow"
+                                color: Style.colourGameViewsBackground
+                                border.color: Style.colourGameViewsText
+                                border.width: 1
+
+                                Text{
+                                    id: attemptsText
+
+                                    color: Style.colourGameViewsText
+                                    anchors.centerIn: parent
+                                    font.pixelSize: 25
+                                    text: "Попытк 0"
+                                }
+                            }
+
+                            Rectangle{
+                                id: pointsRect
+                                width: parent.width/3
+                                height: parent.height
+
+                                anchors.left: attemptsRect.right
+
+                                anchors.top: parent.top
+
+                                color: Style.colourGameViewsBackground
+                                border.color: Style.colourGameViewsText
                                 border.width: 1
 
                                 Text{
                                     id: pointsText
 
+                                    color: Style.colourGameViewsText
                                     anchors.centerIn: parent
                                     font.pixelSize: 25
-                                    text: "points" + modelData.ui_points.ui_value
+                                    text: modelData.ui_points.ui_value
                                 }
                             }
 

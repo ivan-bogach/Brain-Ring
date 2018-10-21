@@ -65,6 +65,10 @@ public:
         Command* stopServerCommand = new Command(commandController, QChar(0xf0c7), "Старт");
         QObject::connect(stopServerCommand, &Command::executed, commandController, &CommandController::onStopServerExecuted);
         gameViewContextCommands.append(stopServerCommand);
+
+        Command* exitGameCommand = new Command(commandController, QChar(0xf0c7), "Старт");
+        QObject::connect(exitGameCommand, &Command::executed, commandController, &CommandController::onExitGameExecuted);
+        gameViewContextCommands.append(exitGameCommand);
     }
 
     CommandController* commandController{nullptr};
@@ -207,8 +211,14 @@ void CommandController::onStopServerExecuted()
 {
     qDebug() << "Command controller: You executed the STOP command!";
     implementation->tcpController->stopServer();
-    implementation->gamePlay->clear();
+//    implementation->gamePlay->clear();
     qDebug() << "Command controller: server stoped!";
+}
+
+void CommandController::onExitGameExecuted()
+{
+    qDebug() << "Command controller: You executed the Exit command!";
+    implementation->gamePlay->clear();
 }
 
 }

@@ -61,6 +61,7 @@ public slots:
     void onEditGameSaveExecuteed();
     void onStartServerExecuted();
     void onStopServerExecuted();
+    void onExitGameExecuted();
 //    void onTCPClientExecuted();
     void onSaveSettingsExecuted();
     void onStartSettingsView();
