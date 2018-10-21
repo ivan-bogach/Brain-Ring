@@ -201,7 +201,7 @@ Item {
                                     color: Style.colourGameViewsText
                                     anchors.centerIn: parent
                                     font.pixelSize: 25
-                                    text: "Попытк 0"
+                                    text: modelData.ui_attempts.ui_value
                                 }
                             }
 

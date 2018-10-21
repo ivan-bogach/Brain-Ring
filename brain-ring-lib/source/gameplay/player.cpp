@@ -11,6 +11,7 @@ Player::Player(QObject* parent)
 {
   number = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "number", "Номер")));
   points = static_cast<IntDecorator*>(addDataItem(new IntDecorator(this, "points", "Очки")));
+  attempts = static_cast<IntDecorator*>(addDataItem(new IntDecorator(this, "attempts", "Попытки")));
   isConnected = static_cast<StringDecorator*>(addDataItem(new StringDecorator(this, "isConnected", "Подключен")));
 }
 

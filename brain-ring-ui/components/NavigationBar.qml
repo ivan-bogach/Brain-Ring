@@ -3,9 +3,12 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.4
 import components 1.0
 import assets 1.0
+import BR 1.0
 
 Item {
     property bool isCollapsed: true
+    property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
+    property GameSearch gameSearch: masterController.ui_gameSearch
 
     anchors.top: parent.top
     anchors.bottom: parent.bottom
@@ -35,8 +38,19 @@ Item {
             NavigationButton {
                 btnText: "ИГРАТЬ"
                 onNavigationButtonClicked: {
-                    masterController.ui_navigationController.goGameView();
-                    isCollapsed = true
+                    if (numberPlayersFromSettings === 0)
+                    {
+                        masterController.ui_navigationController.goSettingsView();
+                    }
+                    else if (gameSearch.ui_questionsQuantity.ui_value === 0){
+                        masterController.ui_navigationController.goCreateGameView();
+                    }
+                    else {
+
+                        masterController.ui_navigationController.goGameView();
+                        isCollapsed = true
+                    }
+
                 }
             }
             NavigationButton {

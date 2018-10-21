@@ -17,7 +17,7 @@ Item {
     property string playerText
 
     Component.onCompleted: {
-        mainWindow.visibility = "FullScreen"
+//        mainWindow.visibility = "FullScreen"
         masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
 
         if (numberPlayersFromSettings > 1 && numberPlayersFromSettings < 5)

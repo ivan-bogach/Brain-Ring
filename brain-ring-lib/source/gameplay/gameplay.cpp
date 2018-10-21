@@ -39,6 +39,7 @@ public:
 
 
     QMap <QString, int> gamePoints;
+    QMap <QString, int> gameAttempts;
 
     StringDecorator* playerNumber{nullptr};
 
@@ -92,6 +93,7 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
         jsonObject.insert("number", QString::number(i));
         jsonObject.insert("isConnected", "");
         jsonObject.insert("points", "0");
+        jsonObject.insert("attempts", "0");
 
        resultsArray.append(QJsonValue(jsonObject));
     }
@@ -145,12 +147,14 @@ void GamePlay::scan()
                 jsonObject.insert("number", it.key());
                 jsonObject.insert("isConnected", "");
                 jsonObject.insert("points", "0");
+                jsonObject.insert("attempts", "0");
             }
             else if(it.value() == true)
             {
                 jsonObject.insert("number", it.key());
                 jsonObject.insert("isConnected", "true");
                 jsonObject.insert("points", implementation->gamePoints[it.key()]);
+                jsonObject.insert("attempts", implementation->gameAttempts[it.key()]);
             }
             returnArray.append(QJsonValue(jsonObject));
         }
@@ -186,6 +190,7 @@ void GamePlay::clear()
         jsonObject.insert("number", QString::number(i));
         jsonObject.insert("isConnected", "");
         jsonObject.insert("points", "0");
+        jsonObject.insert("attempts", "0");
 
        resultsArray.append(QJsonValue(jsonObject));
     }
@@ -193,6 +198,8 @@ void GamePlay::clear()
     implementation->playersList->update(resultsArray);
 
     implementation->gamePoints.clear();
+
+    implementation->gameAttempts.clear();
 
     implementation->allPlayerConnected = false;
 
@@ -299,6 +306,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
         else if ( qstringMessage.trimmed() != "n" && qstringMessage.trimmed() != "a" && implementation->waitAnswer )
         {
             implementation->playerNumber->setValue( qstringMessage.trimmed() );
+            implementation->gameAttempts[implementation->playerNumber->value()]++;
             implementation->navigationController->goGameAnswerView( implementation->playerNumber );
             implementation->waitAnswer = false;
             implementation->nextQuestion = false;

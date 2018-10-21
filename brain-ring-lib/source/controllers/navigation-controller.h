@@ -19,9 +19,9 @@ public:
 signals:
 //    void goGameView(br::models::Game* game);
     void goDashboardView();
-    void goGameView();
     void goCreateGameView();
     void goSettingsView();
+    void goGameView();
     void goGameQuestionView(br::models::Game* game);
     void goGameAnswerView(br::data::StringDecorator* number);
     void goPlayerWinView(br::data::StringDecorator* number);
