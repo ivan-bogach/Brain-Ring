@@ -68,7 +68,7 @@ Item {
             anchors.rightMargin: 5
 
             color: "#f0f0f0"
-            font.pixelSize: 25
+            font.pixelSize: 15
             text: "x"
 
             MouseArea {

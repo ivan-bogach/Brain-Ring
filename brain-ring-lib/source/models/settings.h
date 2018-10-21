@@ -19,6 +19,8 @@ class BRAINRINGLIBSHARED_EXPORT Settings : public data::Entity
     Q_OBJECT
     Q_PROPERTY(br::data::IntDecorator* ui_quantity READ quantity CONSTANT)
     Q_PROPERTY(br::data::IntDecorator* ui_askQuestions READ askQuestions CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_bgColor READ bgColor CONSTANT)
+    Q_PROPERTY(br::data::StringDecorator* ui_txtColor READ txtColor CONSTANT)
 public:
     explicit Settings(QObject* parent = nullptr, controllers::IDatabaseController* databaseController = nullptr);
     ~Settings();
@@ -27,6 +29,8 @@ public:
 
     data::IntDecorator* quantity();
     data::IntDecorator* askQuestions();
+    data::StringDecorator* bgColor();
+    data::StringDecorator* txtColor();
 
 private:
     class Implementation;

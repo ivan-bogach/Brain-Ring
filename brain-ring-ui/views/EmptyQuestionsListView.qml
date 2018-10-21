@@ -7,6 +7,9 @@ Item {
     property GamePlay gamePlay: masterController.ui_gamePlay
     property Settings settings: masterController.ui_settings
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     Component.onCompleted: {
         masterController.ui_commandController.ui_gameViewContextCommands[1].executed()
     }
@@ -22,23 +25,20 @@ Item {
         id:background
 
         anchors.fill: parent
-        color: Style.colourGameViewsBackground
-
-        border.color: "black"
-        border.width: 1
+        color: bgColor
 
         Rectangle {
             id: titleRect
             width: parent.width
             height: parent.height/7
             anchors.top: parent.top
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             Text {
                 id: titleText
                 anchors.centerIn: parent
                 font.pixelSize: 50
-                color: Style.colourGameViewsText
+                color: txtColor
                 text: qsTr("Итоговый счет")
             }
         }
@@ -50,7 +50,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 10
 
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             ListView {
                 spacing: 5
@@ -65,8 +65,8 @@ Item {
                     anchors.top: listViewRect.top
                     anchors.horizontalCenter: parent.horizontalCenter
 
-                    color: Style.colourGameViewsBackground
-                    border.color: Style.colourGameViewsText
+                    color: bgColor
+                    border.color: txtColor
                     border.width: 1
 
                     Row {
@@ -80,8 +80,8 @@ Item {
                             anchors.left: parent.left
                             anchors.top: parent.top
 
-                            color: Style.colourGameViewsBackground
-                            border.color: Style.colourGameViewsText
+                            color: bgColor
+                            border.color: txtColor
                             border.width: 1
 
 
@@ -89,7 +89,7 @@ Item {
                                 id: headerNumberText
                                 anchors.centerIn: parent
                                 font.bold: true
-                                color: Style.colourGameViewsText
+                                color: txtColor
                                 font.pixelSize: 25
                                 text: "Участник"
                             }
@@ -103,15 +103,15 @@ Item {
                             anchors.left: headerNumberRect.right
                             anchors.top: parent.top
 
-                            color: Style.colourGameViewsBackground
-                            border.color: Style.colourGameViewsText
+                            color: bgColor
+                            border.color: txtColor
                             border.width: 1
 
                             Text{
                                 id: headerattemptsText
 
                                 font.bold: true
-                                color: Style.colourGameViewsText
+                                color: txtColor
                                 anchors.centerIn: parent
                                 font.pixelSize: 25
                                 text: "Ответов"
@@ -127,15 +127,15 @@ Item {
 
                             anchors.top: parent.top
 
-                            color: Style.colourGameViewsBackground
-                            border.color: Style.colourGameViewsText
+                            color: bgColor
+                            border.color: txtColor
                             border.width: 1
 
                             Text{
                                 id: headerPointsText
                                 font.pixelSize: 25
                                 font.bold: true
-                                color: Style.colourGameViewsText
+                                color: txtColor
                                 anchors.centerIn: parent
                                 text: "Правильных"
                             }
@@ -156,8 +156,7 @@ Item {
 //                        border.color: "red"
                         anchors.horizontalCenter: parent.horizontalCenter
 
-                        color: Style.colourGameViewsBackground
-
+                        color: bgColor
                         Row {
                             anchors.fill: parent
 
@@ -169,8 +168,8 @@ Item {
                                 anchors.left: parent.left
                                 anchors.top: parent.top
 
-                                color: Style.colourGameViewsBackground
-                                border.color: Style.colourGameViewsText
+                                color: bgColor
+                                border.color: txtColor
                                 border.width: 1
 
 
@@ -178,7 +177,7 @@ Item {
                                     id: numberText
                                     anchors.centerIn: parent
 
-                                    color: (modelData.ui_isLeader.ui_value === "true") ? "red" : Style.colourGameViewsText
+                                    color: (modelData.ui_isLeader.ui_value === "true") ? "red" : txtColor
                                     font.pixelSize: (modelData.ui_isLeader.ui_value === "true") ? 50 : 25
                                     text: modelData.ui_number.ui_value
                                 }
@@ -193,14 +192,14 @@ Item {
 
                                 anchors.top: parent.top
 
-                                color: Style.colourGameViewsBackground
-                                border.color: Style.colourGameViewsText
+                                color: bgColor
+                                border.color: txtColor
                                 border.width: 1
 
                                 Text{
                                     id: attemptsText
 
-                                    color: Style.colourGameViewsText
+                                    color: txtColor
                                     anchors.centerIn: parent
                                     font.pixelSize: 25
                                     text: modelData.ui_attempts.ui_value
@@ -216,14 +215,14 @@ Item {
 
                                 anchors.top: parent.top
 
-                                color: Style.colourGameViewsBackground
-                                border.color: Style.colourGameViewsText
+                                color: bgColor
+                                border.color: txtColor
                                 border.width: 1
 
                                 Text{
                                     id: pointsText
 
-                                    color: Style.colourGameViewsText
+                                    color: txtColor
                                     anchors.centerIn: parent
                                     font.pixelSize: 25
                                     text: modelData.ui_points.ui_value

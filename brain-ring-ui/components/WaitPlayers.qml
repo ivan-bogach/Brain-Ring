@@ -7,6 +7,9 @@ Item {
     property GamePlay gameP
     property int numPlayersFromSettings
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     anchors.centerIn: parent
     width: parent.width
     height: parent.height
@@ -21,8 +24,8 @@ Item {
         delegate: Rectangle {
             width: listViewRect.width/(numPlayersFromSettings + 1)
             height: listViewRect.width/(numPlayersFromSettings + 1)
-            color: (modelData.ui_isConnected.ui_value === "true")  ? "#FF9243" : Style.colourGameViewsBackground
-            border.color: (modelData.ui_isConnected.ui_value === "true") ? "#6EB3FE" : Style.colourGameViewsBackground
+            color: (modelData.ui_isConnected.ui_value === "true")  ? "#FF9243" : bgColor
+            border.color: (modelData.ui_isConnected.ui_value === "true") ? "#6EB3FE" : bgColor
             border.width: 3
             radius: listViewRect.width/(numPlayersFromSettings + 1)
 

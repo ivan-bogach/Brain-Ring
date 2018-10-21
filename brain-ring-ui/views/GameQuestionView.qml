@@ -8,6 +8,9 @@ Item {
 
     anchors.fill: parent
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     focus: true
     Keys.onEscapePressed: {
         contentFrame.replace("qrc:/views/DashboardView.qml")
@@ -16,13 +19,13 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourGameViewsBackground
+        color: bgColor
 
         Rectangle {
             anchors.fill: parent
             anchors.leftMargin: 50
             anchors.rightMargin: 50
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             Text {
                 id: questionText
@@ -30,7 +33,7 @@ Item {
                 wrapMode: Text.WordWrap
                 anchors.centerIn: parent
                 font.pixelSize: parent.height > 600 ? 50 : 25
-                color: Style.colourGameViewsText
+                color: txtColor
                 text: (settings.ui_askQuestions.ui_value === 2) ? question.ui_text.ui_value : "Новый раунд"
             }
         }

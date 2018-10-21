@@ -16,6 +16,9 @@ Item {
     property GameSearch gameSearch: masterController.ui_gameSearch
     property string playerText
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     Component.onCompleted: {
 //        mainWindow.visibility = "FullScreen"
         masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
@@ -41,7 +44,7 @@ Item {
 
     Rectangle {
         id: background
-        color: Style.colourGameViewsBackground
+        color: bgColor
         anchors.fill: parent
 
         Rectangle {
@@ -49,13 +52,14 @@ Item {
             anchors.fill: parent
             anchors.leftMargin: 5
             anchors.rightMargin: 5
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             Text {
                 id: questionsQuantity
                 anchors.bottom: playersQuantity.top
                 anchors.left: parent.left
-                color: Style.colourGameViewsText
+                color: txtColor
+
                 font.pixelSize: 25
                 text: "Количество вопросов: " + gameSearch.ui_questionsQuantity.ui_value
                 MouseArea {
@@ -70,7 +74,8 @@ Item {
                 id: playersQuantity
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
-                color: Style.colourGameViewsText
+                color: txtColor
+
                 font.pixelSize: 25
                 text: "Состав участников: " + numberPlayersFromSettings + " " + playerText
                 MouseArea {
@@ -88,7 +93,7 @@ Item {
                 height: isAllClientsConnected ? 0 : waitPlayers.height
                 visible: isAllClientsConnected ? false : true
                 anchors.centerIn: parent
-                color: Style.colourGameViewsBackground
+                color: bgColor
 
                 WaitPlayers {
                     id: waitPlayers
@@ -102,7 +107,7 @@ Item {
                 anchors.bottom: isAllClientsConnected ? parent.bottom : parent.top
                 width: isAllClientsConnected ? parent.width : 0
                 height: isAllClientsConnected ? parent.height : 0
-                color: Style.colourGameViewsBackground
+                color: bgColor
 
                 Text {
                     id: readyText
@@ -110,7 +115,7 @@ Item {
                     visible: isAllClientsConnected ? true : false
                     font.pixelSize: 30
                     font.bold:true
-                    color: Style.colourGameViewsText
+                    color: txtColor
                     text: qsTr("Все участники готовы!")
                 }
             }

@@ -7,6 +7,9 @@ Item {
     property int numPlayersFromSettings
     property StringDecorator winnerNumber
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     anchors.fill: parent
 
     Rectangle {
@@ -14,7 +17,7 @@ Item {
         width: parent.width*0.9
         height: parent.height/7
 
-        color: Style.colourGameViewsBackground
+        color: bgColor
 
         anchors.bottom: parent.bottom
         anchors.bottomMargin: parent.height/20
@@ -23,7 +26,7 @@ Item {
         Rectangle {
             id: listViewRect
             anchors.fill: parent
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             ListView {
                 anchors.fill: parent

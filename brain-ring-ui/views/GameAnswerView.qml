@@ -5,6 +5,9 @@ import BR 1.0
 Item {
     property StringDecorator playerNumber
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     anchors.fill: parent
 
     focus: true
@@ -15,19 +18,19 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourGameViewsBackground
+        color: bgColor
 
         Rectangle {
             anchors.fill: parent
             anchors.leftMargin: 50
             anchors.rightMargin: 50
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             Text {
                 id: questionText
                 anchors.centerIn: parent
                 font.pixelSize: 50
-                color: Style.colourGameViewsText
+                color: txtColor
                 text: "Отвечает участник номер " + playerNumber.ui_value
             }
         }

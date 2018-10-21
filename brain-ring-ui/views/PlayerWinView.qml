@@ -8,6 +8,9 @@ Item {
     property GamePlay gamePlayInPlayerWin: masterController.ui_gamePlay
     property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
 
+    property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
+    property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
+
     focus: true
     Keys.onEscapePressed: {
         contentFrame.replace("qrc:/views/DashboardView.qml")
@@ -18,20 +21,20 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: Style.colourGameViewsBackground
+        color: bgColor
 
         Rectangle {
             anchors.fill: parent
             anchors.leftMargin: 50
             anchors.rightMargin: 50
             anchors.bottomMargin: parent.height/10
-            color: Style.colourGameViewsBackground
+            color: bgColor
 
             Text {
                 id: questionText
                 anchors.centerIn: parent
                 font.pixelSize: 50
-                color: Style.colourGameViewsText
+                color: txtColor
                 text: "Выиграл участник номер " + playerNumber.ui_value
             }
         }

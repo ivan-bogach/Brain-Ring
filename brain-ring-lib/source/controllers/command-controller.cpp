@@ -164,6 +164,8 @@ void CommandController::onStartSettingsView()
      QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
      implementation->settings->askQuestions()->setValue(jsonObject.value("ask").toInt());
      implementation->settings->quantity()->setValue(jsonObject.value("quantity").toInt());
+     implementation->settings->bgColor()->setValue(jsonObject.value("bgColor").toString());
+     implementation->settings->txtColor()->setValue(jsonObject.value("txtColor").toString());
 //     qDebug() << "Command controller: Settings view started!";
 }
 
@@ -202,6 +204,8 @@ void CommandController::onStartServerExecuted()
     QJsonObject jsonObject = implementation->databaseController->readRow("settings", "1");
     implementation->settings->askQuestions()->setValue(jsonObject.value("ask").toInt());
     implementation->settings->quantity()->setValue(jsonObject.value("quantity").toInt());
+    implementation->settings->bgColor()->setValue(jsonObject.value("bgColor").toString());
+    implementation->settings->txtColor()->setValue(jsonObject.value("txtColor").toString());
 
 //    qDebug() << "Command controller: server started with quantity" << QString::number(implementation->settings->quantity()->value());
 }
