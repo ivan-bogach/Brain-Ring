@@ -33,6 +33,8 @@ public:
                            );
     ~TCPController();
 
+    void sendMessage(const QString& message);
+
     QMap<int, QTcpSocket *> SClients();
     models::Settings* setting{nullptr};
 

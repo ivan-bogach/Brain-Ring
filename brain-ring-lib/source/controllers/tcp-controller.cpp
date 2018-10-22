@@ -80,20 +80,25 @@ void TCPController::newClient()
 
         int idUserSocket = clientSocket->socketDescriptor();
 
+//Writing back client's ip last number
+        QString entireIp = clientSocket->peerAddress().toString();
+//        int sizeIP =entireIp.size();
+//        QString ip = QString(entireIp[sizeIP - 1]);
+        QString ip = entireIp.right(2);
+        clientSocket->write(ip.toUtf8());
+
         implementation->SClients[idUserSocket] = clientSocket;
 
         connect(implementation->SClients[idUserSocket], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
 
-
-
-//Writing back client's ip last number
-        QString entireIp = clientSocket->peerAddress().toString();
-        int sizeIP =entireIp.size();
-        QString ip = QString(entireIp[sizeIP - 1]);
-        clientSocket->write(ip.toUtf8());
-
-
         emit tcpClientArrived();
+    }
+}
+
+void TCPController::sendMessage(const QString &message)
+{
+    foreach (int i, implementation->SClients.keys()) {
+        implementation->SClients[i]->write(message.toUtf8());
     }
 }
 
