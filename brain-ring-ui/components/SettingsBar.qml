@@ -12,6 +12,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+        color: Style.colourSettingsBackground
 //        color: Style.colourCommandBarBackground
 
 

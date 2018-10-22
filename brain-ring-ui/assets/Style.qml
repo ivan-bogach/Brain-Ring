@@ -11,6 +11,8 @@ Item {
     readonly property real sizeScreenMargine: 20
     readonly property color colourBackground: "#efefef"
 
+    readonly property color colourSettingsBackground: "#aabfca"
+
     readonly property color colourGameViewsBackground: "#062e2e"
     readonly property color colourGameViewsText: "#da967f"
 

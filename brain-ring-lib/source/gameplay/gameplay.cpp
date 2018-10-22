@@ -149,8 +149,9 @@ void GamePlay::scan()
             QString entireIp = i.value()->peerAddress().toString();
             int sizeIP =entireIp.size();
 
-            if( QString(entireIp[sizeIP - 2]) == QString("0") )
+            if( QString(entireIp[sizeIP - 2]) == "0" )
             {
+                qDebug() << "OIPI: " << QString(entireIp[sizeIP - 1]);
                 ip = QString(entireIp[sizeIP - 1]);
             }
 //=====================================================================================================
@@ -159,7 +160,7 @@ void GamePlay::scan()
                 ip = QString(entireIp[sizeIP - 1]);
             }
 //=====================================================================================================
-            else if ( QString(entireIp[sizeIP - 2]) == QString("1") )
+            else if ( QString(entireIp[sizeIP - 2]) == "1" )
             {
                 ip = entireIp.right(2);
             }
@@ -362,6 +363,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
         else if ( qstringMessage.trimmed() != "n" && qstringMessage.trimmed() != "a" && implementation->waitAnswer )
         {
             implementation->playerNumber->setValue( qstringMessage.trimmed() );
+            qDebug() << "GAMEPLAY: " << implementation->playerNumber->value();
             implementation->gameAttempts[implementation->playerNumber->value()]++;
             implementation->navigationController->goGameAnswerView( implementation->playerNumber );
             implementation->waitAnswer = false;

@@ -13,6 +13,8 @@ Item {
         id: background
         anchors.fill: parent
 
+        color: "transparent"
+
         Text {
             id: textIcon
             anchors.centerIn: parent
@@ -21,7 +23,7 @@ Item {
                 family: Style.fontAwesome
                 pixelSize: 50
             }
-            color: command.ui_canExecute ? "#aaaaaa" : Style.colourCommandBarFontDisabled
+            color: command.ui_canExecute ? "#29353d" : Style.colourCommandBarFontDisabled
             text: command.ui_iconCharacter
             horizontalAlignment: Text.AlignHCenter
         }
