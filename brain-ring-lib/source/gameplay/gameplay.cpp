@@ -362,6 +362,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Question asked and message was not "n" or "a app - wait answer
         else if ( qstringMessage.trimmed() != "n" && qstringMessage.trimmed() != "a" && implementation->waitAnswer )
         {
+            implementation->tcpController->sendMessage( qstringMessage.trimmed() );
             implementation->playerNumber->setValue( qstringMessage.trimmed() );
             qDebug() << "GAMEPLAY: " << implementation->playerNumber->value();
             implementation->gameAttempts[implementation->playerNumber->value()]++;

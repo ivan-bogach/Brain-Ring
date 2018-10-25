@@ -20,7 +20,7 @@ Item {
     property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
 
     Component.onCompleted: {
-//        mainWindow.visibility = "FullScreen"
+        mainWindow.visibility = "FullScreen"
         masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
 
         if (numberPlayersFromSettings > 1 && numberPlayersFromSettings < 5)
