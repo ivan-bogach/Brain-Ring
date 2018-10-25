@@ -171,6 +171,10 @@ void GamePlay::scan()
 
             jsonObject.insert("number", ip);
     //insert true for connected ip in jsonMap
+            if ( (implementation->settings->quantity()->value() + 1) > implementation->tcpController->SClients().size() )
+            {
+                implementation->tcpController->sendMessage(ip);
+            }
             jsonMap[ip] = true;
 
         }

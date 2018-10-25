@@ -81,11 +81,11 @@ void TCPController::newClient()
         int idUserSocket = clientSocket->socketDescriptor();
 
 //Writing back client's ip last number
-        QString entireIp = clientSocket->peerAddress().toString();
+//        QString entireIp = clientSocket->peerAddress().toString();
 //        int sizeIP =entireIp.size();
 //        QString ip = QString(entireIp[sizeIP - 1]);
-        QString ip = entireIp.right(2);
-        clientSocket->write(ip.toUtf8());
+//        QString ip = entireIp.right(2);
+//        clientSocket->write(ip.toUtf8());
 
         implementation->SClients[idUserSocket] = clientSocket;
 
