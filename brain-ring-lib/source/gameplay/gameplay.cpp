@@ -36,6 +36,7 @@ public:
     bool nextQuestion;
     bool aDisabled;
     bool inEmtyQuestionList;
+    bool isEmceeConnected;
 
 
     QMap <QString, int> gamePoints;
@@ -73,6 +74,8 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
     implementation->aDisabled = false;
 
     implementation->inEmtyQuestionList = false;
+
+    implementation->isEmceeConnected = false;
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
 
@@ -175,7 +178,8 @@ void GamePlay::scan()
             }
             else
             {
-                qDebug() << "OIPI: " << entireIp << "Sclients size: " << implementation->tcpController->SClients().size();
+                implementation->isEmceeConnected = true;
+                qDebug() << "EMCEE" << implementation->isEmceeConnected;
                 continue;
             }
 
@@ -226,7 +230,7 @@ void GamePlay::scan()
             returnArray.append(QJsonValue(jsonObject));
         }
         implementation->playersList->update(returnArray);
-//        qDebug() << "GamePlay::scan done!";
+        qDebug() << "GamePlay::scan done!";
 }
 
 
@@ -243,6 +247,12 @@ bool GamePlay::isAllPlayersConnected()
         return true;
     }
     return false;
+}
+
+bool GamePlay::isEmceeConnected()
+{
+    qDebug() << "EMCEE CONNECTED";
+    return implementation->isEmceeConnected;
 }
 
 void GamePlay::clear()
@@ -269,6 +279,8 @@ void GamePlay::clear()
     implementation->gameAttempts.clear();
 
     implementation->allPlayerConnected = false;
+
+    implementation->isEmceeConnected = false;
 
     implementation->gameStarted = false;
 

@@ -5,6 +5,7 @@ import BR 1.0
 Item {
     property StringDecorator stringDecoratorNumber
     property StringDecorator stringDecoratorText
+    property IntDecorator questionsNum
     property alias  commandList: commandRepeater.model
 
     width: parent.width
@@ -61,7 +62,7 @@ Item {
                 anchors.fill: parent
                 font.pixelSize: 15
                 horizontalAlignment: TextInput.AlignHCenter
-                text: stringDecoratorNumber.ui_value
+                text: stringDecoratorNumber.ui_value == "" ? questionsNum.ui_value + 1 : stringDecoratorNumber.ui_value
 
 
 

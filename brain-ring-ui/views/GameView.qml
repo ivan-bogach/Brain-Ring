@@ -10,6 +10,7 @@ Item {
 //from gamePlay
     property GamePlay gamePlay: masterController.ui_gamePlay
     property bool isAllClientsConnected: masterController.ui_gamePlay.ui_isAllPlayersConnected
+    property bool isEmceeConnected: masterController.ui_gamePlay.ui_isEmceeConnected
 
 //from Settings
     property int  numberPlayersFromSettings: masterController.ui_settings.ui_quantity.ui_value
@@ -51,10 +52,8 @@ Item {
             isFullSize = !isFullSize
             if (isFullSize){
                 mainWindow.visibility = "FullScreen"
-                console.log("1111111111111111111")
             } else {
                 mainWindow.visibility = "Windowed"
-                console.log("33333333333333333333")
             }
         }
     }
@@ -111,6 +110,25 @@ Item {
                 visible: isAllClientsConnected ? false : true
                 anchors.centerIn: parent
                 color: bgColor
+
+                Rectangle {
+                    width: parent.width
+                    height: emcee.height
+                    anchors.bottom: waitPlayers.top
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: bgColor
+
+                    Text {
+                        id: emcee
+                        anchors.centerIn: parent
+                        font.pixelSize: 100
+                        font.bold:true
+                        font.family: Style.brFont
+                        color: txtColor
+//                        text: isEmceeConnected ? "Ведущий готов." : ""
+                        text: isEmceeConnected ? "A" : ""
+                    }
+                }
 
                 WaitPlayers {
                     id: waitPlayers

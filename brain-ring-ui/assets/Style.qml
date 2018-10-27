@@ -3,6 +3,7 @@ import QtQuick 2.0
 
 Item {
     property alias fontAwesome: fontAwesomeLoader.name
+    property alias brFont: brFontLoader.name
 
     property alias imageDashboard: imageDashboardLoader.source
     property alias imageLogo: logoLoader.source
@@ -72,6 +73,11 @@ Item {
     FontLoader {
         id: fontAwesomeLoader
         source: "qrc:/assets/fontawesome.ttf"
+    }
+
+    FontLoader {
+        id: brFontLoader
+        source: "qrc:/assets/brain_ring_font.otf"
     }
 
     Image {

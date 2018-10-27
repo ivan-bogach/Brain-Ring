@@ -52,6 +52,7 @@ Item {
             id: addQuestionPanel
             stringDecoratorNumber: newGame.ui_number
             stringDecoratorText: newGame.ui_text
+            questionsNum: gameSearch.ui_questionsQuantity
             commandList: masterController.ui_commandController.ui_addQuestionPanelContextCommands[0]
         }
     }
