@@ -28,10 +28,11 @@ Item {
             anchors.fill: parent
             color: bgColor
 
+
             ListView {
+                id: lw
                 anchors.fill: parent
                 orientation: ListView.Horizontal
-
 
                 header: Rectangle {
                     id: header
@@ -100,6 +101,8 @@ Item {
                         width: parent.width
                         height: parent.height
 
+
+
                         Rectangle {
                             id: topRect
                             anchors.top: parent.top
@@ -109,10 +112,28 @@ Item {
                             width: parent.width
                             color: Style.colourPointsBorder
 
+                            Rectangle {
+                                id: winnerTextRect
+                                color: "transparent"
+                                anchors.horizontalCenter: top.horizontalCenter
+                                anchors.bottom: top.top
+                                width: winnerText.width
+                                height: winnerText.height
+
+                                Text {
+                                    id: winnerText
+                                    anchors.centerIn: parent
+                                    font.family: Style.brFont
+                                    color: "#26c794"
+                                    font.pixelSize: parent.height > 50 ? 70 : 45
+                                    text: (modelData.ui_isLeader.ui_value === "true") ? "A" : ""
+                                }
+                            }
+
                             Text {
                                 id: top
                                 anchors.centerIn: parent
-                                color:  (modelData.ui_isLeader.ui_value === "true") ? "red" : Style.colourPointsText
+                                color:  (modelData.ui_isLeader.ui_value === "true") ? "#26c794" : Style.colourPointsText
                                 font.family: "Helvetica"
                                 font.pixelSize: parent.height > 50 ? 30 : 15
                                 text: modelData.ui_number.ui_value

@@ -450,6 +450,11 @@ void GamePlay::gotNumberFromTCP(const QString &message)
         implementation->waitAnswer = false;
         implementation->nextQuestion = false;
         implementation->losers.push_back(message.trimmed());
+
+        if (implementation->losers.size() == implementation->settings->quantity()->value())
+        {
+            implementation->losers.clear();
+        }
     }
     return;
 }
