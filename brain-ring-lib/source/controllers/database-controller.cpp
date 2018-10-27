@@ -126,7 +126,7 @@ int DatabaseController::countRows(const QString &tableName) const
     QString sqlStatement = "SELECT * FROM " + tableName;
     if(!query.prepare(sqlStatement)) return 0;
     if(!query.exec()) return 0;
-    qDebug() << "from db " + QString::number(query.size()) + "rows";
+//    qDebug() << "from db " + QString::number(query.size()) + "rows";
     return query.size();
 }
 
@@ -140,7 +140,7 @@ bool DatabaseController::updateRow(const QString& tableName, const QString& id, 
 //    qDebug() << "ID: " << id;
 //    qDebug() << "JSON: " << QString::number(jsonObject.size());
     QJsonDocument doc(jsonObject);
-    qDebug() << doc.toJson(QJsonDocument::Compact);
+//    qDebug() << doc.toJson(QJsonDocument::Compact);
 
     QSqlQuery query(implementation->database);
 
@@ -173,7 +173,7 @@ bool DatabaseController::deleteRow(const QString& tableName, const QString& id) 
 
     if(!query.exec()) return false;
 
-    qDebug() << "DELETE ROW FROM DBC";
+//    qDebug() << "DELETE ROW FROM DBC";
 
     return query.numRowsAffected() > 0;
 }

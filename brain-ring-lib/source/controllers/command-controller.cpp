@@ -148,7 +148,7 @@ void CommandController::onCreateGameSaveExecuted()
 
 void CommandController::onCreateGameDeleteExecuted()
 {
-    qDebug() << "You executed the Delete command!";
+//    qDebug() << "You executed the Delete command!";
 
     implementation->databaseController->deleteRow(implementation->newGame->key(), implementation->newGame->number()->value());
 
@@ -156,7 +156,7 @@ void CommandController::onCreateGameDeleteExecuted()
 
     implementation->gameSearch->searchAll();
 
-    qDebug() << "Game deleted.";
+//    qDebug() << "Game deleted.";
 }
 
 void CommandController::onStartSettingsView()
@@ -171,7 +171,7 @@ void CommandController::onStartSettingsView()
 
 void CommandController::onSaveSettingsExecuted()
 {
-    qDebug() << "You executed the Save Settings command!";
+//    qDebug() << "You executed the Save Settings command!";
     implementation->databaseController->createRow(implementation->settings->key(), "1", implementation->settings->toJson());
     implementation->navigationController->goDashboardView();
 }
@@ -214,15 +214,15 @@ void CommandController::onStartServerExecuted()
 
 void CommandController::onStopServerExecuted()
 {
-    qDebug() << "Command controller: You executed the STOP command!";
+//    qDebug() << "Command controller: You executed the STOP command!";
     implementation->tcpController->stopServer();
 //    implementation->gamePlay->clear();
-    qDebug() << "Command controller: server stoped!";
+//    qDebug() << "Command controller: server stoped!";
 }
 
 void CommandController::onExitGameExecuted()
 {
-    qDebug() << "SearchALL Command controller: You executed the Exit command!";
+//    qDebug() << "SearchALL Command controller: You executed the Exit command!";
     implementation->gamePlay->clear();
 }
 

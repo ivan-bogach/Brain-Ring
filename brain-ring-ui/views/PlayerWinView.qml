@@ -11,9 +11,27 @@ Item {
     property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
     property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
 
+
+//internal
+    property bool isFullSize: true
+
     focus: true
     Keys.onEscapePressed: {
         contentFrame.replace("qrc:/views/DashboardView.qml")
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onDoubleClicked: {
+            isFullSize = !isFullSize
+            if (isFullSize){
+                mainWindow.visibility = "FullScreen"
+                console.log("1111111111111111111")
+            } else {
+                mainWindow.visibility = "Windowed"
+                console.log("33333333333333333333")
+            }
+        }
     }
 
     anchors.fill: parent

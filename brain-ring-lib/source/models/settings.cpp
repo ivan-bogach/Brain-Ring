@@ -52,13 +52,13 @@ IntDecorator* Settings::askQuestions()
 
 StringDecorator* Settings::bgColor()
 {
-    qDebug() << "bgColor: " << implementation->bgColor->value();
+//    qDebug() << "bgColor: " << implementation->bgColor->value();
     return  implementation->bgColor;
 }
 
 StringDecorator* Settings::txtColor()
 {
-    qDebug() << "txtColor: " << implementation->txtColor->value();
+//    qDebug() << "txtColor: " << implementation->txtColor->value();
     return implementation->txtColor;
 }
 

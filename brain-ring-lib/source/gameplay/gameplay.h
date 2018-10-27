@@ -40,8 +40,11 @@ public:
     void scan();
     void getMessageFromTCP(const QByteArray &);
     void clear();
-//    void setLeader();
     int getMaxPoints();
+    int getConnectedPlayerNum(QMap<QString, bool> jsonMap);
+
+    void gotNumberFromTCP(const QString& message);
+    void gotLetterFromTCP(const QString& message);
 
     QQmlListProperty<Player> ui_players();
     bool isAllPlayersConnected();

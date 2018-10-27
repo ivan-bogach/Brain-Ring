@@ -61,14 +61,14 @@ QQmlListProperty<Game> GameSearch::ui_searchResults()
 
 void GameSearch::searchAll()
 {
-    qDebug() << "Searching for " << implementation->searchText->value() << "...";
+//    qDebug() << "Searching for " << implementation->searchText->value() << "...";
 
     auto resultsArray = implementation->databaseControler->findAll("game");
 
     implementation->searchResults->update(resultsArray);
 
     int temp = static_cast<int>(implementation->searchResults->baseEntities().size());
-    qDebug() << "searchAll " + temp;
+//    qDebug() << "searchAll " + temp;
     implementation->questionsQuantity->setValue(temp);
 }
 

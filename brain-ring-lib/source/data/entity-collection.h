@@ -92,7 +92,7 @@ public:
 //..........................................................................................
         QJsonDocument jsonDocument;
         jsonDocument.setArray(jsonArray);
-        qDebug() << "entity-collection update entity collection with: " << jsonDocument.toJson();
+//        qDebug() << "entity-collection update entity collection with: " << jsonDocument.toJson();
 //..........................................................................................
     }
 
@@ -118,7 +118,7 @@ public:
         if(!collection.contains(entity))
         {
             collection.append(entity);
-            qDebug() << "collectionChanged signal from addEntity";
+//            qDebug() << "collectionChanged signal from addEntity";
             EntityCollectionObject::collectionChanged();
         }
         return entity;

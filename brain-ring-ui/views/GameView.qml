@@ -19,6 +19,9 @@ Item {
     property string bgColor: masterController.ui_settings.ui_bgColor.ui_value
     property string txtColor: masterController.ui_settings.ui_txtColor.ui_value
 
+//internal
+    property bool isFullSize: true
+
     Component.onCompleted: {
         mainWindow.visibility = "FullScreen"
         masterController.ui_commandController.ui_gameViewContextCommands[0].executed()
@@ -39,7 +42,21 @@ Item {
 
     focus: true
     Keys.onEscapePressed: {
-        contentFrame.replace("qrc:/views/DashboardView.qml")
+        contentFrame.replace("qrc:/views/EmptyQuestionsListView.qml")
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onDoubleClicked: {
+            isFullSize = !isFullSize
+            if (isFullSize){
+                mainWindow.visibility = "FullScreen"
+                console.log("1111111111111111111")
+            } else {
+                mainWindow.visibility = "Windowed"
+                console.log("33333333333333333333")
+            }
+        }
     }
 
     Rectangle {
