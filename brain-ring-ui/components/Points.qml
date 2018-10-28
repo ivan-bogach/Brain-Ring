@@ -128,6 +128,28 @@ Item {
                                     font.pixelSize: parent.height > 50 ? 70 : 45
                                     text: (modelData.ui_isLeader.ui_value === "true") ? "A" : ""
                                 }
+
+                            }
+                            ParallelAnimation {
+
+                                NumberAnimation {
+                                    target: winnerTextRect
+                                    property: "scale"
+                                    from: 0.1;
+                                    to: 3.0
+                                    duration: 2000
+                                    easing.type: Easing.InOutQuad
+                                }
+
+                                NumberAnimation {
+                                    target: winnerTextRect
+                                    property: "opacity"
+                                    from: 0.3
+                                    to: 1
+                                    duration: 2000
+                                }
+                                running: true
+                                loops: 1
                             }
 
                             Text {

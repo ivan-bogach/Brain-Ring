@@ -431,9 +431,9 @@ void GamePlay::gotLetterFromTCP(const QString &message)
                 implementation->gamePoints[implementation->playerNumber->value()]++;
                 scan();
                 implementation->waitAnswer = false;
-                implementation->losers.clear();
                 implementation->navigationController->goEmptyQuestionsListView();
                 implementation->inEmtyQuestionList = true;
+                implementation->losers.clear();
 //                        qDebug() << "SEY INEQ in: " << implementation->inEmtyQuestionList;
             }
         }
