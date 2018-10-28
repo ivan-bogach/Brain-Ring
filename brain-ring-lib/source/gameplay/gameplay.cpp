@@ -167,7 +167,19 @@ void GamePlay::scan()
             QString entireIp = i.value()->peerAddress().toString();
             int sizeIP =entireIp.size();
 
-            if( QString(entireIp[sizeIP - 2]) == "0" )
+            if ( entireIp.isEmpty() )
+            {
+                continue;
+            }
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            else if (QString(entireIp[sizeIP - 2]) == "." )
+            {
+                ip = "2";
+            }
+
+
+            else if( QString(entireIp[sizeIP - 2]) == "0" )
             {
 //                qDebug() << "OIPI: " << QString(entireIp[sizeIP - 1]);
                 ip = QString(entireIp[sizeIP - 1]);
@@ -419,6 +431,7 @@ void GamePlay::gotLetterFromTCP(const QString &message)
                 implementation->gamePoints[implementation->playerNumber->value()]++;
                 scan();
                 implementation->waitAnswer = false;
+                implementation->losers.clear();
                 implementation->navigationController->goEmptyQuestionsListView();
                 implementation->inEmtyQuestionList = true;
 //                        qDebug() << "SEY INEQ in: " << implementation->inEmtyQuestionList;
