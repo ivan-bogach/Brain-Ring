@@ -122,11 +122,11 @@ Item {
                         id: emcee
                         anchors.centerIn: parent
                         font.pixelSize: 100
-                        font.bold:true
+//                        font.bold:true
                         font.family: Style.brFont
                         color: txtColor
 //                        text: isEmceeConnected ? "Ведущий готов." : ""
-                        text: isEmceeConnected ? "A" : ""
+                        text: isEmceeConnected ? "E" : ""
                     }
                 }
 

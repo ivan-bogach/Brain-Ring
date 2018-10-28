@@ -148,6 +148,17 @@ Item {
                                     to: 1
                                     duration: 2000
                                 }
+
+
+                                RotationAnimation {
+                                    target: winnerTextRect
+                                    from: 0
+                                    to: 360
+                                    properties: "rotation"
+                                    direction: RotationAnimation.Clockwise
+                                    duration: 2000
+                                    easing.type: Easing.InOutQuad
+                                }
                                 running: true
                                 loops: 1
                             }
