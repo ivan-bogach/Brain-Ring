@@ -124,7 +124,7 @@ Item {
                                     id: winnerText
                                     anchors.centerIn: parent
                                     font.family: Style.brFont
-                                    color: "#26c794"
+                                    color: "#5035ff"
                                     font.pixelSize: parent.height > 50 ? 70 : 45
                                     text: (modelData.ui_isLeader.ui_value === "true") ? "A" : ""
                                 }
@@ -195,6 +195,7 @@ Item {
                                 border.width: 2
 
                                 Text {
+                                    Component.onCompleted: console.log(modelData.ui_points.ui_value, "points ")
                                     id: bottom
                                     anchors.centerIn: parent
                                     color: Style.colourPointsText

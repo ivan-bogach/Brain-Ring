@@ -31,8 +31,17 @@ TCPController::TCPController(QObject *parent, models::Settings* settings, IDatab
 
 TCPController::~TCPController(){}
 
-QMap<int, QTcpSocket *> TCPController::SClients()
+const QMap<int, QTcpSocket *> TCPController::SClients() const
 {
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    QMapIterator<int, QTcpSocket*> i (implementation->SClients);
+    while (i.hasNext()) {
+        i.next();
+        qDebug() << i.key() << " : " << i.value()->peerAddress().toString();
+    }
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
     return implementation->SClients;
 }
 
@@ -56,7 +65,7 @@ void TCPController::startServer()
 
 void TCPController::stopServer()
 {
-//    qDebug() << "TCP CONTROLLER: stopServer...";
+    qDebug() << "TCP CONTROLLER: stopServer...";
 
     if (implementation->serverStatus == 1)
     {
@@ -89,6 +98,7 @@ void TCPController::newClient()
 
         implementation->SClients[idUserSocket] = clientSocket;
 
+        qDebug() << "New client: " << idUserSocket;
         connect(implementation->SClients[idUserSocket], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
 
         emit tcpClientArrived();
@@ -98,6 +108,7 @@ void TCPController::newClient()
 void TCPController::sendMessage(const QString &message)
 {
     foreach (int i, implementation->SClients.keys()) {
+//        qDebug() << "write to: " << implementation->SClients[i]->peerAddress().toString() << " message: " << message.toUtf8();
         implementation->SClients[i]->write(message.toUtf8());
     }
 }

@@ -35,7 +35,7 @@ public:
 
     void sendMessage(const QString& message);
 
-    QMap<int, QTcpSocket *> SClients();
+    const QMap<int, QTcpSocket *> SClients() const;
     models::Settings* setting{nullptr};
 
 signals:

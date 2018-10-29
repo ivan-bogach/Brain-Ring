@@ -108,7 +108,6 @@ GamePlay::~GamePlay(){}
 
 QQmlListProperty<Player> GamePlay::ui_players()
 {
-//    qDebug() << "GamePlay::ui_players done! With: " << implementation->playersList->derivedEntities().size();
     return QQmlListProperty<Player>(this, implementation->playersList->derivedEntities());
 }
 
@@ -172,16 +171,14 @@ void GamePlay::scan()
                 continue;
             }
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            else if (QString(entireIp[sizeIP - 2]) == "." )
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            else if( QString(entireIp[sizeIP - 2]) == "." )
             {
                 ip = "2";
             }
-
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             else if( QString(entireIp[sizeIP - 2]) == "0" )
             {
-//                qDebug() << "OIPI: " << QString(entireIp[sizeIP - 1]);
                 ip = QString(entireIp[sizeIP - 1]);
             }
             else if ( QString(entireIp[sizeIP - 2]) == "1" )
@@ -191,7 +188,6 @@ void GamePlay::scan()
             else
             {
                 implementation->isEmceeConnected = true;
-                qDebug() << "EMCEE" << implementation->isEmceeConnected;
                 continue;
             }
 
@@ -202,11 +198,8 @@ void GamePlay::scan()
 
             int connectedPlayerNumber = getConnectedPlayerNum(jsonMap);
 
-            qDebug() << "implementation->tcpController->sendMessage(ip)" << entireIp << "  " << connectedPlayerNumber;
-
             if ( (implementation->settings->quantity()->value()) >=  connectedPlayerNumber)
             {
-//                qDebug() << "connectedPlayerNumber = " << connectedPlayerNumber << "implementation->settings->quantity()->value()" << implementation->settings->quantity()->value();
                 implementation->tcpController->sendMessage(ip);
             }
         }
@@ -229,6 +222,7 @@ void GamePlay::scan()
                 jsonObject.insert("isConnected", "true");
                 jsonObject.insert("points", implementation->gamePoints[it.key()]);
                 jsonObject.insert("attempts", implementation->gameAttempts[it.key()]);
+
                 if (implementation->gamePoints[it.key()] == maxPoints)
                 {
                     jsonObject.insert("isLeader", "true");
@@ -242,7 +236,6 @@ void GamePlay::scan()
             returnArray.append(QJsonValue(jsonObject));
         }
         implementation->playersList->update(returnArray);
-        qDebug() << "GamePlay::scan done!";
 }
 
 
@@ -263,7 +256,6 @@ bool GamePlay::isAllPlayersConnected()
 
 bool GamePlay::isEmceeConnected()
 {
-    qDebug() << "EMCEE CONNECTED";
     return implementation->isEmceeConnected;
 }
 
@@ -305,6 +297,8 @@ void GamePlay::clear()
 
 void GamePlay::gotLetterFromTCP(const QString &message)
 {
+    qDebug() << "Letter start";
+    implementation->tcpController->SClients();
     if (message.isEmpty())
     {
         return;
@@ -312,10 +306,11 @@ void GamePlay::gotLetterFromTCP(const QString &message)
 
     else if( message.trimmed() == "n" || message.trimmed() == "a" )
     {
+
 //If question only one
         if( implementation->isFirstQuestion )
         {
-//                    qDebug() << "FIRST QUESTION";
+            implementation->tcpController->SClients();
             implementation->isFirstQuestion = false;
             implementation->tcpController->sendMessage("0");
 
@@ -323,11 +318,15 @@ void GamePlay::gotLetterFromTCP(const QString &message)
             {
                 Game* emptyGame{nullptr};
                 implementation->navigationController->goGameQuestionView(emptyGame);
+                qDebug() << "First Questions empty";
+                implementation->tcpController->SClients();
             }
             else
             {
                 implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-            }
+                qDebug() << "First  Questions not empty";
+                implementation->tcpController->SClients();
+             }
 
             implementation->waitAnswer = true;
         }
@@ -350,9 +349,12 @@ void GamePlay::gotLetterFromTCP(const QString &message)
                 {
                     implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                 }
+                qDebug() << "First Questions or 'a '";
+                implementation->tcpController->SClients();
             }
             else
             {
+
                 if(!implementation->nextQuestion)
                 {
                     implementation->nextQuestion =  true;
@@ -402,9 +404,11 @@ void GamePlay::gotLetterFromTCP(const QString &message)
                         implementation->aDisabled = false;
                     }
                 }
+                qDebug() << "Not First Questions or 'a '";
+                implementation->tcpController->SClients();
             }
         }
-//The question list emty -  game over
+//The question list empty -  game over
         else
         {
 //a from rc
@@ -434,8 +438,9 @@ void GamePlay::gotLetterFromTCP(const QString &message)
                 implementation->navigationController->goEmptyQuestionsListView();
                 implementation->inEmtyQuestionList = true;
                 implementation->losers.clear();
-//                        qDebug() << "SEY INEQ in: " << implementation->inEmtyQuestionList;
             }
+            qDebug() << "Not not not First Questions or 'a '";
+            implementation->tcpController->SClients();
         }
 
         implementation->isFirstQuestion = false;
@@ -445,6 +450,8 @@ void GamePlay::gotLetterFromTCP(const QString &message)
 
 void GamePlay::gotNumberFromTCP(const QString &message)
 {
+    qDebug() << "In number start";
+    implementation->tcpController->SClients();
     if (message.isEmpty())
     {
         return;
@@ -455,7 +462,6 @@ void GamePlay::gotNumberFromTCP(const QString &message)
         {
             return;
         }
-
         implementation->tcpController->sendMessage( message.trimmed() );
         implementation->playerNumber->setValue( message.trimmed() );
         implementation->gameAttempts[implementation->playerNumber->value()]++;
@@ -469,6 +475,8 @@ void GamePlay::gotNumberFromTCP(const QString &message)
             implementation->losers.clear();
         }
     }
+qDebug() << "In number end";
+implementation->tcpController->SClients();
     return;
 }
 
