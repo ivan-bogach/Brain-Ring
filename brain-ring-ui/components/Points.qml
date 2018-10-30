@@ -166,7 +166,8 @@ Item {
                             Text {
                                 id: top
                                 anchors.centerIn: parent
-                                color:  (modelData.ui_isLeader.ui_value === "true") ? "#26c794" : Style.colourPointsText
+                                font.bold: (modelData.ui_isLeader.ui_value === "true") ? true : false
+                                color:  (modelData.ui_isLeader.ui_value === "true") ? "#5035ff" : Style.colourPointsText
                                 font.family: "Helvetica"
                                 font.pixelSize: parent.height > 50 ? 30 : 15
                                 text: modelData.ui_number.ui_value

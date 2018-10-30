@@ -172,10 +172,10 @@ void GamePlay::scan()
             }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            else if( QString(entireIp[sizeIP - 2]) == "." )
-            {
-                ip = "2";
-            }
+//            else if( QString(entireIp[sizeIP - 2]) == "." )
+//            {
+//                ip = "2";
+//            }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             else if( QString(entireIp[sizeIP - 2]) == "0" )
             {
@@ -460,6 +460,8 @@ void GamePlay::gotNumberFromTCP(const QString &message)
     {
         if ( implementation->losers.contains( message.trimmed() ) )
         {
+            qDebug() << "Contains";
+            implementation->tcpController->SClients();
             return;
         }
         implementation->tcpController->sendMessage( message.trimmed() );
@@ -470,8 +472,13 @@ void GamePlay::gotNumberFromTCP(const QString &message)
         implementation->nextQuestion = false;
         implementation->losers.push_back(message.trimmed());
 
+        qDebug() << "In number start HERE..............";
+        implementation->tcpController->SClients();
+
         if (implementation->losers.size() == implementation->settings->quantity()->value())
         {
+            qDebug() << "In clearing";
+            implementation->tcpController->SClients();
             implementation->losers.clear();
         }
     }
@@ -490,6 +497,8 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Question did not asked yet
         if ( !implementation->waitAnswer )
         {
+            qDebug() << "Got letter.............";
+            implementation->tcpController->SClients();
 
             gotLetterFromTCP(qstringMessage);
 
