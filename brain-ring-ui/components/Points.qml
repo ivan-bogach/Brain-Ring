@@ -125,7 +125,7 @@ Item {
                                     anchors.centerIn: parent
                                     font.family: Style.brFont
                                     color: "#5035ff"
-                                    font.pixelSize: parent.height > 50 ? 70 : 45
+                                    font.pixelSize: top.height > 30 ? 50 : 25
                                     text: (modelData.ui_isLeader.ui_value === "true") ? "A" : ""
                                 }
 
