@@ -43,8 +43,11 @@ public:
     int getMaxPoints();
     int getConnectedPlayerNum(QMap<QString, bool> jsonMap);
 
+    void gotNextQuestionForce();
     void gotNumberFromTCP(const QString& message);
     void gotLetterFromTCP(const QString& message);
+    void gameWithQuestionsAndQuestionIsNotLast(const QString& message);
+    void gameWithoutQuestionsOrQuestionIsLast(const QString& message);
 
     QQmlListProperty<Player> ui_players();
     bool isAllPlayersConnected();

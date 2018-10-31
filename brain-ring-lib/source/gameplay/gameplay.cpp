@@ -170,13 +170,6 @@ void GamePlay::scan()
             {
                 continue;
             }
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//            else if( QString(entireIp[sizeIP - 2]) == "." )
-//            {
-//                ip = "2";
-//            }
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             else if( QString(entireIp[sizeIP - 2]) == "0" )
             {
                 ip = QString(entireIp[sizeIP - 1]);
@@ -295,34 +288,162 @@ void GamePlay::clear()
     implementation->nextQuestion =  true;
 }
 
+void GamePlay::gameWithQuestionsAndQuestionIsNotLast(const QString& message)
+{
+    qDebug() << "Not first question and question is not last or game without questions";
+
+
+//a and a permited
+    if ( (message.trimmed() == "a" && !implementation->aDisabled) )
+    {
+        qDebug() << "+Got a and a permitted";
+        implementation->tcpController->sendMessage("0");
+        implementation->waitAnswer = true;
+//without questions
+        if ( implementation->settings->askQuestions()->value() == 0 )
+        {
+            qDebug() << "++game without questions";
+            Game* emptyGame{nullptr};
+            implementation->navigationController->goGameQuestionView(emptyGame);
+        }
+//with questions
+        else
+        {
+            qDebug() << "++game with questions";
+            implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+        }
+    }
+//not first question and not a
+    else
+    {
+        qDebug() << "+Got not a or a not permitted or together";
+        if(!implementation->nextQuestion)
+        {
+            qDebug() << "++not next question";
+            implementation->nextQuestion =  true;
+            implementation->gamePoints[implementation->playerNumber->value()]++;
+            scan();
+            implementation->navigationController->goPlayerWinView(implementation->playerNumber);
+            implementation->losers.clear();
+            implementation->aDisabled = true;
+        }
+        else
+        {
+            qDebug() << "++next question";
+//Check either last the question in the questions list
+
+            if ( implementation->questions->derivedEntities().size() == 1 )
+            {
+                qDebug() << "+++ last question";
+                implementation->tcpController->sendMessage("0");
+
+                if ( implementation->settings->askQuestions()->value() == 0 )
+                {
+                    qDebug() << "++++game without questions";
+                    Game* emptyGame{nullptr};
+                    implementation->navigationController->goGameQuestionView(emptyGame);
+                }
+                else
+                {
+                    qDebug() << "++++game with questions";
+                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                    implementation->questions->derivedEntities().removeFirst();
+                }
+
+                implementation->waitAnswer = true;
+                implementation->aDisabled = false;
+            }
+            else
+            {
+                qDebug() << "+++not the last question";
+                implementation->tcpController->sendMessage("0");
+                implementation->questions->derivedEntities().removeFirst();
+
+                if ( implementation->settings->askQuestions()->value() == 0 )
+                {
+                    qDebug() << "++++game without questions";
+                    Game* emptyGame{nullptr};
+                    implementation->navigationController->goGameQuestionView(emptyGame);
+                }
+                else
+                {
+                    qDebug() << "++++game with questions";
+                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+                }
+
+                implementation->waitAnswer = true;
+                implementation->aDisabled = false;
+            }
+        }
+        qDebug() << "Not First Questions or 'a'";
+        implementation->tcpController->SClients();
+    }
+}
+
+void GamePlay::gameWithoutQuestionsOrQuestionIsLast(const QString &message)
+{
+    qDebug() << "++++game without questions";
+//a from rc
+    if ( message.trimmed() == "a" && !implementation->aDisabled)
+    {
+        implementation->tcpController->sendMessage("0");
+
+        if ( implementation->settings->askQuestions()->value() == 0 )
+        {
+            Game* emptyGame{nullptr};
+            implementation->navigationController->goGameQuestionView(emptyGame);
+        }
+        else
+        {
+            implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+        }
+
+        implementation->waitAnswer = true;
+    }
+//n from rc
+    else
+    {
+        implementation->gameStarted = false;
+        implementation->gamePoints[implementation->playerNumber->value()]++;
+        scan();
+        implementation->waitAnswer = false;
+        implementation->navigationController->goEmptyQuestionsListView();
+        implementation->inEmtyQuestionList = true;
+        implementation->losers.clear();
+    }
+    qDebug() << "Not not not First Questions or 'a '";
+}
+
 void GamePlay::gotLetterFromTCP(const QString &message)
 {
-    qDebug() << "Letter start";
-    implementation->tcpController->SClients();
+
     if (message.isEmpty())
     {
         return;
     }
-
     else if( message.trimmed() == "n" || message.trimmed() == "a" )
     {
+        qDebug() << "Got n or a";
 
-//If question only one
+//First question
         if( implementation->isFirstQuestion )
         {
-            implementation->tcpController->SClients();
+            qDebug() << "First question";
             implementation->isFirstQuestion = false;
             implementation->tcpController->sendMessage("0");
 
+    //Without questions
             if ( implementation->settings->askQuestions()->value() == 0 )
             {
+                qDebug() << "+without questions";
                 Game* emptyGame{nullptr};
                 implementation->navigationController->goGameQuestionView(emptyGame);
-                qDebug() << "First Questions empty";
                 implementation->tcpController->SClients();
             }
+    //With questions
             else
             {
+                qDebug() << "+with questions";
                 implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                 qDebug() << "First  Questions not empty";
                 implementation->tcpController->SClients();
@@ -331,116 +452,17 @@ void GamePlay::gotLetterFromTCP(const QString &message)
             implementation->waitAnswer = true;
         }
 
-//Check either a questions list not emty yet
+// Not First question
+// and
+// question is not last or without questions
         else if ( ( implementation->questions->derivedEntities().size() > 1 ) || ( implementation->settings->askQuestions()->value() == 0 ))
         {
-//Check either the first question in the questions list or message was "a"
-            if ( implementation->isFirstQuestion || (message.trimmed() == "a" && !implementation->aDisabled))
-            {
-                implementation->tcpController->sendMessage("0");
-                implementation->waitAnswer = true;
-
-                if ( implementation->settings->askQuestions()->value() == 0 )
-                {
-                    Game* emptyGame{nullptr};
-                    implementation->navigationController->goGameQuestionView(emptyGame);
-                }
-                else
-                {
-                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                }
-                qDebug() << "First Questions or 'a '";
-                implementation->tcpController->SClients();
-            }
-            else
-            {
-
-                if(!implementation->nextQuestion)
-                {
-                    implementation->nextQuestion =  true;
-                    implementation->gamePoints[implementation->playerNumber->value()]++;
-                    scan();
-                    implementation->navigationController->goPlayerWinView(implementation->playerNumber);
-                    implementation->losers.clear();
-                    implementation->aDisabled = true;
-                }
-                else
-                {
-//Check either last the question in the questions list
-                    if ( implementation->questions->derivedEntities().size() == 1 )
-                    {
-                        implementation->tcpController->sendMessage("0");
-
-                        if ( implementation->settings->askQuestions()->value() == 0 )
-                        {
-                            Game* emptyGame{nullptr};
-                            implementation->navigationController->goGameQuestionView(emptyGame);
-                        }
-                        else
-                        {
-                            implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                            implementation->questions->derivedEntities().removeFirst();
-                        }
-
-                        implementation->waitAnswer = true;
-                        implementation->aDisabled = false;
-                    }
-                    else
-                    {
-                        implementation->tcpController->sendMessage("0");
-                        implementation->questions->derivedEntities().removeFirst();
-
-                        if ( implementation->settings->askQuestions()->value() == 0 )
-                        {
-                            Game* emptyGame{nullptr};
-                            implementation->navigationController->goGameQuestionView(emptyGame);
-                        }
-                        else
-                        {
-                            implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                        }
-
-                        implementation->waitAnswer = true;
-                        implementation->aDisabled = false;
-                    }
-                }
-                qDebug() << "Not First Questions or 'a '";
-                implementation->tcpController->SClients();
-            }
+            gameWithQuestionsAndQuestionIsNotLast(message);
         }
 //The question list empty -  game over
         else
         {
-//a from rc
-            if ( message.trimmed() == "a" && !implementation->aDisabled)
-            {
-                implementation->tcpController->sendMessage("0");
-
-                if ( implementation->settings->askQuestions()->value() == 0 )
-                {
-                    Game* emptyGame{nullptr};
-                    implementation->navigationController->goGameQuestionView(emptyGame);
-                }
-                else
-                {
-                    implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                }
-
-                implementation->waitAnswer = true;
-            }
-//n from rc
-            else
-            {
-                implementation->gameStarted = false;
-                implementation->gamePoints[implementation->playerNumber->value()]++;
-                scan();
-                implementation->waitAnswer = false;
-                implementation->navigationController->goEmptyQuestionsListView();
-                implementation->inEmtyQuestionList = true;
-                implementation->losers.clear();
-            }
-            qDebug() << "Not not not First Questions or 'a '";
-            implementation->tcpController->SClients();
+            gameWithoutQuestionsOrQuestionIsLast(message);
         }
 
         implementation->isFirstQuestion = false;
@@ -487,6 +509,32 @@ implementation->tcpController->SClients();
     return;
 }
 
+void GamePlay::gotNextQuestionForce()
+{
+    implementation->tcpController->sendMessage("0");
+    if ( implementation->questions->derivedEntities().size() == 0 )
+    {
+        implementation->gameStarted = false;
+        scan();
+        implementation->waitAnswer = false;
+        implementation->navigationController->goEmptyQuestionsListView();
+        implementation->inEmtyQuestionList = true;
+        implementation->losers.clear();
+    }
+    else if ( implementation->questions->derivedEntities().size() == 1 )
+    {
+        implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+        implementation->questions->derivedEntities().removeFirst();
+        implementation->losers.clear();
+    }
+    else
+    {
+        implementation->questions->derivedEntities().removeFirst();
+        implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
+        implementation->losers.clear();
+    }
+}
+
 void GamePlay::getMessageFromTCP(const QByteArray& message)
 {
     QString qstringMessage = QString::fromUtf8(message);
@@ -494,14 +542,15 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Start game
     if( implementation->allPlayerConnected ){
 
-//Question did not asked yet
-        if ( !implementation->waitAnswer )
+        if( qstringMessage.trimmed() == "f" )
         {
-            qDebug() << "Got letter.............";
-            implementation->tcpController->SClients();
-
+            gotNextQuestionForce();
+            return;
+        }
+//Question did not asked yet
+        else if ( !implementation->waitAnswer )
+        {
             gotLetterFromTCP(qstringMessage);
-
         }
 //Question asked and message was not "n" or "a app - wait answer
         gotNumberFromTCP(qstringMessage);

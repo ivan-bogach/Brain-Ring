@@ -177,8 +177,8 @@ Item {
                                     id: numberText
                                     anchors.centerIn: parent
 
-                                    color: (modelData.ui_isLeader.ui_value === "true") ? "#ff5283" : txtColor
-                                    font.pixelSize: (modelData.ui_isLeader.ui_value === "true") ? 50 : 25
+                                    color: txtColor
+                                    font.pixelSize: (modelData.ui_isLeader.ui_value === "true") ? 70 : 25
                                     text: modelData.ui_number.ui_value
                                 }
                             }

@@ -25,10 +25,8 @@ Item {
             isFullSize = !isFullSize
             if (isFullSize){
                 mainWindow.visibility = "FullScreen"
-                console.log("1111111111111111111")
             } else {
                 mainWindow.visibility = "Windowed"
-                console.log("33333333333333333333")
             }
         }
     }
