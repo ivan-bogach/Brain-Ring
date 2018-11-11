@@ -7,5 +7,7 @@
         <file alias="logo.png">assets/logo.png</file>
         <file alias="gameover.png">assets/gameover.png</file>
         <file alias="brain_ring_font.otf">assets/brain_ring_font.otf</file>
+        <file alias="dan.png">assets/dan.png</file>
+        <file alias="sta.png">assets/sta.png</file>
     </qresource>
 </RCC>

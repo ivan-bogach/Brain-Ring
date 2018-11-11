@@ -8,6 +8,8 @@ Item {
     property alias imageDashboard: imageDashboardLoader.source
     property alias imageLogo: logoLoader.source
     property alias imageGameOver: gameOverLoader.source
+    property alias imageTroSta: troSta.source
+    property alias imageTroDan: troDan.source
 
     readonly property real sizeScreenMargine: 20
     readonly property color colourBackground: "#efefef"
@@ -96,5 +98,14 @@ Item {
         source: "gameover.png"
     }
 
+    Image {
+        id: troSta
+        source: "sta.png"
+    }
+
+    Image {
+        id: troDan
+        source: "dan.png"
+    }
 }
 
