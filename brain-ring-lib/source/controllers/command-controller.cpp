@@ -1,7 +1,7 @@
 #include "command-controller.h"
 
 #include <QList>
-#include <QDebug>
+//#include <QDebug>
 
 using namespace br::framework;
 using namespace br::models;

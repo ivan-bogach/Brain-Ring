@@ -34,11 +34,11 @@ TCPController::~TCPController(){}
 const QMap<int, QTcpSocket *> TCPController::SClients() const
 {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    QMapIterator<int, QTcpSocket*> i (implementation->SClients);
-    while (i.hasNext()) {
-        i.next();
-        qDebug() << i.key() << " : " << i.value()->peerAddress().toString();
-    }
+//    QMapIterator<int, QTcpSocket*> i (implementation->SClients);
+//    while (i.hasNext()) {
+//        i.next();
+//        qDebug() << i.key() << " : " << i.value()->peerAddress().toString();
+//    }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -47,7 +47,7 @@ const QMap<int, QTcpSocket *> TCPController::SClients() const
 
 void TCPController::startServer()
 {
-    qDebug() << "TCP CONTROLLER: startServer...";
+//    qDebug() << "TCP CONTROLLER: startServer...";
 
     tcpServer = new QTcpServer(this);
 
@@ -55,7 +55,7 @@ void TCPController::startServer()
 
     if (!tcpServer->listen(QHostAddress::Any, 3337)  && implementation->serverStatus == 0)
     {
-        qDebug()  <<QObject::tr("Unable to start the server: %1.").arg(tcpServer->errorString());
+//        qDebug()  <<QObject::tr("Unable to start the server: %1.").arg(tcpServer->errorString());
     }
     else
     {
@@ -65,7 +65,7 @@ void TCPController::startServer()
 
 void TCPController::stopServer()
 {
-    qDebug() << "TCP CONTROLLER: stopServer...";
+//    qDebug() << "TCP CONTROLLER: stopServer...";
 
     if (implementation->serverStatus == 1)
     {
@@ -75,7 +75,7 @@ void TCPController::stopServer()
         }
 
         tcpServer->close();
-        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
+//        qDebug() << QString::fromUtf8("TCP CONTROLLER: Server stoped!");
         implementation->serverStatus = 0;
     }
 }
@@ -98,7 +98,7 @@ void TCPController::newClient()
 
         implementation->SClients[idUserSocket] = clientSocket;
 
-        qDebug() << "New client: " << idUserSocket;
+//        qDebug() << "New client: " << idUserSocket;
         connect(implementation->SClients[idUserSocket], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
 
         emit tcpClientArrived();

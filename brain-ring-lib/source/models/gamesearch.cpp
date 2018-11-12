@@ -1,5 +1,5 @@
 #include "gamesearch.h"
-#include<QDebug>
+//#include<QDebug>
 
 using namespace br::controllers;
 using namespace br::data;

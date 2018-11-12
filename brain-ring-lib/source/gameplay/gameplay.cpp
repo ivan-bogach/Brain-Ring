@@ -38,6 +38,8 @@ public:
     bool inEmtyQuestionList;
     bool isEmceeConnected;
 
+//When game starts and waiting clients, this provide last ip broadcast
+    bool allIpBroadcasted;
 
     QMap <QString, int> gamePoints;
     QMap <QString, int> gameAttempts;
@@ -76,6 +78,8 @@ GamePlay::GamePlay(QObject* parent, Settings* settings, TCPController* tcpContro
     implementation->inEmtyQuestionList = false;
 
     implementation->isEmceeConnected = false;
+
+    implementation->allIpBroadcasted = false;
 
     connect(implementation->playersList, &EntityCollection<Player>::collectionChanged, this, &GamePlay::playersListChanged);
 
@@ -191,9 +195,18 @@ void GamePlay::scan()
 
             int connectedPlayerNumber = getConnectedPlayerNum(jsonMap);
 
-            if ( (implementation->settings->quantity()->value()) >=  connectedPlayerNumber)
+//When game starts and waiting clients, this provide last ip broadcast
+            if ( implementation->allIpBroadcasted ) continue;
+//ip broadcast
+            if ( ( !implementation->allPlayerConnected ) && ( ( implementation->settings->quantity()->value() ) >=  connectedPlayerNumber))
             {
                 implementation->tcpController->sendMessage(ip);
+            }
+//When game starts and waiting clients, this provide last ip broadcast
+            else if ( implementation->allPlayerConnected )
+            {
+                implementation->tcpController->sendMessage(ip);
+                implementation->allIpBroadcasted = true;
             }
         }
 
@@ -290,36 +303,36 @@ void GamePlay::clear()
 
 void GamePlay::gameWithQuestionsAndQuestionIsNotLast(const QString& message)
 {
-    qDebug() << "Not first question and question is not last or game without questions";
+//    qDebug() << "Not first question and question is not last or game without questions";
 
 
 //a and a permited
     if ( (message.trimmed() == "a" && !implementation->aDisabled) )
     {
-        qDebug() << "+Got a and a permitted";
+//        qDebug() << "+Got a and a permitted";
         implementation->tcpController->sendMessage("0");
         implementation->waitAnswer = true;
 //without questions
         if ( implementation->settings->askQuestions()->value() == 0 )
         {
-            qDebug() << "++game without questions";
+//            qDebug() << "++game without questions";
             Game* emptyGame{nullptr};
             implementation->navigationController->goGameQuestionView(emptyGame);
         }
 //with questions
         else
         {
-            qDebug() << "++game with questions";
+//            qDebug() << "++game with questions";
             implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
         }
     }
 //not first question and not a
     else
     {
-        qDebug() << "+Got not a or a not permitted or together";
+//        qDebug() << "+Got not a or a not permitted or together";
         if(!implementation->nextQuestion)
         {
-            qDebug() << "++not next question";
+//            qDebug() << "++not next question";
             implementation->nextQuestion =  true;
             implementation->gamePoints[implementation->playerNumber->value()]++;
             scan();
@@ -329,23 +342,23 @@ void GamePlay::gameWithQuestionsAndQuestionIsNotLast(const QString& message)
         }
         else
         {
-            qDebug() << "++next question";
+//            qDebug() << "++next question";
 //Check either last the question in the questions list
 
             if ( implementation->questions->derivedEntities().size() == 1 )
             {
-                qDebug() << "+++ last question";
+//                qDebug() << "+++ last question";
                 implementation->tcpController->sendMessage("0");
 
                 if ( implementation->settings->askQuestions()->value() == 0 )
                 {
-                    qDebug() << "++++game without questions";
+//                    qDebug() << "++++game without questions";
                     Game* emptyGame{nullptr};
                     implementation->navigationController->goGameQuestionView(emptyGame);
                 }
                 else
                 {
-                    qDebug() << "++++game with questions";
+//                    qDebug() << "++++game with questions";
                     implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                     implementation->questions->derivedEntities().removeFirst();
                 }
@@ -355,19 +368,19 @@ void GamePlay::gameWithQuestionsAndQuestionIsNotLast(const QString& message)
             }
             else
             {
-                qDebug() << "+++not the last question";
+//                qDebug() << "+++not the last question";
                 implementation->tcpController->sendMessage("0");
                 implementation->questions->derivedEntities().removeFirst();
 
                 if ( implementation->settings->askQuestions()->value() == 0 )
                 {
-                    qDebug() << "++++game without questions";
+//                    qDebug() << "++++game without questions";
                     Game* emptyGame{nullptr};
                     implementation->navigationController->goGameQuestionView(emptyGame);
                 }
                 else
                 {
-                    qDebug() << "++++game with questions";
+//                    qDebug() << "++++game with questions";
                     implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
                 }
 
@@ -375,14 +388,14 @@ void GamePlay::gameWithQuestionsAndQuestionIsNotLast(const QString& message)
                 implementation->aDisabled = false;
             }
         }
-        qDebug() << "Not First Questions or 'a'";
+//        qDebug() << "Not First Questions or 'a'";
         implementation->tcpController->SClients();
     }
 }
 
 void GamePlay::gameWithoutQuestionsOrQuestionIsLast(const QString &message)
 {
-    qDebug() << "++++game without questions";
+//    qDebug() << "++++game without questions";
 //a from rc
     if ( message.trimmed() == "a" && !implementation->aDisabled)
     {
@@ -411,7 +424,7 @@ void GamePlay::gameWithoutQuestionsOrQuestionIsLast(const QString &message)
         implementation->inEmtyQuestionList = true;
         implementation->losers.clear();
     }
-    qDebug() << "Not not not First Questions or 'a '";
+//    qDebug() << "Not not not First Questions or 'a '";
 }
 
 void GamePlay::gotLetterFromTCP(const QString &message)
@@ -423,19 +436,19 @@ void GamePlay::gotLetterFromTCP(const QString &message)
     }
     else if( message.trimmed() == "n" || message.trimmed() == "a" )
     {
-        qDebug() << "Got n or a";
+//        qDebug() << "Got n or a";
 
 //First question
         if( implementation->isFirstQuestion )
         {
-            qDebug() << "First question";
+//            qDebug() << "First question";
             implementation->isFirstQuestion = false;
             implementation->tcpController->sendMessage("0");
 
     //Without questions
             if ( implementation->settings->askQuestions()->value() == 0 )
             {
-                qDebug() << "+without questions";
+//                qDebug() << "+without questions";
                 Game* emptyGame{nullptr};
                 implementation->navigationController->goGameQuestionView(emptyGame);
                 implementation->tcpController->SClients();
@@ -443,9 +456,9 @@ void GamePlay::gotLetterFromTCP(const QString &message)
     //With questions
             else
             {
-                qDebug() << "+with questions";
+//                qDebug() << "+with questions";
                 implementation->navigationController->goGameQuestionView(implementation->questions->derivedEntities().first());
-                qDebug() << "First  Questions not empty";
+//                qDebug() << "First  Questions not empty";
                 implementation->tcpController->SClients();
              }
 
@@ -472,7 +485,7 @@ void GamePlay::gotLetterFromTCP(const QString &message)
 
 void GamePlay::gotNumberFromTCP(const QString &message)
 {
-    qDebug() << "In number start";
+//    qDebug() << "In number start";
     implementation->tcpController->SClients();
     if (message.isEmpty())
     {
@@ -482,7 +495,7 @@ void GamePlay::gotNumberFromTCP(const QString &message)
     {
         if ( implementation->losers.contains( message.trimmed() ) )
         {
-            qDebug() << "Contains";
+//            qDebug() << "Contains";
             implementation->tcpController->SClients();
             return;
         }
@@ -494,17 +507,17 @@ void GamePlay::gotNumberFromTCP(const QString &message)
         implementation->nextQuestion = false;
         implementation->losers.push_back(message.trimmed());
 
-        qDebug() << "In number start HERE..............";
+//        qDebug() << "In number start HERE..............";
         implementation->tcpController->SClients();
 
         if (implementation->losers.size() == implementation->settings->quantity()->value())
         {
-            qDebug() << "In clearing";
+//            qDebug() << "In clearing";
             implementation->tcpController->SClients();
             implementation->losers.clear();
         }
     }
-qDebug() << "In number end";
+//qDebug() << "In number end";
 implementation->tcpController->SClients();
     return;
 }

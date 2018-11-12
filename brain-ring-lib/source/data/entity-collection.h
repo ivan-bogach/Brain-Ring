@@ -2,7 +2,7 @@
 #define ENTITYCOLLECTION_H
 
 #include <QObject>
-#include <QDebug>
+//#include <QDebug>
 #include <QJsonArray>
 #include<QJsonValue>
 
