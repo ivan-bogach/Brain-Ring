@@ -299,6 +299,8 @@ void GamePlay::clear()
     implementation->isFirstQuestion = true;
 
     implementation->nextQuestion =  true;
+
+    implementation->allIpBroadcasted = false;
 }
 
 void GamePlay::gameWithQuestionsAndQuestionIsNotLast(const QString& message)
