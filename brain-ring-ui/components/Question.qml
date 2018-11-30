@@ -67,7 +67,8 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 5
 
-            color: "#f0f0f0"
+//            color: "#f0f0f0"
+            color: "#409cf9"
             font.pixelSize: 15
             text: "x"
 
@@ -108,10 +109,10 @@ Item {
                     target: text
                     font.italic: true
                 }
-                PropertyChanges {
-                    target: deleteX
-                    color: "#409cf9"
-                }
+//                PropertyChanges {
+//                    target: deleteX
+//                    color: "#409cf9"
+//                }
             }
         ]
     }

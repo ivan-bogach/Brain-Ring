@@ -557,7 +557,7 @@ void GamePlay::getMessageFromTCP(const QByteArray& message)
 //Start game
     if( implementation->allPlayerConnected ){
 
-        if( qstringMessage.trimmed() == "f" )
+        if( implementation->waitAnswer && qstringMessage.trimmed() == "f" )
         {
             gotNextQuestionForce();
             return;
